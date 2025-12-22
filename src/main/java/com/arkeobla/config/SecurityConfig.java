@@ -18,26 +18,29 @@ public class SecurityConfig {
                 http
                                 .csrf(csrf -> csrf.disable()) // Login hatalarını önlemek için CSRF kapatıldı
                                 .authorizeHttpRequests((requests) -> requests
-                                                // Herkese Açık Sayfalar
+                                                // Herkese Açık Sayfalar (Giriş gerekmez)
                                                 .requestMatchers("/", "/home", "/register", "/login", "/verify/**")
                                                 .permitAll()
                                                 .requestMatchers("/games/**", "/museum/**", "/timeline/**",
                                                                 "/excavation/**", "/puzzle/**", "/quiz/**",
-                                                                "/time-machine/**", "/photos/**", "/ai-chat/**",
+                                                                "/time-machine/**", "/photos/**",
                                                                 "/certificate/**", "/map/**", "/api/locations/**",
-                                                                "/leaderboard/**", "/chat/**", "/news/**")
+                                                                "/leaderboard/**", "/news/**", "/profile/**")
                                                 .permitAll()
-                                                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                                                .requestMatchers("/css/**", "/js/**", "/img/**", "/uploads/**",
+                                                                "/manifest.json", "/sw.js", "/sitemap.xml",
+                                                                "/robots.txt")
+                                                .permitAll()
 
-                                                // Sadece Giriş Yapmış Kullanıcılar
-                                                .requestMatchers("/meeting/**", "/blog/**", "/profile/**",
-                                                                "/add-content/**")
+                                                // Sadece Giriş Yapmış Kullanıcılar (Chat ve Blog)
+                                                .requestMatchers("/chat/**", "/ai-chat/**", "/blog/**",
+                                                                "/meeting/**", "/add-content/**")
                                                 .authenticated()
 
                                                 // Admin
                                                 .requestMatchers("/admin/**").hasRole("ADMIN")
 
-                                                .anyRequest().authenticated())
+                                                .anyRequest().permitAll())
                                 .formLogin((form) -> form
                                                 .loginPage("/login")
                                                 .defaultSuccessUrl("/", true)
