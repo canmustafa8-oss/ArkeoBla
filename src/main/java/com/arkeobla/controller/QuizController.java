@@ -42,12 +42,29 @@ public class QuizController {
     public void loadQuestions() {
         try {
             ClassPathResource resource = new ClassPathResource("questions.json");
+            if (!resource.exists()) {
+                System.err.println("ERROR: questions.json file NOT FOUND in classpath!");
+                // Try alternative path
+                resource = new ClassPathResource("/questions.json");
+            }
+
             InputStream inputStream = resource.getInputStream();
             allQuestions = objectMapper.readValue(inputStream, new TypeReference<List<QuizQuestion>>() {
             });
-            System.out.println("Quiz soruları yüklendi: " + allQuestions.size() + " adet.");
+            System.out.println("✅ Quiz soruları başarıyla yüklendi: " + allQuestions.size() + " adet.");
+
+            // Debug: Print category counts
+            System.out.println("Kategori dağılımı:");
+            allQuestions.stream()
+                    .collect(java.util.stream.Collectors.groupingBy(QuizQuestion::getCategory,
+                            java.util.stream.Collectors.counting()))
+                    .forEach((category, count) -> System.out.println("  " + category + ": " + count + " soru"));
+
         } catch (IOException e) {
-            System.err.println("Sorular yüklenirken hata oluştu: " + e.getMessage());
+            System.err.println("❌ HATA: Sorular yüklenirken hata oluştu!");
+            System.err.println("Hata detayı: " + e.getMessage());
+            e.printStackTrace();
+            allQuestions = new ArrayList<>();
         }
     }
 
