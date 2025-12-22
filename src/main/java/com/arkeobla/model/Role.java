@@ -1,6 +1,7 @@
 package com.arkeobla.model;
 
 public enum Role {
+    USER("Kullanıcı"),
     OGRENCI("Öğrenci"),
     AKADEMISYEN("Akademisyen"),
     ARASTIRMACI("Araştırmacı"),

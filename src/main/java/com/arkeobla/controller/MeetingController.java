@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MeetingController {
 
     @GetMapping("/meeting")
-    public String meetingPage() {
+    public String meetingPage(java.security.Principal principal, org.springframework.ui.Model model) {
+        if (principal != null) {
+            model.addAttribute("username", principal.getName());
+        }
         return "meeting";
     }
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Sonuçlar - ArkeoBla</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            text-align: center;
+            background: #f4f1ea;
+            padding-top: 50px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 50px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            background: #2c241b;
+            color: #c5a059;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            font-weight: bold;
+            margin: 0 auto 30px auto;
+            border: 5px solid #c5a059;
+        }
+
+        .badge-box {
+            background: #fff8e1;
+            border: 2px dashed #d4af37;
+            padding: 20px;
+            margin-top: 20px;
+            color: #8b6b00;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="result-card">
+        <h1 style="font-family: 'Cinzel', serif; color: #2c241b;">🎯 Yarışma Sonucu</h1>
+
+        <div class="score-circle" th:text="'%' + ${score}">%0</div>
+
+        <p style="font-size: 18px;">
+            Toplam <strong th:text="${totalCorrect}">0</strong> doğru cevap verdiniz.
+        </p>
+
+        <div th:if="${badgeMessage}" class="badge-box">
+            <div style="font-size: 50px;">🏅</div>
+            <p th:text="${badgeMessage}">Tebrikler</p>
+        </div>
+
+        <div th:if="${score < 80}" style="margin-top: 20px; color: #666;">
+            Maalesef barajı geçemediniz. Biraz daha çalışıp tekrar deneyin! 📚
+        </div>
+
+        <div style="margin-top: 40px;">
+            <a href="/quiz" class="btn-action">Tekrar Dene</a>
+            <a href="/" class="btn-action" style="background:#888;">Ana Sayfa</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

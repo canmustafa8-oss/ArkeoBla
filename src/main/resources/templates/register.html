@@ -70,12 +70,9 @@
         <div th:if="${error}" class="error" th:text="${error}"></div>
         <form th:action="@{/register}" method="post">
             <input type="text" name="username" placeholder="Kullanıcı Adı" required>
-            <input type="password" name="password" placeholder="Şifre" required>
-            <select name="role">
-                <option value="OGRENCI">Öğrenci</option>
-                <option value="AKADEMISYEN">Akademisyen</option>
-                <option value="ARASTIRMACI">Araştırmacı</option>
-            </select>
+            <input type="email" name="email" placeholder="E-posta Adresi" required>
+            <input type="password" name="password" placeholder="Şifre (Min 6 karakter, 1 Büyük Harf)" required
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="En az 6 karakter ve 1 büyük harf içermelidir">
             <button type="submit">Kayıt Ol</button>
         </form>
         <div class="link">Zaten hesabın var mı? <a href="/login">Giriş Yap</a></div>

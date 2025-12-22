@@ -36,6 +36,16 @@
         </div>
     </header>
 
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Tarihin Gizemlerini Birlikte Keşfedin</h1>
+            <p>Arkeoloji, Sanat Tarihi ve Tarih Araştırmalarınıza Yön Verin</p>
+            <a href="/register" class="btn-hero" th:if="${#authentication.name == 'anonymousUser'}">KEŞFET ></a>
+            <a href="/map" class="btn-hero" th:if="${#authentication.name != 'anonymousUser'}">KEŞFETMEYE BAŞLA ></a>
+        </div>
+    </div>
+
     <div class="container main-grid">
 
         <!-- SOL SÜTUN: MENÜ -->
@@ -44,6 +54,9 @@
                 <div class="user-profile" th:if="${#authentication.name != 'anonymousUser'}">
                     <div style="font-size: 40px;">👤</div>
                     <div style="font-weight: bold; margin-top: 5px;" th:text="${#authentication.name}">Kullanıcı</div>
+                    <div style="font-size: 11px; color: #c5a059; margin-top: 5px;"
+                        th:if="${#authentication.getPrincipal().getUser().badges != null}"
+                        th:text="'🏅 ' + ${#authentication.getPrincipal().getUser().badges}">Rozetler</div>
                     <div style="font-size: 12px; color: #888;" th:text="${#authentication.authorities}">Rol</div>
                 </div>
 
@@ -51,7 +64,15 @@
                     <a th:if="${#authentication.name != 'anonymousUser'}" href="/add-content" class="menu-link">➕ İçerik
                         Paylaş</a>
                     <a href="/" class="menu-link">🏠 Ana Akış</a>
-                    <a href="/map" class="menu-link" style="color:#2c241b; font-weight:bold;">🗺️ Keşif Haritası</a>
+                    <a href="/map" class="menu-link">🗺️ Keşif Haritası</a>
+                    <a href="/time-machine" class="menu-link">⏳ Zaman Makinesi</a>
+                    <a href="/blog" class="menu-link">📚 Bilgelik Kütüphanesi</a>
+                    <a href="/museum" class="menu-link">🏺 Sanal Müze</a>
+                    <a href="/games" class="menu-link">🎮 Oyun Alanı</a>
+                    <a href="/leaderboard" class="menu-link">🏆 Liderlik Tablosu</a>
+                    <a th:if="${#authentication.name != 'anonymousUser'}" href="/profile" class="menu-link">👤
+                        Profilim</a>
+                    <a href="/photos" class="menu-link">📸 Fotoğraf Yarışması</a>
                     <a th:if="${#authentication.name != 'anonymousUser'}" href="/chat" class="menu-link">💬 Global
                         Sohbet</a>
                     <a th:if="${#authentication.name != 'anonymousUser'}" href="/meeting" class="menu-link">🎥 Canlı
@@ -68,10 +89,20 @@
         <!-- ORTA SÜTUN: İÇERİK AKIŞI -->
         <main class="content-feed">
             <div th:if="${#authentication.name == 'anonymousUser'}"
-                style="text-align:center; padding: 40px; background:white; border:1px solid #dcd6ce;">
-                <h2>Hoşgeldiniz Gezgin.</h2>
-                <p>Tarihin tozlu sayfalarını aralamak için lütfen giriş yapın.</p>
-                <a href="/login" class="btn-action">Giriş Yap / Üye Ol</a>
+                style="text-align:center; padding: 40px; background:white; border:1px solid #dcd6ce; border-top: 4px solid #c5a059;">
+                <h2 style="font-family: 'Cinzel', serif; color: #2c241b;">Hoşgeldiniz Gezgin.</h2>
+                <p style="color: #666; margin: 15px 0;">Geçmişin sırlarını keşfetmek için kapılarımız herkese açık.
+                    Müzeyi gezebilir, kazı yapabilir veya oyunlar oynayabilirsiniz.</p>
+
+                <div style="margin-top: 20px;">
+                    <a href="/museum" class="btn-action" style="margin-right: 10px;">🏺 Müzeyi Gez</a>
+                    <a href="/excavation" class="btn-action" style="background-color: #5d4037;">⛏️ Kazı Yap</a>
+                </div>
+
+                <p style="margin-top: 25px; font-size: 0.9em; color: #888;">
+                    Toplulukla sohbete katılmak için <a href="/register" style="color: #c5a059; font-weight: bold;">Üye
+                        Olun</a>.
+                </p>
             </div>
 
             <!-- İçerik Kartları -->
@@ -128,15 +159,52 @@
                 </div>
             </div>
 
-            <!-- Günün Eseri Widget (Statik) -->
+            <!-- Günün Eseri Widget (Dinamik & Hover Efektli) -->
             <div class="news-widget" style="text-align: center;">
                 <div class="news-header">
                     <h3>🏺 GÜNÜN ESERİ</h3>
                 </div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Amenemhat_III.jpg/180px-Amenemhat_III.jpg"
-                    style="width: 100%; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
-                <p style="font-size: 14px; font-weight: bold; margin-top: 10px;">Amenemhat III Büstü</p>
-                <p style="font-size: 12px; color: #666;">Orta Krallık, Mısır</p>
+
+                <div class="daily-artifact-container"
+                    style="position: relative; overflow: hidden; border-radius: 4px; cursor: pointer;">
+                    <img th:src="${dailyArtifact.imageUrl}"
+                        style="width: 100%; display: block; transition: transform 0.5s;">
+
+                    <!-- Hover Overlay -->
+                    <div class="artifact-overlay">
+                        <h4 th:text="${dailyArtifact.title}"
+                            style="color: #c5a059; margin: 0 0 5px 0; font-family: 'Cinzel', serif;">Eser</h4>
+                        <p th:text="${dailyArtifact.subtitle}" style="color: #fff; font-size: 13px; margin: 0;">Konum
+                        </p>
+                    </div>
+                </div>
+
+                <style>
+                    .daily-artifact-container:hover img {
+                        transform: scale(1.1);
+                    }
+
+                    .artifact-overlay {
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        width: 100%;
+                        background: rgba(0, 0, 0, 0.8);
+                        /* Koyu transparan zemin */
+                        padding: 15px;
+                        transform: translateY(100%);
+                        /* Başlangıçta gizli (aşağıda) */
+                        transition: transform 0.3s ease-in-out;
+                        box-sizing: border-box;
+                        border-top: 2px solid #c5a059;
+                        text-align: center;
+                    }
+
+                    .daily-artifact-container:hover .artifact-overlay {
+                        transform: translateY(0);
+                        /* Hover olunca yukarı çıkar */
+                    }
+                </style>
             </div>
         </aside>
 

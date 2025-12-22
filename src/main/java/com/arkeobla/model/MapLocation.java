@@ -15,6 +15,7 @@ public class MapLocation {
     private Long id;
 
     private String name;
+    @jakarta.persistence.Column(length = 2000)
     private String description;
     private double latitude;
     private double longitude;

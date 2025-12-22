@@ -57,32 +57,51 @@
 </head>
 
 <body>
-    <h2>Yeni İçerik Ekle</h2>
-    <form th:action="@{/add-content}" method="post">
-        <div class="form-group">
-            <label>Başlık</label>
-            <input type="text" name="title" required>
-        </div>
+    <div style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+        <h2 style="text-align: center; color: #2c241b; font-family: 'Cinzel', serif; margin-bottom: 30px;">Yeni İçerik
+            Oluştur</h2>
 
-        <div class="form-group">
-            <label>Kategori</label>
-            <select name="category">
-                <option value="Arkeoloji">Arkeoloji</option>
-                <option value="Sanat">Sanat</option>
-                <option value="Tarih">Tarih</option>
-                <option value="Antropoloji">Antropoloji</option>
-                <option value="Diğer">Diğer</option>
-            </select>
-        </div>
+        <form th:action="@{/add-content}" method="post">
+            <div class="form-group">
+                <label>Başlık</label>
+                <input type="text" name="title" required placeholder="İlgi çekici bir başlık girin...">
+            </div>
 
-        <div class="form-group">
-            <label>İçerik</label>
-            <textarea name="body" required></textarea>
-        </div>
+            <div class="form-group row" style="display: flex; gap: 20px;">
+                <div style="flex: 1;">
+                    <label>Kategori</label>
+                    <select name="category">
+                        <option value="Arkeoloji">Arkeoloji</option>
+                        <option value="Sanat">Sanat Tarihi</option>
+                        <option value="Tarih" selected>Genel Tarih</option>
+                        <option value="Antropoloji">Antropoloji</option>
+                        <option value="Mitoloji">Mitoloji</option>
+                        <option value="Diğer">Diğer</option>
+                    </select>
+                </div>
+                <div style="flex: 1;">
+                    <label>Kapak Resmi URL</label>
+                    <input type="text" name="imageUrl" placeholder="https://ornek.com/resim.jpg">
+                </div>
+            </div>
 
-        <button type="submit">Yayınla</button>
-        <a href="/">İptal</a>
-    </form>
+            <div class="form-group">
+                <label>Kısa Özet (Giriş Metni)</label>
+                <input type="text" name="summary" required
+                    placeholder="Okuyucuyu çekecek kısa bir özet (Max 200 karakter)..." maxlength="255">
+            </div>
+
+            <div class="form-group">
+                <label>İçerik Detayı</label>
+                <textarea name="body" required placeholder="Hikayeni anlatmaya başla..."></textarea>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
+                <a href="/" style="color: #666;">İptal</a>
+                <button type="submit" style="background: #28a745; padding: 12px 40px; font-size: 16px;">YAYINLA</button>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

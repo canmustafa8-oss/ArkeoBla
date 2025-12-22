@@ -10,29 +10,42 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity // Metod bazlı güvenlik için
+@org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/", "/register", "/login", "/css/**", "/js/**").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN") // Sadece Admin
-                .anyRequest().authenticated()
-            )
-            .formLogin((form) -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-            )
-            .logout((logout) -> logout.permitAll());
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http
+                                .authorizeHttpRequests((requests) -> requests
+                                                // Herkese Açık Sayfalar
+                                                .requestMatchers("/", "/home", "/register", "/login", "/verify/**")
+                                                .permitAll()
+                                                .requestMatchers("/games/**", "/museum/**", "/timeline/**",
+                                                                "/excavation/**", "/puzzle/**", "/quiz/**",
+                                                                "/time-machine/**", "/photos/**", "/ai-chat/**",
+                                                                "/certificate/**", "/blog/**")
+                                                .permitAll()
+                                                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
 
-        return http.build();
-    }
+                                                // Sadece Giriş Yapmış Kullanıcılar
+                                                .requestMatchers("/chat/**", "/meeting/**", "/profile/**")
+                                                .authenticated()
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance(); // Demo için şifreleme yok
-    }
+                                                // Admin
+                                                .requestMatchers("/admin/**").hasRole("ADMIN")
+
+                                                .anyRequest().authenticated())
+                                .formLogin((form) -> form
+                                                .loginPage("/login")
+                                                .defaultSuccessUrl("/", true)
+                                                .permitAll())
+                                .logout((logout) -> logout.permitAll());
+
+                return http.build();
+        }
+
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return NoOpPasswordEncoder.getInstance();
+        }
 }

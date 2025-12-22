@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ArkeoBla - Sanal Müze</title>
+    <!-- Model Viewer Script (Google) -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital@0;1&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #dcd6ce;
+            font-family: 'Lora', serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Üst Menü */
+        header {
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid #333;
+        }
+
+        .brand {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            color: #c5a059;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            color: #dcd6ce;
+            text-decoration: none;
+            border: 1px solid #555;
+            padding: 5px 15px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            border-color: #c5a059;
+            color: #c5a059;
+        }
+
+        /* Ana Sahne (3D Viewer) */
+        .stage {
+            flex: 1;
+            position: relative;
+            background: radial-gradient(circle at center, #2c241b 0%, #000 100%);
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Bilgi Paneli */
+        /* Bilgi Paneli (Alt Kısım) */
+        .info-container {
+            background: #111;
+            padding: 20px 40px;
+            text-align: center;
+            border-top: 1px solid #333;
+            border-bottom: 3px solid #c5a059;
+        }
+
+        .info-title {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            margin: 0 0 10px 0;
+            font-size: 24px;
+        }
+
+        .info-desc {
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #ccc;
+        }
+
+        /* Alt Galeri Şeridi */
+        .gallery-strip {
+            height: 100px;
+            background: #111;
+            display: flex;
+            align-items: center;
+            overflow-x: auto;
+            border-top: 1px solid #333;
+            padding: 0 20px;
+        }
+
+        .artifact-card {
+            min-width: 80px;
+            height: 80px;
+            margin-right: 15px;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        .artifact-card:hover,
+        .artifact-card.active {
+            border-color: #c5a059;
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .artifact-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="/" class="brand">🏛️ SANAL MÜZE</a>
+        <a href="/" class="back-btn">Ana Sayfaya Dön</a>
+    </header>
+
+    <div class="stage">
+        <!-- 3D MODEL GÖRÜNTÜLEYİCİ -->
+        <model-viewer id="main-viewer" th:src="${artifacts[0].modelUrl}" th:poster="${artifacts[0].posterUrl}"
+            alt="3D Artifact" auto-rotate camera-controls shadow-intensity="1" exposure="1"
+            environment-image="neutral"></model-viewer>
+    </div>
+
+    <!-- Bilgi Paneli (Sahnenin Altında) -->
+    <div class="info-container">
+        <h2 class="info-title" id="info-title" th:text="${artifacts[0].name}">Eser Adı</h2>
+        <p class="info-desc" id="info-desc" th:text="${artifacts[0].description}">Açıklama</p>
+    </div>
+
+    <div class="gallery-strip">
+        <div th:each="art, iter : ${artifacts}" class="artifact-card" th:classappend="${iter.index == 0} ? 'active'"
+            th:onclick="changeArtifact([[${art.modelUrl}]], [[${art.name}]], [[${art.description}]], this)">
+            <!-- Poster görseli yoksa standart ikon kullanabiliriz ama şimdilik model URL'den türetelim veya boş bırakalım -->
+            <div
+                style="width:100%; height:100%; background:#333; display:flex; justify-content:center; align-items:center; font-size:24px;">
+                🏺</div>
+        </div>
+    </div>
+
+    <script>
+        function changeArtifact(modelUrl, name, desc, element) {
+            const viewer = document.getElementById('main-viewer');
+            const title = document.getElementById('info-title');
+            const descElem = document.getElementById('info-desc');
+
+            // Model ve Bilgileri Güncelle
+            viewer.src = modelUrl;
+            title.innerText = name;
+            descElem.innerText = desc;
+
+            // Görsel Efekt (Active Class)
+            document.querySelectorAll('.artifact-card').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

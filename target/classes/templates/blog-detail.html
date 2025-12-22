@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${content.title} + ' - ArkeoBla Kütüphanesi'">İçerik Detayı</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        .detail-header {
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .detail-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, #1a1612, transparent);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            width: 80%;
+            max-width: 1000px;
+            margin: 0 auto 60px auto;
+            text-align: center;
+        }
+
+        .detail-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            color: #c5a059;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .detail-meta {
+            font-family: 'Cinzel', serif;
+            color: #ccc;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .detail-meta span {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid #555;
+        }
+
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto 100px auto;
+            padding: 40px;
+            background: #f4f1ea;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            font-family: 'Lora', serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #2c241b;
+        }
+
+        .content-body p {
+            margin-bottom: 25px;
+        }
+
+        .back-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .btn-glass {
+            background: rgba(44, 36, 27, 0.8);
+            color: #c5a059;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 1px solid #c5a059;
+            border-radius: 5px;
+            font-family: 'Cinzel', serif;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-glass:hover {
+            background: #c5a059;
+            color: #1a1612;
+        }
+    </style>
+</head>
+
+<body style="background-color: #1a1612;">
+
+    <div class="back-nav">
+        <a href="/blog" class="btn-glass">← Kütüphaneye Dön</a>
+    </div>
+
+    <!-- Hero Header -->
+    <div class="detail-header" th:style="'background-image: url(' + ${content.imageUrl} + ');'">
+        <div class="header-content">
+            <h1 class="detail-title" th:text="${content.title}">Başlık</h1>
+            <div class="detail-meta">
+                <span th:text="${content.era}">Dönem</span>
+                <span th:text="'🗓️ ' + ${content.historicalDate}">Tarih</span>
+                <span th:text="${content.category}">Kategori</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <!-- Özet (Vurgulu) -->
+        <div
+            style="font-size: 1.4rem; font-weight: bold; margin-bottom: 30px; color: #8b3a3a; border-left: 4px solid #c5a059; padding-left: 20px;">
+            <p th:text="${content.summary}">Özet</p>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 30px 0;">
+
+        <!-- Ana Metin -->
+        <div class="content-body" th:utext="${content.body.replace('\n', '<br>')}">
+            İçerik...
+        </div>
+    </div>
+
+</body>
+
+</html>

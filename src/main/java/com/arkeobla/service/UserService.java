@@ -14,18 +14,43 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User registerUser(String username, String password, Role role) {
+    public User registerUser(String username, String email, String password) {
         if (userRepository.findByUsername(username).isPresent()) {
             throw new RuntimeException("Bu kullanıcı adı zaten alınmış.");
         }
+
+        // E-posta kontrolü (Basit)
+        // Gerçekte repo.findByEmail de olmalı ama şimdilik username=email varsayımı
+        // yapmıyoruz.
+
         User user = new User();
         user.setUsername(username);
-        // Gerçek uygulamada şifreler hashlenmelidir. Şimdilik demo için düz metin.
-        // user.setPassword(passwordEncoder.encode(password)); 
-        // Şimdilik SecurityConfig'de NoOpPasswordEncoder kullanacağız.
+        user.setEmail(email);
         user.setPassword(password);
-        user.setRole(role);
+        user.setRole(Role.USER); // Varsayılan USER
         user.setBadges("YENİ_ÜYE");
+
+        // Doğrulama Kodu
+        String code = java.util.UUID.randomUUID().toString();
+        user.setVerificationCode(code);
+        user.setEnabled(false); // Başlangıçta pasif
+
         return userRepository.save(user);
+    }
+
+    public boolean verifyUser(String code) {
+        // Not: Burada repository.findByVerificationCode lazım.
+        // Hız için tüm userları gezip bulalım (Performanssız ama demo için ok)
+        // Doğrusu UserRepository'e metod eklemektir.
+
+        for (User user : userRepository.findAll()) {
+            if (code.equals(user.getVerificationCode())) {
+                user.setEnabled(true);
+                user.setVerificationCode(null);
+                userRepository.save(user);
+                return true;
+            }
+        }
+        return false;
     }
 }

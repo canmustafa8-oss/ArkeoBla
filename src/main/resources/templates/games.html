@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Oyun Alanı - ArkeoBla</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cinzel', serif;
+            background-color: #1a1a1a;
+            color: #dcd6ce;
+        }
+
+        .games-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #c5a059;
+            margin-bottom: 40px;
+            font-size: 3em;
+            text-shadow: 0 0 10px rgba(197, 160, 89, 0.3);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .game-card {
+            background: #2c241b;
+            border: 1px solid #444;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: #c5a059;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-img-container {
+            height: 200px;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #444;
+            font-size: 50px;
+        }
+
+        .game-content {
+            padding: 20px;
+        }
+
+        .game-title {
+            font-size: 1.5em;
+            color: #c5a059;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .game-desc {
+            font-family: 'Lora', serif;
+            font-size: 0.9em;
+            color: #bbb;
+            line-height: 1.5;
+        }
+
+        .coming-soon {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #444;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="games-container">
+        <h1>🎮 OYUN ALANI</h1>
+
+        <div class="games-grid">
+
+            <!-- Mevcut Oyun: Bilgi Yarışması -->
+            <a href="/quiz" class="game-card">
+                <div class="game-img-container">
+                    🧠
+                </div>
+                <div class="game-content">
+                    <div class="game-title">Arkeo-Quiz</div>
+                    <div class="game-desc">Tarih bilginizi sınayın, "Bilge Kaşif" rozetini kazanmak için yarışın!</div>
+                </div>
+            </a>
+
+            <!-- Tarihi Puzzle -->
+            <a href="/puzzle" class="game-card">
+                <div class="game-img-container">
+                    🧩
+                </div>
+                <div class="game-content">
+                    <div class="game-title">Tarihi Puzzle</div>
+                    <div class="game-desc">Zeugma'dan Piramitlere uzanan 4 zorlu etapta parçaları birleştirin!</div>
+                </div>
+            </a>
+
+            <!-- Kazı Simülatörü -->
+            <a href="/excavation" class="game-card">
+                <div class="game-img-container">
+                    ⛏️
+                </div>
+                <div class="game-content">
+                    <div class="game-title">Kazı Simülatörü</div>
+                    <div class="game-desc">Türkiye, Mısır veya Yunanistan'ı seçin! Fırçanızı kapın ve kazıya başlayın.
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div style="margin-top: 50px;">
+            <a href="/" style="color: #c5a059; text-decoration: none; font-size: 1.1em;">🏠 Ana Sayfaya Dön</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

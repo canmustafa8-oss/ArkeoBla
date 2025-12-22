@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Tarihi Puzzle - ArkeoBla</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Konfeti Efekti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Cinzel', serif;
+            background-color: #2c241b;
+            color: #dcd6ce;
+            text-align: center;
+        }
+
+        .puzzle-container {
+            max-width: 800px;
+            margin: 30px auto;
+        }
+
+        h2 {
+            color: #c5a059;
+            margin-bottom: 10px;
+        }
+
+        .level-info {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #aaa;
+        }
+
+        .game-area {
+            display: inline-block;
+            border: 5px solid #c5a059;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            padding: 5px;
+            background: #111;
+            position: relative;
+        }
+
+        .puzzle-board {
+            display: grid;
+            /* Grid template JS ile ayarlanacak */
+            gap: 2px;
+            background: #333;
+            width: 500px;
+            height: 500px;
+        }
+
+        .puzzle-piece {
+            background-size: 500px 500px;
+            /* Board boyutuyla aynı olmalı */
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+            position: relative;
+        }
+
+        .puzzle-piece:hover {
+            opacity: 0.8;
+            border: 1px solid #fff;
+            z-index: 10;
+        }
+
+        .puzzle-piece.selected {
+            border: 2px solid #e74c3c;
+            opacity: 1;
+            transform: scale(0.95);
+        }
+
+        /* Başarı Mesajı */
+        #success-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border: 2px solid #c5a059;
+            border-radius: 10px;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .next-btn {
+            background: #c5a059;
+            color: #1a1a1a;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .next-btn:hover {
+            background: #d4af37;
+        }
+
+        /* Orijinal Resim Önizleme */
+        .preview-img {
+            width: 150px;
+            border: 2px solid #555;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="puzzle-container">
+        <h2 th:text="'Level ' + ${level.id} + ': ' + ${level.title}">Level 1</h2>
+        <div class="level-info" th:text="'Zorluk: ' + ${level.difficulty}">3x3</div>
+
+        <!-- Puzzle Alanı -->
+        <div class="game-area">
+            <div id="board" class="puzzle-board"></div>
+        </div>
+
+        <br>
+        <p style="font-size: 14px; color: #888;">İpucu: Parçaları yer değiştirmek için üzerine tıklayın.</p>
+
+        <!-- Önizleme -->
+        <br>
+        <img th:src="${level.imageUrl}" class="preview-img" title="Orijinal Resim">
+
+        <br><br>
+        <a href="/games" style="color: #c5a059; text-decoration: none;">🔙 Oyun Alanına Dön</a>
+    </div>
+
+    <!-- Başarı Modalı -->
+    <div id="success-modal">
+        <h1 style="color: #2ecc71;">HARİKA! 🎉</h1>
+        <p>Bölümü başarıyla tamamladın.</p>
+
+        <a th:if="${nextLevel != null}" th:href="'/puzzle?level=' + ${nextLevel}" class="next-btn">Sonraki Bölüm ▶</a>
+        <a th:if="${isFinal}" href="/games" class="next-btn">🏆 OYUN BİTTİ (Menüye Dön)</a>
+    </div>
+
+    <script th:inline="javascript">
+        // Backend verileri
+        const gridSize = [[${ level.gridSize }]]; // Örn: 3, 4, 5...
+        const imageUrl = "[[${level.imageUrl}]]";
+
+        const board = document.getElementById('board');
+        const pieceCount = gridSize * gridSize;
+        const pieces = [];
+        let selectedPiece = null;
+
+        // Grid CSS ayarla
+        board.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+        board.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+
+        // Parçaları Oluştur
+        // 500px sabit genişlik varsayıyoruz
+        const pieceSize = 500 / gridSize;
+
+        for (let i = 0; i < pieceCount; i++) {
+            const row = Math.floor(i / gridSize);
+            const col = i % gridSize;
+
+            const div = document.createElement('div');
+            div.classList.add('puzzle-piece');
+            div.style.backgroundImage = `url('${imageUrl}')`;
+            div.style.backgroundPosition = `-${col * pieceSize}px -${row * pieceSize}px`;
+
+            // Gerçek konum bilgisini sakla (Doğruluk kontrolü için)
+            div.dataset.index = i;
+
+            // Olay Dinleyicisi
+            div.addEventListener('click', () => handlePieceClick(div));
+
+            pieces.push(div);
+        }
+
+        // Parçaları Karıştır
+        shuffleArray(pieces);
+
+        // Board'a ekle
+        pieces.forEach(p => board.appendChild(p));
+
+        // Tıklama Mantığı
+        function handlePieceClick(piece) {
+            if (selectedPiece === piece) {
+                // Seçimi iptal et
+                piece.classList.remove('selected');
+                selectedPiece = null;
+                return;
+            }
+
+            if (selectedPiece === null) {
+                // İlk seçim
+                selectedPiece = piece;
+                piece.classList.add('selected');
+            } else {
+                // İkinci seçim (Yer Değiştir)
+                swapPieces(selectedPiece, piece);
+                selectedPiece.classList.remove('selected');
+                selectedPiece = null;
+
+                checkWin();
+            }
+        }
+
+        function swapPieces(nodeA, nodeB) {
+            const nextA = nodeA.nextSibling;
+            const parentA = nodeA.parentNode;
+            const nextB = nodeB.nextSibling;
+            const parentB = nodeB.parentNode;
+
+            // DOM'da yerlerini değiştir
+            if (nextA === nodeB) {
+                parentA.insertBefore(nodeB, nodeA);
+            } else if (nextB === nodeA) {
+                parentA.insertBefore(nodeA, nodeB);
+            } else {
+                parentA.insertBefore(nodeB, nextA);
+                parentB.insertBefore(nodeA, nextB);
+            }
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Kazanma Kontrolü
+        function checkWin() {
+            const currentOrder = Array.from(board.children).map(child => parseInt(child.dataset.index));
+
+            // Sıralı mı? (0, 1, 2, ... N)
+            const isWin = currentOrder.every((val, index) => val === index);
+
+            if (isWin) {
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 150,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                    document.getElementById('success-modal').style.display = 'block';
+                }, 300);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

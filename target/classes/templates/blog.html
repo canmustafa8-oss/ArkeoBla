@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Blog - ArkeoBla</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital@0;1&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            font-family: 'Lora', serif;
+        }
+
+        .blog-header {
+            text-align: center;
+            padding: 60px 20px;
+            background: #2c241b;
+            color: #dcd6ce;
+            margin-bottom: 40px;
+        }
+
+        .blog-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3em;
+            margin: 0;
+            color: #c5a059;
+        }
+
+        .blog-header p {
+            font-style: italic;
+            margin-top: 10px;
+            color: #aaa;
+        }
+
+        .blog-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-category {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #c5a059;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4em;
+            margin: 0 0 10px 0;
+            color: #2c241b;
+        }
+
+        .card-summary {
+            font-size: 0.95em;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            font-size: 13px;
+            color: #999;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-write {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            background: #c5a059;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-write:hover {
+            background: #b08d4d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blog-header">
+        <h1>BİLGELİK KÜTÜPHANESİ</h1>
+        <p>Arkeoloji ve tarih dünyasından en son keşifler, makaleler ve hikayeler.</p>
+        <a href="/add-content" class="btn-write">✍️ İçerik Yaz</a>
+        <a href="/" style="color: #aaa; margin-left: 15px; text-decoration: none; font-size: 14px;">Anasayfaya Dön</a>
+    </div>
+
+    <div class="container main-grid" style="grid-template-columns: 250px 1fr;">
+        <!-- SOL MENÜ: FİLTRELER -->
+        <aside class="sidebar-left">
+            <div class="menu-card">
+                <h3 style="font-family:'Cinzel'; color:#c5a059; border-bottom:1px solid #ddd; padding-bottom:10px;">⏳
+                    Dönemler</h3>
+                <nav class="era-filters">
+                    <a href="/blog" class="filter-btn" th:classappend="${currentEra == null} ? 'active'">Tümü</a>
+                    <a href="/blog?era=Paleolitik Çağ" class="filter-btn"
+                        th:classappend="${currentEra == 'Paleolitik Çağ'} ? 'active'">Paleolitik</a>
+                    <a href="/blog?era=Neolitik Çağ" class="filter-btn"
+                        th:classappend="${currentEra == 'Neolitik Çağ'} ? 'active'">Neolitik</a>
+                    <a href="/blog?era=Antik Mısır" class="filter-btn"
+                        th:classappend="${currentEra == 'Antik Mısır'} ? 'active'">Antik Mısır</a>
+                    <a href="/blog?era=Antik Yunan" class="filter-btn"
+                        th:classappend="${currentEra == 'Antik Yunan'} ? 'active'">Antik Yunan</a>
+                    <a href="/blog?era=Roma İmparatorluğu" class="filter-btn"
+                        th:classappend="${currentEra == 'Roma İmparatorluğu'} ? 'active'">Roma</a>
+                    <a href="/blog?era=Orta Çağ" class="filter-btn"
+                        th:classappend="${currentEra == 'Orta Çağ'} ? 'active'">Orta Çağ</a>
+                    <a href="/blog?era=Rönesans" class="filter-btn"
+                        th:classappend="${currentEra == 'Rönesans'} ? 'active'">Rönesans</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- SAĞ: İÇERİK IZGARASI -->
+        <main>
+            <div class="blog-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+                <!-- Linki güncelle: /blog/{id} -->
+                <a th:href="@{'/blog/' + ${content.id}}" th:each="content : ${contents}" class="blog-card"
+                    style="text-decoration:none;">
+                    <div class="card-img"
+                        th:style="'background-image: url(\'' + (${content.imageUrl != null ? content.imageUrl : '/images/default-blog.jpg'}) + '\'); height:180px;'">
+                    </div>
+                    <div class="card-content">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div class="card-category" th:text="${content.category}">Kategori</div>
+                            <div th:if="${content.era}" style="font-size:11px; font-weight:bold; color:#8b3a3a;"
+                                th:text="${content.era}">Dönem</div>
+                        </div>
+
+                        <h3 class="card-title" th:text="${content.title}" style="font-size:1.2em;">Başlık</h3>
+                        <p class="card-summary" th:text="${content.summary}" style="font-size:0.9em;">Özet...</p>
+
+                        <div class="card-meta">
+                            <span
+                                th:text="${content.historicalDate != null ? '🗓️ ' + content.historicalDate : ''}">Tarih</span>
+                            <span style="font-size: 12px; color: #c5a059;">Devamını Oku →</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- SAYFALANDIRMA (SADELEŞTİRİLMİŞ) -->
+            <div class="pagination"
+                style="text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 20px;">
+                <!-- Önceki Sayfa -->
+                <a th:if="${contents.hasPrevious()}" th:href="@{/blog(page=${contents.number - 1}, era=${currentEra})}"
+                    class="btn-write" style="padding: 10px 30px; font-size: 16px;">⬅️ Önceki Sayfa</a>
+
+                <!-- Sonraki Sayfa -->
+                <a th:if="${contents.hasNext()}" th:href="@{/blog(page=${contents.number + 1}, era=${currentEra})}"
+                    class="btn-write" style="padding: 10px 30px; font-size: 16px;">Sonraki Sayfa ➡️</a>
+            </div>
+        </main>
+    </div>
+
+    <style>
+        .era-filters {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            text-decoration: none;
+            color: #555;
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+
+        .filter-btn:hover {
+            background: #eee;
+            color: #2c241b;
+        }
+
+        .filter-btn.active {
+            background: #2c241b;
+            color: #c5a059;
+            font-weight: bold;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+</body>
+
+</html>

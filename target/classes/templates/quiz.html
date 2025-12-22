@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ArkeoBla - Bilgi Yarışması</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .quiz-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #c5a059;
+        }
+
+        .question-card {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c241b;
+            margin-bottom: 15px;
+        }
+
+        .option-label {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .option-label:hover {
+            background-color: #f9f9f9;
+        }
+
+        .option-label input {
+            margin-right: 10px;
+        }
+
+        /* Doğru/Yanlış Stilleri */
+        .option-label.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .option-label.wrong {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+
+        .submit-btn {
+            background: #2c241b;
+            color: #c5a059;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-family: 'Cinzel', serif;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #3e3226;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header (Sade) -->
+    <header style="background:#2c241b; padding:15px; text-align:center;">
+        <a href="/" style="color:#c5a059; font-family:'Cinzel', serif; font-size:24px; text-decoration:none;">🧠
+            Arkeo-Quiz</a>
+    </header>
+
+    <div class="quiz-container">
+        <h2 style="text-align:center; color:#2c241b; font-family:'Cinzel', serif;">Bilgini Test Et, Rozeti Kap!</h2>
+        <p style="text-align:center; color:#666; margin-bottom:30px;">Aşağıdaki soruları bil, %80 barajını geç ve
+            <strong>'BİLGE KAŞİF'</strong> unvanını kazan.
+        </p>
+
+        <form action="/quiz/submit" method="post">
+
+            <div th:each="q : ${questions}" class="question-card" th:data-correct="${q.correctAnswer}">
+                <div class="question-text" th:text="${q.id} + '. ' + ${q.text}">Soru Metni</div>
+
+                <div th:each="opt : ${q.options}">
+                    <label class="option-label" onclick="checkAnswer(this)">
+                        <input type="radio" th:name="'q' + ${q.id}" th:value="${opt}" required>
+                        <span th:text="${opt}">Seçenek</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">YARIŞMAYI BİTİR VE SONUCU GÖR</button>
+        </form>
+    </div>
+
+    <script>
+        function checkAnswer(label) {
+            const card = label.closest('.question-card');
+
+            // Eğer daha önce cevaplandıysa işlem yapma
+            if (card.classList.contains('answered')) return;
+
+            const correctAnswer = card.getAttribute('data-correct');
+            const radio = label.querySelector('input[type="radio"]');
+            const selectedValue = radio.value;
+            const options = card.querySelectorAll('.option-label');
+
+            // Kartı cevaplandı olarak işaretle (Tekrar tıklamayı engellemek için)
+            card.classList.add('answered');
+
+            // Tüm seçenekleri döngüye al
+            options.forEach(opt => {
+                const optValue = opt.querySelector('input').value;
+
+                // Doğru cevabı her durumda yeşil yak
+                if (optValue === correctAnswer) {
+                    opt.classList.add('correct');
+                    // Yanına tik işareti ekle
+                    opt.querySelector('span').innerHTML += ' ✅';
+                }
+
+                // Tıklanan şık yanlışsa kırmızı yap
+                if (opt === label && selectedValue !== correctAnswer) {
+                    opt.classList.add('wrong');
+                    // Yanına çarpı işareti ekle
+                    opt.querySelector('span').innerHTML += ' ❌';
+                }
+
+                // Seçenekleri kilitle (Görüntü olarak değil ama CSS ile pointer event kapatalım)
+                opt.style.pointerEvents = 'none';
+            });
+        }
+    </script>
+
+</html>
