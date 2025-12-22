@@ -260,4 +260,17 @@ public class DataInitializer {
                         }
                 };
         }
+
+        private static class RegionBounds {
+                double minLat, maxLat, minLng, maxLng;
+                String name;
+
+                public RegionBounds(double minLat, double maxLat, double minLng, double maxLng, String name) {
+                        this.minLat = minLat;
+                        this.maxLat = maxLat;
+                        this.minLng = minLng;
+                        this.maxLng = maxLng;
+                        this.name = name;
+                }
+        }
 }
