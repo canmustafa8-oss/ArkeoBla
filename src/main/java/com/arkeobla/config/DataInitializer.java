@@ -178,7 +178,7 @@ public class DataInitializer {
                                                 43.7696, 11.2558, // Placeholder coordinates for Florence, Italy
                                                 "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"));
 
-                                // PROCEDURAL GENERATOR
+                                // Procedural Generator
                                 String[] prefixes = { "Antik", "Kayıp", "Gizemli", "Kral", "Kutsal", "Yıkık", "Büyük",
                                                 "Eski", "Tapınak", "Saray" };
                                 String[] suffixes = { "Harabeleri", "Tümülüsü", "Tapınağı", "Gözetleme Kulesi",
@@ -192,20 +192,6 @@ public class DataInitializer {
                                                 "Tılsımlar" };
 
                                 // Koordinat Sınırları (Yaklaşık)
-                                class RegionBounds {
-                                        double minLat, maxLat, minLng, maxLng;
-                                        String name;
-
-                                        public RegionBounds(double minLat, double maxLat, double minLng, double maxLng,
-                                                        String name) {
-                                                this.minLat = minLat;
-                                                this.maxLat = maxLat;
-                                                this.minLng = minLng;
-                                                this.maxLng = maxLng;
-                                                this.name = name;
-                                        }
-                                }
-
                                 RegionBounds[] regions = {
                                                 new RegionBounds(36.0, 42.0, 26.0, 45.0, "Anadolu"), // Türkiye
                                                 new RegionBounds(22.0, 31.0, 25.0, 35.0, "Mısır Çölleri"), // Mısır

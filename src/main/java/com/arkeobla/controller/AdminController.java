@@ -1,7 +1,5 @@
 package com.arkeobla.controller;
 
-import com.arkeobla.service.ContentService;
-import com.arkeobla.service.UserService;
 import com.arkeobla.repository.ContentRepository;
 import com.arkeobla.repository.UserRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
