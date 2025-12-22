@@ -16,14 +16,20 @@ public class DataInitializer {
                         com.arkeobla.repository.ContentRepository contentRepository) {
                 return args -> {
                         // 1. Admin Kullanıcısı (Mcquelss)
-                        if (userRepository.findByUsername("Mcquelss").isEmpty()) {
-                                User admin = new User();
+                        com.arkeobla.model.User admin = userRepository.findByUsername("Mcquelss").orElse(null);
+                        if (admin == null) {
+                                admin = new User();
                                 admin.setUsername("Mcquelss");
                                 admin.setPassword("Mcan1346.");
                                 admin.setRole(Role.ADMIN);
                                 admin.setBadges("KURUCU,YÖNETİCİ,KRAL");
                                 userRepository.save(admin);
                                 System.out.println(">>> Varsayılan Admin kullanıcısı oluşturuldu: Mcquelss");
+                        } else {
+                                // Mevcut admini güncelle (Eski kayıtlarda rol eksik olabilir)
+                                admin.setRole(Role.ADMIN);
+                                userRepository.save(admin);
+                                System.out.println(">>> Admin yetkileri güncellendi: Mcquelss");
                         }
 
                         // 2. Harita Verileri (Procedural Generator - 500+ Nokta)

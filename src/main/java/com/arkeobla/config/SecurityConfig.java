@@ -28,7 +28,7 @@ public class SecurityConfig {
                                                 .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
 
                                                 // Sadece Giriş Yapmış Kullanıcılar
-                                                .requestMatchers("/chat/**", "/meeting/**", "/profile/**", "/blog/**")
+                                                .requestMatchers("/meeting/**", "/blog/**", "/profile/**")
                                                 .authenticated()
 
                                                 // Admin
