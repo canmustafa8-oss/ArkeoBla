@@ -262,31 +262,258 @@ public class DataInitializer {
                                 System.out.println(">>> 500+ Procedural Lokasyon Eklendi.");
                         }
 
-                        // 3. Blog İçerikleri (Küratörlü Top 100 Seeder)
+                        // 3. Blog İçerikleri (Küratörlü Detaylı Makaleler)
                         if (contentRepository.count() < 10) {
                                 userRepository.findByUsername("Mcquelss").ifPresent(u -> {
-                                        String[] categories = { "Arkeoloji", "Tarih", "Sanat Tarihi", "Mitoloji",
-                                                        "Keşif" };
-                                        String[] titles = { "Antik Dönemde Günlük Yaşam", "Roma Mimarisinin Sırları",
-                                                        "Göbeklitepe Neyi Değiştirdi?",
-                                                        "Mısır Piramitleri Nasıl Yapıldı?",
-                                                        "Yunan Mitolojisinde 12 Tanrı", "Kaybolan Uygarlıklar",
-                                                        "Sümer Tabletlerinin Şifresi", "Truva Savaşı Gerçek mi?",
-                                                        "İstanbul'un Yeraltı Tarihi", "Anadolu'nun İlk Yerleşimleri" };
+                                        // Makale 1: Göbeklitepe
+                                        com.arkeobla.model.Content c1 = new com.arkeobla.model.Content();
+                                        c1.setTitle("Göbeklitepe: Tarihin Sıfır Noktası");
+                                        c1.setCategory("Arkeoloji");
+                                        c1.setEra("Neolitik Çağ");
+                                        c1.setHistoricalDate("MÖ 9600 - MÖ 8200");
+                                        c1.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/G%C3%B6bekli_Tepe%2C_Urfa.jpg/1200px-G%C3%B6bekli_Tepe%2C_Urfa.jpg");
+                                        c1.setSummary("Şanlıurfa'da keşfedilen dünyanın en eski tapınağı, insanlık tarihini yeniden yazdı.");
+                                        c1.setBody("NE? Göbeklitepe, Şanlıurfa'nın yaklaşık 18 km kuzeydoğusunda, deniz seviyesinden 760 metre yükseklikte yer alan devasa bir arkeolojik alandır. T şeklindeki devasa taş dikilitlerden oluşan yapılar kompleksidir.\n\n"
+                                                        +
+                                                        "KİM? Henüz tarımı bile keşfetmemiş, avcı-toplayıcı yaşam süren topluluklar tarafından inşa edildi. Alman arkeolog Klaus Schmidt bu siteyi 1994'te dünyaya tanıttı ve ölümüne kadar kazı çalışmalarını yönetti.\n\n"
+                                                        +
+                                                        "NE ZAMAN? Radyokarbon tarihleme sonuçlarına göre MÖ 9600-8200 yılları arasına, yani günümüzden yaklaşık 12.000 yıl öncesine tarihleniyor. Bu, Mısır piramitlerinden 7.000, Stonehenge'den 6.000 yıl daha eskidir.\n\n"
+                                                        +
+                                                        "NEREDE? Güneydoğu Anadolu'da, Bereketli Hilal'in tam kalbinde. Burası insanlığın ilk tarıma geçtiği bölgedir.\n\n"
+                                                        +
+                                                        "NEDEN ÖNEMLİ? Göbeklitepe, 'önce tapınak, sonra şehir' tezini ortaya koyarak arkeoloji dünyasını sarstı. Geleneksel görüşe göre insanlar önce yerleşik hayata geçer, sonra dini yapılar inşa ederdi. Göbeklitepe bunun tersini kanıtladı: İnanç sistemleri, uygarlığın öncüsü olabilir.\n\n"
+                                                        +
+                                                        "NASIL İNŞA EDİLDİ? 10-15 ton ağırlığındaki kireçtaşı bloklar, taş aletlerle yontulup yaklaşık 500 metre uzaklıktaki taş ocağından taşındı. Metal aletler, tekerlek veya hayvan gücü kullanılmadan, sırf insan emeğiyle yapıldı.\n\n"
+                                                        +
+                                                        "DÖNEM HİKAYESİ: Neolitik Çağ, insanlığın en radikal dönüşümünü yaşadığı dönemdir. Buzul Çağı'nın sona ermesiyle iklim yumuşamış, yabani tahıllar bollaşmış, insanlar yavaş yavaş avcılıktan tarıma geçmeye başlamıştı. Göbeklitepe'yi inşa edenler bu geçişin tam eşiğindeydi. Belki de bu devasa tapınaklar için bir araya gelme ihtiyacı, ilk köylerin kurulmasına yol açtı.");
+                                        c1.setAuthor(u);
+                                        c1.setCreatedAt(java.time.LocalDateTime.now().minusDays(1));
+                                        contentRepository.save(c1);
 
-                                        for (int i = 0; i < 20; i++) {
-                                                com.arkeobla.model.Content c = new com.arkeobla.model.Content();
-                                                c.setTitle(titles[i % titles.length] + " - Bölüm " + (i + 1));
-                                                c.setBody("Bu yazıda, antik dünyanın en gizemli konularından biri olan "
-                                                                + titles[i % titles.length]
-                                                                + " detaylıca inceleniyor. Arkeolojik bulgular ışığında, geçmişin tozlu sayfalarını aralıyoruz. "
-                                                                + "Daha fazla bilgi için bizi takip etmeye devam edin. Tarih, sadece geçmiş değil, geleceğin de anahtarıdır.");
-                                                c.setCategory(categories[i % categories.length]);
-                                                c.setAuthor(u);
-                                                c.setCreatedAt(java.time.LocalDateTime.now().minusDays(i));
-                                                contentRepository.save(c);
-                                        }
-                                        System.out.println(">>> 20 Adet Demo İçerik Eklendi. (Admin: "
+                                        // Makale 2: Piramitler
+                                        com.arkeobla.model.Content c2 = new com.arkeobla.model.Content();
+                                        c2.setTitle("Büyük Giza Piramidi: Firavunların Ölümsüzlük Arayışı");
+                                        c2.setCategory("Tarih");
+                                        c2.setEra("Antik Mısır");
+                                        c2.setHistoricalDate("MÖ 2560");
+                                        c2.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/1200px-Kheops-Pyramid.jpg");
+                                        c2.setSummary("Antik dünyanın yedi harikasından günümüze ulaşan tek yapı: Keops Piramidi.");
+                                        c2.setBody("NE? Giza Platosu'ndaki üç büyük piramidin en büyüğü ve en eskisidir. Orijinal yüksekliği 146.6 metre olup, 3.800 yıl boyunca dünyanın en yüksek yapısı olarak kalmıştır.\n\n"
+                                                        +
+                                                        "KİM? 4. Hanedan firavunu Khufu (Yunanca: Keops) için inşa edildi. Mimar Hemiunu'nun projesi olduğu düşünülmektedir.\n\n"
+                                                        +
+                                                        "NE ZAMAN? MÖ 2560 civarında, yaklaşık 20 yılda tamamlandı.\n\n"
+                                                        +
+                                                        "NEREDE? Kahire'nin hemen güneybatısında, Giza Platosu üzerinde. Nil Nehri'nin batı kıyısında, çünkü Mısırlılar için batı 'ölüler diyarı'nı simgeliyordu.\n\n"
+                                                        +
+                                                        "NEDEN ÖNEMLİ? Piramit sadece bir mezar değil, firavunun ölümsüzlüğe ulaşması için kozmik bir makineydi. İç odalar ve koridorlar, firavunun ruhunun (Ka ve Ba) yıldızlara yükselmesini sağlayacak şekilde tasarlandı.\n\n"
+                                                        +
+                                                        "NASIL İNŞA EDİLDİ? 2.3 milyon kireçtaşı ve granit blok kullanıldı. Bloklar ortalama 2.5 ton, bazıları 80 tona kadar çıkıyor. Rampa sistemleri, kaldıraçlar ve devasa işgücüyle taşındı. Köleler değil, maaşlı işçiler çalıştı.\n\n"
+                                                        +
+                                                        "DÖNEM HİKAYESİ: Eski Krallık dönemi, Mısır'ın 'Piramit Çağı'ydı. Merkezi devlet gücü doruk noktasındaydı. Firavun bir tanrı-kral olarak görülüyor, tüm ülkenin kaynakları onun ebedi anıtına akıtılıyordu. Bu dönem yüzlerce yıl süren istikrar ve refahla bilinir.");
+                                        c2.setAuthor(u);
+                                        c2.setCreatedAt(java.time.LocalDateTime.now().minusDays(2));
+                                        contentRepository.save(c2);
+
+                                        // Makale 3: Roma Yolları
+                                        com.arkeobla.model.Content c3 = new com.arkeobla.model.Content();
+                                        c3.setTitle("Roma Yolları: İmparatorluğu Birleştiren Damarlar");
+                                        c3.setCategory("Tarih");
+                                        c3.setEra("Roma İmparatorluğu");
+                                        c3.setHistoricalDate("MÖ 312 - MS 400");
+                                        c3.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Appian_Way.jpg/1200px-Appian_Way.jpg");
+                                        c3.setSummary("'Bütün yollar Roma'ya çıkar' sözünün arkasındaki mühendislik harikası.");
+                                        c3.setBody("NE? Roma İmparatorluğu'nun inşa ettiği, toplam 400.000 km'yi bulan yol ağı. Bunun 80.000 km'si taş döşeli ana yollardır (Via).\n\n"
+                                                        +
+                                                        "KİM? Roma devleti tarafından planlı bir şekilde inşa edildi. İlk büyük yol olan Via Appia, Censor Appius Claudius Caecus tarafından MÖ 312'de başlatıldı.\n\n"
+                                                        +
+                                                        "NE ZAMAN? 700 yıl boyunca sürekli genişletildi. En yoğun yapım dönemi Cumhuriyet ve erken İmparatorluk dönemleridir.\n\n"
+                                                        +
+                                                        "NEREDE? İspanya'dan Mezopotamya'ya, Britanya'dan Kuzey Afrika'ya tüm imparatorluk toprakları.\n\n"
+                                                        +
+                                                        "NEDEN ÖNEMLİ? Lejyonlar bu yollar sayesinde hızla hareket edebiliyordu. Ayrıca ticaret, haberleşme ve Roma kültürünün yayılması için kritikti.\n\n"
+                                                        +
+                                                        "NASIL YAPILDI? Çok katmanlı mühendislik: Önce zemin kazılır, büyük taşlarla taban oluşturulur, üzerine çakıl, sonra ince kum, en üste düzgün kesilmiş bazalt döşenirdi. Drenaj kanalları ve kavisli yüzeylerle su birikmesi önlenirdi.\n\n"
+                                                        +
+                                                        "DÖNEM HİKAYESİ: Roma'nın yükselişi, askeri güç kadar mühendislik başarısına dayanır. Yollar, köprüler, su kemerleri ve kanalizasyon sistemleri Roma medeniyetinin altyapısını oluşturuyordu. Bu yollardan bazıları 2000 yıl sonra bugün bile kullanılmaktadır.");
+                                        c3.setAuthor(u);
+                                        c3.setCreatedAt(java.time.LocalDateTime.now().minusDays(3));
+                                        contentRepository.save(c3);
+
+                                        // Makale 4: Truva Savaşı
+                                        com.arkeobla.model.Content c4 = new com.arkeobla.model.Content();
+                                        c4.setTitle("Truva Savaşı: Efsane mi Gerçek mi?");
+                                        c4.setCategory("Mitoloji");
+                                        c4.setEra("Tunç Çağı");
+                                        c4.setHistoricalDate("MÖ 1200 civarı");
+                                        c4.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Procession_of_the_Trojan_Horse_into_Troy.jpg/1200px-Procession_of_the_Trojan_Horse_into_Troy.jpg");
+                                        c4.setSummary("Homeros'un İlyada destanındaki savaşın arkeolojik kanıtları.");
+                                        c4.setBody("NE? Yunan mitolojisine göre, Akhaların (Yunanlıların) Truva şehrini 10 yıl kuşatması ve tahta at hilesiyle ele geçirmesi.\n\n"
+                                                        +
+                                                        "KİM? Mitolojiye göre Spartalı Helen'in kaçırılması savaşı başlattı. Akhilleus, Hektor, Odysseus gibi kahramanlar öne çıkar.\n\n"
+                                                        +
+                                                        "NE ZAMAN? Geleneksel olarak MÖ 1194-1184 olarak tarihlenir. Arkeolojik olarak Truva VIIa tabakası (MÖ 1190-1180) savaş izleri taşır.\n\n"
+                                                        +
+                                                        "NEREDE? Çanakkale'nin güneybatısında, Hisarlık Höyüğü. Alman arkeolog Heinrich Schliemann 1871'de kazılara başladı.\n\n"
+                                                        +
+                                                        "NEDEN ÖNEMLİ? Efsanenin gerçek bir tarihi çekirdeği olduğu artık kabul görüyor. Tunç Çağı'nın sonundaki büyük çöküş dönemine denk geliyor.\n\n"
+                                                        +
+                                                        "DÖNEM HİKAYESİ: MÖ 1200 civarında Doğu Akdeniz'i sarsan 'Tunç Çağı Çöküşü' yaşandı. Hitit İmparatorluğu yıkıldı, Miken uygarlığı sona erdi, 'Deniz Kavimleri' kıyıları kasıp kavurdu. Truva muhtemelen bu kaotik dönemin kurbanlarından biriydi.");
+                                        c4.setAuthor(u);
+                                        c4.setCreatedAt(java.time.LocalDateTime.now().minusDays(4));
+                                        contentRepository.save(c4);
+
+                                        // Makale 5: İskenderiye Kütüphanesi
+                                        com.arkeobla.model.Content c5 = new com.arkeobla.model.Content();
+                                        c5.setTitle("İskenderiye Kütüphanesi: Kaybolan Bilgi Hazinesi");
+                                        c5.setCategory("Tarih");
+                                        c5.setEra("Antik Yunan");
+                                        c5.setHistoricalDate("MÖ 3. yüzyıl - MS 391");
+                                        c5.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Ancientlibraryalex.jpg/1200px-Ancientlibraryalex.jpg");
+                                        c5.setSummary("Antik dünyanın en büyük bilgi merkezi ve trajik yok oluşunun hikayesi.");
+                                        c5.setBody("NE? İskenderiye'de kurulan, amacı dünyadaki tüm bilgiyi toplamak olan devasa kütüphane ve araştırma merkezi (Museion).\n\n"
+                                                        +
+                                                        "KİM? Ptolemaios I Soter tarafından kuruldu, ardılları tarafından genişletildi. Arşimet, Öklid, Eratosthenes gibi dahiler burada çalıştı.\n\n"
+                                                        +
+                                                        "NE ZAMAN? MÖ 3. yüzyılda kuruldu, MS 391'de Pagan tapınaklarının kapatılmasıyla son kalıntıları yok edildi.\n\n"
+                                                        +
+                                                        "NEREDE? Mısır'ın kuzey kıyısındaki liman kenti İskenderiye'de.\n\n"
+                                                        +
+                                                        "NEDEN ÖNEMLİ? Yaklaşık 700.000 papirüs rulosu barındırıyordu. Antik dünyanın bütün birikimi burada korunuyordu. Yok olması insanlık için büyük kayıptır.\n\n"
+                                                        +
+                                                        "NASIL YOK OLDU? Tek bir günde yanmadı. Jül Sezar'ın kuşatması (MÖ 48), Hristiyan saldırıları (MS 391) ve ihmal yüzyıllar içinde sona erdirdi.\n\n"
+                                                        +
+                                                        "DÖNEM HİKAYESİ: Helenistik Çağ, Büyük İskender'in fetihlerinden sonra Yunan kültürünün Doğu'ya yayıldığı dönemdir. Ptolemaioslar Mısır'ı yönetirken, İskenderiye antik dünyanın en kozmopolit şehri ve bilim başkenti oldu.");
+                                        c5.setAuthor(u);
+                                        c5.setCreatedAt(java.time.LocalDateTime.now().minusDays(5));
+                                        contentRepository.save(c5);
+
+                                        // Makale 6: Demokrasinin Doğuşu
+                                        com.arkeobla.model.Content c6 = new com.arkeobla.model.Content();
+                                        c6.setTitle("Atina Demokrasisi: Halkın İlk Sesi");
+                                        c6.setCategory("Tarih");
+                                        c6.setEra("Antik Yunan");
+                                        c6.setHistoricalDate("MÖ 508/507");
+                                        c6.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Acropolis_from_Philopappos_Hill.jpg/1200px-Acropolis_from_Philopappos_Hill.jpg");
+                                        c6.setSummary("Kleisthenes reformlarıyla başlayan, sıradan vatandaşın devlet yönetimine katıldığı sistem.");
+                                        c6.setBody("NE? 'Demos' (halk) ve 'Kratos' (iktidar) kelimelerinden türeyen, vatandaşların doğrudan yönetimde söz sahibi olduğu sistem.\n\n"
+                                                        +
+                                                        "KİM? Atinalı devlet adamı Kleisthenes, MÖ 508/507'de köklü reformlar yaparak sistemi kurdu. Perikles döneminde (MÖ 5. yy ortası) altın çağını yaşadı.\n\n"
+                                                        +
+                                                        "NE ZAMAN? Yaklaşık 200 yıl sürdü. MÖ 322'de Makedonya hakimiyetiyle sona erdi.\n\n"
+                                                        +
+                                                        "NEREDE? Atina şehir devleti ve çevresindeki Attika bölgesi.\n\n"
+                                                        +
+                                                        "NASIL İŞLİYORDU? Ekklesia (Halk Meclisi) yasaları tartışır ve oylardı. Jüri üyeleri kura ile seçilirdi. 'Ostrakismos' ile tehlikeli görülen kişiler 10 yıllığına sürgün edilebilirdi.\n\n"
+                                                        +
+                                                        "SINIRLAMALARI: Kadınlar, köleler ve yabancılar (metekler) oy kullanamazdı. Nüfusun sadece %10-20'si 'vatandaş' sayılıyordu.\n\n"
+                                                        +
+                                                        "DÖNEM HİKAYESİ: MÖ 5. yüzyıl Atinası'nda sanat, felsefe ve siyaset bir arada çiçek açtı. Tragedya yazarları, Sokrates, Parthenon hepsi bu dönemin ürünüdür. Pers Savaşları'ndaki zafer Atina'ya büyük prestij ve güç kazandırmıştı.");
+                                        c6.setAuthor(u);
+                                        c6.setCreatedAt(java.time.LocalDateTime.now().minusDays(6));
+                                        contentRepository.save(c6);
+
+                                        // Makale 7: Sümer Tabletleri
+                                        com.arkeobla.model.Content c7 = new com.arkeobla.model.Content();
+                                        c7.setTitle("Sümer Çivi Yazısı: İnsanlığın İlk Sözleri");
+                                        c7.setCategory("Arkeoloji");
+                                        c7.setEra("Erken Tunç Çağı");
+                                        c7.setHistoricalDate("MÖ 3400 - MÖ 2000");
+                                        c7.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Cuneiform_script2.jpg/1200px-Cuneiform_script2.jpg");
+                                        c7.setSummary("Mezopotamya'da icat edilen dünyanın bilinen en eski yazı sistemi.");
+                                        c7.setBody("NE? Kamış kalemlerle ıslak kil tabletlere basılan çivi (kama) şeklindeki işaretlerden oluşan yazı sistemi.\n\n"
+                                                        +
+                                                        "KİM? Sümerler tarafından icat edildi. Sonra Akadlar, Babilliler, Asurlular, Hititler ve Persler tarafından benimsendi.\n\n"
+                                                        +
+                                                        "NE ZAMAN? MÖ 3400 civarında ortaya çıktı. 3000 yıldan fazla kullanıldı, MS 1. yüzyılda tamamen terk edildi.\n\n"
+                                                        +
+                                                        "NEREDE? Güney Irak'taki Uruk şehrinde başladı, tüm Yakın Doğu'ya yayıldı.\n\n"
+                                                        +
+                                                        "NEDEN İCAT EDİLDİ? İlk başta tapınak ekonomisini yönetmek için: Tahıl stokları, hayvan sayıları, işçi ücretleri kayıt altına alınıyordu.\n\n"
+                                                        +
+                                                        "NASIL ÇÖZÜLDÜ? 19. yüzyılda Henry Rawlinson, Behistun Yazıtı'ndaki üç dilli metni çözerek çivi yazısının kapısını açtı.\n\n"
+                                                        +
+                                                        "DÖNEM HİKAYESİ: Sümerler ilklerin uygarlığıdır: İlk şehirler, ilk yazı, ilk yasalar, ilk edebiyat (Gılgamış Destanı). Dicle ve Fırat nehirleri arasındaki verimli topraklarda doğan bu uygarlık, insanlık tarihinin temellerini attı.");
+                                        c7.setAuthor(u);
+                                        c7.setCreatedAt(java.time.LocalDateTime.now().minusDays(7));
+                                        contentRepository.save(c7);
+
+                                        // Makale 8: Tutankhamun
+                                        com.arkeobla.model.Content c8 = new com.arkeobla.model.Content();
+                                        c8.setTitle("Tutankhamun'un Hazineleri: Altın Maskenin Ardındaki Çocuk Kral");
+                                        c8.setCategory("Arkeoloji");
+                                        c8.setEra("Antik Mısır");
+                                        c8.setHistoricalDate("MÖ 1332 - MÖ 1323");
+                                        c8.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Tutanchamun_Maske.jpg/1200px-Tutanchamun_Maske.jpg");
+                                        c8.setSummary("Howard Carter'ın 1922'de bulduğu el değmemiş mezar ve ikonik altın maske.");
+                                        c8.setBody("NE? Yeni Krallık dönemi firavunu Tutankhamun'un Krallar Vadisi'ndeki mezarı (KV62). Antik çağda yağmalanmadan kalan nadir mezarlardan biri.\n\n"
+                                                        +
+                                                        "KİM? Tutankhamun yaklaşık 9 yaşında tahta çıktı, 18-19 yaşında öldü. Babası 'deli firavun' Akhenaton olabilir.\n\n"
+                                                        +
+                                                        "NE ZAMAN? Mezar 4 Kasım 1922'de İngiliz arkeolog Howard Carter tarafından keşfedildi.\n\n"
+                                                        +
+                                                        "NEREDE? Mısır'ın güneyinde, Luksor yakınlarındaki Krallar Vadisi.\n\n"
+                                                        +
+                                                        "NELER BULUNDU? 5.000'den fazla eser: Altın tabut, 11 kg ağırlığındaki altın maske, savaş arabaları, tahtlar, mücevherler, hatta bir trompet bile.\n\n"
+                                                        +
+                                                        "FİRAVUN LANETİ: Keşiften sonra Lord Carnarvon'un ölümü 'lanet' söylentilerini başlattı. Gerçekte muhtemelen enfeksiyon nedeniyle öldü.\n\n"
+                                                        +
+                                                        "DÖNEM HİKAYESİ: Tutankhamun, babasının dini devrimini (tek tanrı Aten) geri alıp geleneksel Mısır dinine dönüşü simgeler. Kısa hükümdarlığına rağmen mezarındaki hazineler onu tarihin en ünlü firavunu yaptı.");
+                                        c8.setAuthor(u);
+                                        c8.setCreatedAt(java.time.LocalDateTime.now().minusDays(8));
+                                        contentRepository.save(c8);
+
+                                        // Makale 9: Kolezyum
+                                        com.arkeobla.model.Content c9 = new com.arkeobla.model.Content();
+                                        c9.setTitle("Kolezyum: Gladyatörlerin Kan Arenası");
+                                        c9.setCategory("Tarih");
+                                        c9.setEra("Roma İmparatorluğu");
+                                        c9.setHistoricalDate("MS 70 - MS 80");
+                                        c9.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/1200px-Colosseo_2020.jpg");
+                                        c9.setSummary("Roma'nın 50.000 kişilik devasa amfitiyatrosunda gladyatör oyunları ve vahşet gösteri olmuştu.");
+                                        c9.setBody("NE? Resmi adı Flavianus Amfitiyatrosu olan, 50.000 seyirci kapasiteli dev arena. Romalıların 'Ekmek ve Sirk' politikasının simgesi.\n\n"
+                                                        +
+                                                        "KİM? İmparator Vespasianus tarafından başlatıldı, oğlu Titus döneminde MS 80'de açıldı.\n\n"
+                                                        +
+                                                        "NE ZAMAN? MS 80'den itibaren yaklaşık 400 yıl boyunca aktif olarak kullanıldı.\n\n"
+                                                        +
+                                                        "NEREDE? Roma'nın tam kalbinde, Forum Romanum'un hemen doğusunda.\n\n"
+                                                        +
+                                                        "NELER OLUYORDU? Gladyatör dövüşleri (Munera), hayvan avları (Venatio), idam infazları, hatta su doldurulup deniz savaşları (Naumachia) bile canlandırılıyordu.\n\n"
+                                                        +
+                                                        "MİMARİ DEHASI: 80 giriş kapısı sayesinde on binlerce kişi dakikalar içinde tahliye edilebiliyordu. Arenanın altındaki Hypogeum tunellerinde gladyatörler ve hayvanlar asansörlerle sahneye çıkarılırdı.\n\n"
+                                                        +
+                                                        "DÖNEM HİKAYESİ: Flavius hanedanı dönemi, İç Savaş'ın ardından Roma'da istikrarın yeniden kurulduğu zamandı. Kolezyum, imparatorların halka cömertliklerini ve Roma'nın gücünü gösterdiği bir propaganda aracıydı.");
+                                        c9.setAuthor(u);
+                                        c9.setCreatedAt(java.time.LocalDateTime.now().minusDays(9));
+                                        contentRepository.save(c9);
+
+                                        // Makale 10: Matbaa
+                                        com.arkeobla.model.Content c10 = new com.arkeobla.model.Content();
+                                        c10.setTitle("Gutenberg'in Matbaası: Bilginin Demokratikleşmesi");
+                                        c10.setCategory("Keşif");
+                                        c10.setEra("Rönesans");
+                                        c10.setHistoricalDate("1440");
+                                        c10.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Gutenberg_Bible_B42_Genesis.jpg/1200px-Gutenberg_Bible_B42_Genesis.jpg");
+                                        c10.setSummary("Hareketli metal harfli baskı tekniği, Avrupa'yı ve dünyayı sonsuza dek değiştirdi.");
+                                        c10.setBody("NE? Değiştirilebilir metal harflerle mekanik baskı yapan sistem. Bir kitap artık elle kopyalanmak yerine yüzlerce kopya basılabiliyordu.\n\n"
+                                                        +
+                                                        "KİM? Alman kuyumcu Johannes Gutenberg, Mainz şehrinde. Çin ve Kore'de daha önce benzer teknikler vardı, ama Avrupa'da Gutenberg sistematize etti.\n\n"
+                                                        +
+                                                        "NE ZAMAN? 1440 civarında geliştirildi. İlk büyük eser 1455'teki Gutenberg İncili'dir.\n\n"
+                                                        +
+                                                        "NEREDE? Almanya'nın Mainz şehri Avrupa matbaacılığının beşiği oldu.\n\n"
+                                                        +
+                                                        "NEDEN DEVRİMCİ? Kitap fiyatları düştü, okur-yazarlık arttı, fikirler hızla yayıldı. Rönesans, Reform, Bilimsel Devrim hepsi matbaanın hızlandırdığı süreçlerdir.\n\n"
+                                                        +
+                                                        "ETKİLERİ: Martin Luther'in 95 Tezi haftalar içinde Avrupa'ya yayıldı. Bilim insanları keşiflerini anında paylaşabildi. Standart diller ve ulusal kimlikler şekillendi.\n\n"
+                                                        +
+                                                        "DÖNEM HİKAYESİ: 15. yüzyıl, Orta Çağ'dan Modern Çağ'a geçişin yaşandığı dönemdir. Konstantinopolis düştü, Amerika keşfedildi, Rönesans sanatı zirveye ulaştı. Matbaa bu dönüşümün en güçlü katalizörlerinden biriydi.");
+                                        c10.setAuthor(u);
+                                        c10.setCreatedAt(java.time.LocalDateTime.now().minusDays(10));
+                                        contentRepository.save(c10);
+
+                                        System.out.println(">>> 10 Adet Detaylı Makale Eklendi. (Admin: "
                                                         + u.getUsername() + ")");
                                 });
                         }
