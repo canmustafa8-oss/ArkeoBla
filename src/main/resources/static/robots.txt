@@ -1,0 +1,15 @@
+# ArkeoBla - Arama Motoru Robots.txt
+# https://arkeobla.com
+
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: https://arkeobla.com/sitemap.xml
+
+# Crawl Delay (opsiyonel)
+Crawl-delay: 1
+
+# Admin ve özel sayfalar
+Disallow: /admin
+Disallow: /api/
