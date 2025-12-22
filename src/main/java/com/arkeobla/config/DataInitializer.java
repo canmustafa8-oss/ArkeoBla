@@ -71,7 +71,7 @@ public class DataInitializer {
                                                                 "Ancak en önemli etkisi beslenme üzerindedir. Ateş, besinleri pişirerek tüketmeyi mümkün kıldı. Pişmiş et ve bitkiler, sindirimi çok daha kolay hale getirdi ve vücudun harcadığı sindirim enerjisini azalttı. Bu enerji tasarrufu, insan beyninin büyümesine ve gelişmesine doğrudan katkıda bulundu. Ayrıca, ateş başında toplanan topluluklar, hikayeler anlatarak ve deneyimlerini paylaşarak dilin ve sosyal yapıların gelişmesini sağladı.",
                                                 34.0, 35.0, // Placeholder coordinates, as actual coordinates are not
                                                             // provided in the snippet
-                                                "https://images.unsplash.com/photo-1544558635-667480601430?auto=format&fit=crop&w=800&q=80"));
+                                                "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Gesher_Benot_Ya%27aqov_-_reconstruction_of_the_780%2C000_year_old_site.jpg/800px-Gesher_Benot_Ya%27aqov_-_reconstruction_of_the_780%2C000_year_old_site.jpg"));
                                 mapService.saveLocation(new MapLocation(
                                                 "Mağara Sanatı: Lascaux",
                                                 "İnsanın ilk sanatsal ifadeleri ve büyüleyici duvar resimleri.\n\n" +
@@ -91,7 +91,7 @@ public class DataInitializer {
                                                                 +
                                                                 "Ancak bu devrimin bedelleri de vardı. Tek tip beslenme ve kalabalık yaşam, salgın hastalıkların artmasına yol açtı. Ayrıca 'mülkiyet' kavramının doğuşu, insanlar ve topluluklar arasındaki ilk savaşların da fitilini ateşledi. Tarım Devrimi, modern medeniyetin temelini atan, geri dönüşü olmayan bir adımdı.",
                                                 37.0, 35.0, // Placeholder coordinates
-                                                "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=80"));
+                                                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Fertile_Crescent_map.png/800px-Fertile_Crescent_map.png"));
 
                                 // ANTİK MISIR
                                 mapService.saveLocation(new MapLocation(
@@ -145,7 +145,7 @@ public class DataInitializer {
                                                                 +
                                                                 "Bu muazzam bilgi hazinesinin yok oluşu, insanlık tarihinin en büyük trajedilerinden biridir. Kütüphane tek bir günde yanmadı; Jül Sezar'ın kuşatması, Hristiyan fanatiklerin saldırıları ve son olarak İslami fetihler sırasındaki ihmallerle yüzyıllar içinde yok oldu. Eğer İskenderiye Kütüphanesi günümüze ulaşabilseydi, bugün bilim ve teknolojide çok daha ileri bir noktada olabilirdik.",
                                                 31.2000, 29.9167, // Placeholder coordinates for Alexandria
-                                                "https://images.unsplash.com/photo-1568667256549-094345857637?auto=format&fit=crop&w=800&q=80"));
+                                                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Ancientlibraryalex.jpg/800px-Ancientlibraryalex.jpg"));
                                 mapService.saveLocation(new MapLocation(
                                                 "Roma Yolları ve Mühendisliği",
                                                 "'Bütün yollar Roma'ya çıkar' sözünün arkasındaki mühendislik.\n\n" +
@@ -240,22 +240,25 @@ public class DataInitializer {
                                                         "Kazı çalışmaları hala devam etmektedir ve her geçen gün yeni sırlar gün yüzüne çıkmaktadır.\n\n"
                                                         +
                                                         "Elde edilen bulgular yerel müzelerde sergilenmektedir.";
-                                        // Placeholder Görsel (Doğa/Harabe)
-                                        String img = "https://images.unsplash.com/photo-"
-                                                        + (1500000000000L + (long) (Math.random() * 1000000))
-                                                        + "?auto=format&fit=crop&w=300&q=80";
-                                        // Daha güvenli bir placeholder seti kullanalım
+                                        // Placeholder Görsel - Güvenilir Wikipedia Görselleri
                                         String[] safeImages = {
-                                                        "https://images.unsplash.com/photo-1564399580075-5dfe19c205f9?auto=format&fit=crop&w=300&q=80", // Harabe
-                                                                                                                                                        // 1
-                                                        "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&fit=crop&w=300&q=80", // Harabe
-                                                                                                                                                        // 2
-                                                        "https://images.unsplash.com/photo-1548685913-fe65a8df24d5?auto=format&fit=crop&w=300&q=80", // Taşlar
-                                                        "https://images.unsplash.com/photo-1533514114760-43846b07e4d1?auto=format&fit=crop&w=300&q=80", // Colosseum
-                                                                                                                                                        // benzer
-                                                        "https://images.unsplash.com/photo-1590059390002-3c3e87cb542d?auto=format&fit=crop&w=300&q=80" // Sütunlar
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/G%C3%B6bekli_Tepe%2C_Urfa.jpg/300px-G%C3%B6bekli_Tepe%2C_Urfa.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Ephesus_Celsus_Library.jpg/300px-Ephesus_Celsus_Library.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/All_Gizah_Pyramids.jpg/300px-All_Gizah_Pyramids.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/300px-Colosseo_2020.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Acropolis_from_Philopappos_Hill.jpg/300px-Acropolis_from_Philopappos_Hill.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Appian_Way.jpg/300px-Appian_Way.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Tutanchamun_Maske.jpg/300px-Tutanchamun_Maske.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Rosetta_Stone.JPG/300px-Rosetta_Stone.JPG",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Lascaux_painting.jpg/300px-Lascaux_painting.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Gutenberg_Bible_B42_Genesis.jpg/300px-Gutenberg_Bible_B42_Genesis.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Pergamonmuseum_Babylon_Ischtar-Tor.jpg/300px-Pergamonmuseum_Babylon_Ischtar-Tor.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Persepolis_T_Chipiez.jpg/300px-Persepolis_T_Chipiez.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Sphinx_partially_excavated2.jpg/300px-Sphinx_partially_excavated2.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Pompeii-Forum.jpg/300px-Pompeii-Forum.jpg",
+                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Big_Temple%2C_Thanjavur.jpg/300px-Big_Temple%2C_Thanjavur.jpg"
                                         };
-                                        img = safeImages[(int) (Math.random() * safeImages.length)];
+                                        String img = safeImages[(int) (Math.random() * safeImages.length)];
 
                                         mapService.saveLocation(new MapLocation(name, desc, lat, lng, img));
                                 }
