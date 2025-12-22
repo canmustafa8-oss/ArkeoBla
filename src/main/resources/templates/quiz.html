@@ -93,6 +93,14 @@
         </p>
 
         <form action="/quiz/submit" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+            <!-- Soru yoksa uyarı göster -->
+            <div th:if="${questions == null or questions.empty}"
+                style="text-align:center; padding:40px; background:#fff3cd; border-radius:8px; margin-bottom:20px;">
+                <p style="color:#856404; font-size:18px;">⚠️ Bu kategoride henüz soru bulunamadı.</p>
+                <a href="/quiz" style="color:#856404;">← Başka bir kategori seçin</a>
+            </div>
 
             <div th:each="q : ${questions}" class="question-card" th:data-correct="${q.correctAnswer}">
                 <div class="question-text" th:text="${q.id} + '. ' + ${q.text}">Soru Metni</div>
@@ -105,7 +113,8 @@
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn" id="submitBtn">YARIŞMAYI BİTİR VE SONUCU GÖR</button>
+            <button type="submit" class="submit-btn" id="submitBtn"
+                th:if="${questions != null and not questions.empty}">YARIŞMAYI BİTİR VE SONUCU GÖR</button>
         </form>
     </div>
 

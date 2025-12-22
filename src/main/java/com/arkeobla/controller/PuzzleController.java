@@ -14,25 +14,21 @@ public class PuzzleController {
     private final List<PuzzleLevel> levels = new ArrayList<>();
 
     public PuzzleController() {
-        // Level 1: Zeugma (Kolay 3x3)
-        levels.add(new PuzzleLevel(1, "Zeugma Çingene Kızı", "3x3 Kolay", 3,
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Gaziantep_Zeugma_Museum_Gypsy_Girl_mosaic_close-up_1926.jpg/600px-Gaziantep_Zeugma_Museum_Gypsy_Girl_mosaic_close-up_1926.jpg"));
+        // Picsum placeholder resimleri kullanıyoruz - CORS sorunsuz çalışır
+        levels.add(new PuzzleLevel(1, "Antik Mozaik", "3x3 Kolay", 3,
+                "https://picsum.photos/seed/zeugma/500/500"));
 
-        // Level 2: Göbeklitepe (Orta 4x4)
-        levels.add(new PuzzleLevel(2, "Göbeklitepe Sütunları", "4x4 Orta", 4,
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/G%C3%B6bekli_Tepe%2C_Urfa.jpg/600px-G%C3%B6bekli_Tepe%2C_Urfa.jpg"));
+        levels.add(new PuzzleLevel(2, "Tarihi Yapı", "4x4 Orta", 4,
+                "https://picsum.photos/seed/gobeklitepe/500/500"));
 
-        // Level 3: Piramitler (Zor 5x5)
-        levels.add(new PuzzleLevel(3, "Giza Piramitleri", "5x5 Zor", 5,
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/All_Gizah_Pyramids.jpg/600px-All_Gizah_Pyramids.jpg"));
+        levels.add(new PuzzleLevel(3, "Piramitler", "5x5 Zor", 5,
+                "https://picsum.photos/seed/pyramids/500/500"));
 
-        // Level 4: Kolezyum (Uzman 6x6)
-        levels.add(new PuzzleLevel(4, "Roma Kolezyumu", "6x6 Uzman", 6,
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/600px-Colosseo_2020.jpg"));
+        levels.add(new PuzzleLevel(4, "Antik Arena", "6x6 Uzman", 6,
+                "https://picsum.photos/seed/colosseum/500/500"));
 
-        // Level 5: Parthenon (Final 7x7)
-        levels.add(new PuzzleLevel(5, "Parthenon Tapınağı", "7x7 Usta", 7,
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/The_Parthenon_in_Athens.jpg/600px-The_Parthenon_in_Athens.jpg"));
+        levels.add(new PuzzleLevel(5, "Tapınak", "7x7 Usta", 7,
+                "https://picsum.photos/seed/parthenon/500/500"));
     }
 
     @GetMapping("/puzzle")
