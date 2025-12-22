@@ -1642,198 +1642,197 @@
             "354"
         ],
         "correctAnswer": "365"
+    },
+    {
+        "id": 37,
+        "category": "SPOR",
+        "text": "Modern Olimpiyatlar ilk kez hangi şehirde düzenlenmiştir?",
+        "options": [
+            "Paris",
+            "Londra",
+            "Atina",
+            "Roma"
+        ],
+        "correctAnswer": "Atina"
+    },
+    {
+        "id": 38,
+        "category": "SPOR",
+        "text": "Futbolda Dünya Kupası kaç yılda bir düzenlenir?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "correctAnswer": "4"
+    },
+    {
+        "id": 39,
+        "category": "SPOR",
+        "text": "Basketbolda bir takım sahada kaç kişiyle oynar?",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "11"
+        ],
+        "correctAnswer": "5"
+    },
+    {
+        "id": 40,
+        "category": "SPOR",
+        "text": "Teniste 'Grand Slam' turnuvaları kaç tanedir?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "correctAnswer": "4"
+    },
+    {
+        "id": 41,
+        "category": "SPOR",
+        "text": "Boks maçları nerede yapılır?",
+        "options": [
+            "Kort",
+            "Ring",
+            "Tatami",
+            "Pist"
+        ],
+        "correctAnswer": "Ring"
+    },
+    {
+        "id": 42,
+        "category": "SPOR",
+        "text": "Formula 1 yarışlarında damalı bayrak ne anlama gelir?",
+        "options": [
+            "Yarış Bitti",
+            "Tehlike",
+            "Ceza",
+            "Son Tur"
+        ],
+        "correctAnswer": "Yarış Bitti"
+    },
+    {
+        "id": 43,
+        "category": "SPOR",
+        "text": "NBA tarihinde en çok şampiyon olan takım hangisidir (2024 itibariyle)?",
+        "options": [
+            "Golden State Warriors",
+            "Chicago Bulls",
+            "Boston Celtics",
+            "Miami Heat"
+        ],
+        "correctAnswer": "Boston Celtics"
+    },
+    {
+        "id": 44,
+        "category": "SPOR",
+        "text": "Okçulukta hedefin tam ortasındaki sarı daire kaç puandır?",
+        "options": [
+            "10",
+            "12",
+            "50",
+            "100"
+        ],
+        "correctAnswer": "10"
+    },
+    {
+        "id": 45,
+        "category": "SANAT",
+        "text": "İstiklal Marşı'mızın şairi kimdir?",
+        "options": [
+            "Namık Kemal",
+            "Tevfik Fikret",
+            "Mehmet Akif Ersoy",
+            "Yahya Kemal"
+        ],
+        "correctAnswer": "Mehmet Akif Ersoy"
+    },
+    {
+        "id": 46,
+        "category": "SANAT",
+        "text": "Suç ve Ceza romanının yazarı kimdir?",
+        "options": [
+            "Tolstoy",
+            "Dostoyevski",
+            "Çehov",
+            "Gogol"
+        ],
+        "correctAnswer": "Dostoyevski"
+    },
+    {
+        "id": 47,
+        "category": "SANAT",
+        "text": "Yıldızlı Gece (Starry Night) tablosu kime aittir?",
+        "options": [
+            "Picasso",
+            "Van Gogh",
+            "Dali",
+            "Monet"
+        ],
+        "correctAnswer": "Van Gogh"
+    },
+    {
+        "id": 48,
+        "category": "SANAT",
+        "text": "Hamlet oyununun yazarı kimdir?",
+        "options": [
+            "Charles Dickens",
+            "William Shakespeare",
+            "Victor Hugo",
+            "Goethe"
+        ],
+        "correctAnswer": "William Shakespeare"
+    },
+    {
+        "id": 49,
+        "category": "SANAT",
+        "text": "İspanyol ressam Salvador Dali hangi akımın temsilcisidir?",
+        "options": [
+            "Kübizm",
+            "Sürrealizm",
+            "Empresyonizm",
+            "Barok"
+        ],
+        "correctAnswer": "Sürrealizm"
+    },
+    {
+        "id": 50,
+        "category": "SANAT",
+        "text": "Nobel Edebiyat Ödülü'nü kazanan ilk Türk yazar kimdir?",
+        "options": [
+            "Yaşar Kemal",
+            "Orhan Pamuk",
+            "Elif Şafak",
+            "Nazım Hikmet"
+        ],
+        "correctAnswer": "Orhan Pamuk"
+    },
+    {
+        "id": 51,
+        "category": "SANAT",
+        "text": "Mona Lisa tablosunu yapan ressam kimdir?",
+        "options": [
+            "Leonardo da Vinci",
+            "Mikelanj",
+            "Raphael",
+            "Donatello"
+        ],
+        "correctAnswer": "Leonardo da Vinci"
+    },
+    {
+        "id": 52,
+        "category": "SANAT",
+        "text": "Harry Potter serisindeki 'Voldemort' karakterinin gerçek adı nedir?",
+        "options": [
+            "Tom Riddle",
+            "Severus Snape",
+            "Sirius Black",
+            "Draco Malfoy"
+        ],
+        "correctAnswer": "Tom Riddle"
     }
-},
-{
-    "id": 37,
-    "category": "SPOR",
-    "text": "Modern Olimpiyatlar ilk kez hangi şehirde düzenlenmiştir?",
-    "options": [
-        "Paris",
-        "Londra",
-        "Atina",
-        "Roma"
-    ],
-    "correctAnswer": "Atina"
-},
-{
-    "id": 38,
-    "category": "SPOR",
-    "text": "Futbolda Dünya Kupası kaç yılda bir düzenlenir?",
-    "options": [
-        "2",
-        "3",
-        "4",
-        "5"
-    ],
-    "correctAnswer": "4"
-},
-{
-    "id": 39,
-    "category": "SPOR",
-    "text": "Basketbolda bir takım sahada kaç kişiyle oynar?",
-    "options": [
-        "5",
-        "6",
-        "7",
-        "11"
-    ],
-    "correctAnswer": "5"
-},
-{
-    "id": 40,
-    "category": "SPOR",
-    "text": "Teniste 'Grand Slam' turnuvaları kaç tanedir?",
-    "options": [
-        "2",
-        "3",
-        "4",
-        "5"
-    ],
-    "correctAnswer": "4"
-},
-{
-    "id": 41,
-    "category": "SPOR",
-    "text": "Boks maçları nerede yapılır?",
-    "options": [
-        "Kort",
-        "Ring",
-        "Tatami",
-        "Pist"
-    ],
-    "correctAnswer": "Ring"
-},
-{
-    "id": 42,
-    "category": "SPOR",
-    "text": "Formula 1 yarışlarında damalı bayrak ne anlama gelir?",
-    "options": [
-        "Yarış Bitti",
-        "Tehlike",
-        "Ceza",
-        "Son Tur"
-    ],
-    "correctAnswer": "Yarış Bitti"
-},
-{
-    "id": 43,
-    "category": "SPOR",
-    "text": "NBA tarihinde en çok şampiyon olan takım hangisidir (2024 itibariyle)?",
-    "options": [
-        "Golden State Warriors",
-        "Chicago Bulls",
-        "Boston Celtics",
-        "Miami Heat"
-    ],
-    "correctAnswer": "Boston Celtics"
-},
-{
-    "id": 44,
-    "category": "SPOR",
-    "text": "Okçulukta hedefin tam ortasındaki sarı daire kaç puandır?",
-    "options": [
-        "10",
-        "12",
-        "50",
-        "100"
-    ],
-    "correctAnswer": "10"
-},
-{
-    "id": 45,
-    "category": "SANAT",
-    "text": "İstiklal Marşı'mızın şairi kimdir?",
-    "options": [
-        "Namık Kemal",
-        "Tevfik Fikret",
-        "Mehmet Akif Ersoy",
-        "Yahya Kemal"
-    ],
-    "correctAnswer": "Mehmet Akif Ersoy"
-},
-{
-    "id": 46,
-    "category": "SANAT",
-    "text": "Suç ve Ceza romanının yazarı kimdir?",
-    "options": [
-        "Tolstoy",
-        "Dostoyevski",
-        "Çehov",
-        "Gogol"
-    ],
-    "correctAnswer": "Dostoyevski"
-},
-{
-    "id": 47,
-    "category": "SANAT",
-    "text": "Yıldızlı Gece (Starry Night) tablosu kime aittir?",
-    "options": [
-        "Picasso",
-        "Van Gogh",
-        "Dali",
-        "Monet"
-    ],
-    "correctAnswer": "Van Gogh"
-},
-{
-    "id": 48,
-    "category": "SANAT",
-    "text": "Hamlet oyununun yazarı kimdir?",
-    "options": [
-        "Charles Dickens",
-        "William Shakespeare",
-        "Victor Hugo",
-        "Goethe"
-    ],
-    "correctAnswer": "William Shakespeare"
-},
-{
-    "id": 49,
-    "category": "SANAT",
-    "text": "İspanyol ressam Salvador Dali hangi akımın temsilcisidir?",
-    "options": [
-        "Kübizm",
-        "Sürrealizm",
-        "Empresyonizm",
-        "Barok"
-    ],
-    "correctAnswer": "Sürrealizm"
-},
-{
-    "id": 50,
-    "category": "SANAT",
-    "text": "Nobel Edebiyat Ödülü'nü kazanan ilk Türk yazar kimdir?",
-    "options": [
-        "Yaşar Kemal",
-        "Orhan Pamuk",
-        "Elif Şafak",
-        "Nazım Hikmet"
-    ],
-    "correctAnswer": "Orhan Pamuk"
-},
-{
-    "id": 51,
-    "category": "SANAT",
-    "text": "Mona Lisa tablosunu yapan ressam kimdir?",
-    "options": [
-        "Leonardo da Vinci",
-        "Mikelanj",
-        "Raphael",
-        "Donatello"
-    ],
-    "correctAnswer": "Leonardo da Vinci"
-},
-{
-    "id": 52,
-    "category": "SANAT",
-    "text": "Harry Potter serisindeki 'Voldemort' karakterinin gerçek adı nedir?",
-    "options": [
-        "Tom Riddle",
-        "Severus Snape",
-        "Sirius Black",
-        "Draco Malfoy"
-    ],
-    "correctAnswer": "Tom Riddle"
-}
 ]
