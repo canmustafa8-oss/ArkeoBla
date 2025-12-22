@@ -34,6 +34,7 @@ public class AuthController {
             @RequestParam String password,
             @RequestParam String firstName,
             @RequestParam String lastName,
+            @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) java.time.LocalDate birthDate,
             Model model) {
         // Şifre Politikası: En az 6 karakter, 1 Büyük Harf
         if (password.length() < 6 || !password.matches(".*[A-Z].*")) {
@@ -42,7 +43,8 @@ public class AuthController {
         }
 
         try {
-            com.arkeobla.model.User user = userService.registerUser(username, email, password, firstName, lastName);
+            com.arkeobla.model.User user = userService.registerUser(username, email, password, firstName, lastName,
+                    birthDate);
             emailService.sendVerificationEmail(user.getEmail(), user.getVerificationCode());
 
             // Başarılı ama doğrulama lazım

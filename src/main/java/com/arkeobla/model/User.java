@@ -29,6 +29,8 @@ public class User {
     private String firstName;
     private String lastName;
 
+    private java.time.LocalDate birthDate;
+
     private int totalScore = 0;
     private int correctAnswers = 0;
     private int wrongAnswers = 0;
@@ -111,6 +113,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public java.time.LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(java.time.LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public int getTotalScore() {
