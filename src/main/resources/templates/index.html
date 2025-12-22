@@ -55,10 +55,11 @@
             <div class="menu-card">
                 <div class="user-profile" th:if="${#authentication.name != 'anonymousUser'}">
                     <div style="font-size: 40px;">👤</div>
-                    <div style="font-weight: bold; margin-top: 5px;" th:text="${#authentication.name}">Kullanıcı</div>
+                    <div style="font-weight: bold; margin-top: 5px;" th:text="${#authentication.principal.displayName}">
+                        Kullanıcı</div>
                     <div style="font-size: 11px; color: #c5a059; margin-top: 5px;"
-                        th:if="${#authentication.getPrincipal().getUser().badges != null}"
-                        th:text="'🏅 ' + ${#authentication.getPrincipal().getUser().badges}">Rozetler</div>
+                        th:if="${#authentication.principal.user.badges != null}"
+                        th:text="'🏅 ' + ${#authentication.principal.user.badges}">Rozetler</div>
                     <div style="font-size: 12px; color: #888;" th:text="${#authentication.authorities}">Rol</div>
                 </div>
 
