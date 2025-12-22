@@ -14,7 +14,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User registerUser(String username, String email, String password) {
+    public User registerUser(String username, String email, String password, String firstName, String lastName) {
         if (userRepository.findByUsername(username).isPresent()) {
             throw new RuntimeException("Bu kullanıcı adı zaten alınmış.");
         }
@@ -27,6 +27,8 @@ public class UserService {
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(password);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
         user.setRole(Role.USER); // Varsayılan USER
         user.setBadges("YENİ_ÜYE");
 

@@ -26,6 +26,9 @@ public class User {
 
     private String badges; // Virgülle ayrılmış rozetler: "ROZET_1,ROZET_2"
 
+    private String firstName;
+    private String lastName;
+
     private int totalScore = 0;
     private int correctAnswers = 0;
     private int wrongAnswers = 0;
@@ -92,6 +95,22 @@ public class User {
 
     public void setBadges(String badges) {
         this.badges = badges;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getTotalScore() {

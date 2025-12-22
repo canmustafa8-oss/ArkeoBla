@@ -32,6 +32,8 @@ public class AuthController {
     public String registerUser(@RequestParam String username,
             @RequestParam String email,
             @RequestParam String password,
+            @RequestParam String firstName,
+            @RequestParam String lastName,
             Model model) {
         // Şifre Politikası: En az 6 karakter, 1 Büyük Harf
         if (password.length() < 6 || !password.matches(".*[A-Z].*")) {
@@ -40,7 +42,7 @@ public class AuthController {
         }
 
         try {
-            com.arkeobla.model.User user = userService.registerUser(username, email, password);
+            com.arkeobla.model.User user = userService.registerUser(username, email, password, firstName, lastName);
             emailService.sendVerificationEmail(user.getEmail(), user.getVerificationCode());
 
             // Başarılı ama doğrulama lazım
