@@ -6,265 +6,645 @@
     <link rel="stylesheet" href="/css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Modern Redesign - Animations & Cards */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1612 0%, #2c241b 50%, #1a1612 100%);
+            background-attachment: fixed;
+            color: #f4f1ea;
+            font-family: 'Lora', serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background-image: radial-gradient(circle at 20% 80%, rgba(197, 160, 89, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(197, 160, 89, 0.03) 0%, transparent 50%);
+        }
+
+        /* Modern Header */
+        .modern-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 22, 18, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+        }
+
+        .modern-header .brand {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8em;
+            color: #c5a059;
+            text-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+        }
+
+        .modern-header .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .modern-header .nav-links a {
+            color: #dcd6ce;
+            font-size: 14px;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        .modern-header .nav-links a:hover {
+            color: #c5a059;
+            background: rgba(197, 160, 89, 0.1);
+        }
+
+        /* Hero Section - Full Screen */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/img/hero.png');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4);
+            z-index: 0;
+        }
+
+        .hero-content-modern {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content-modern h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 4em;
+            color: #c5a059;
+            margin: 0;
+            text-shadow: 0 0 40px rgba(197, 160, 89, 0.4);
+            letter-spacing: 3px;
+        }
+
+        .hero-content-modern p {
+            font-size: 1.3em;
+            color: #dcd6ce;
+            margin: 20px 0 40px 0;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #c5a059, #d4af37);
+            color: #1a1612;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.3);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(197, 160, 89, 0.4);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: #c5a059;
+            font-size: 2em;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 100px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: 2.5em;
+            color: #c5a059;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Feature Cards Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.1), transparent);
+            transition: left 0.7s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: #c5a059;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(197, 160, 89, 0.2);
+            background: rgba(197, 160, 89, 0.05);
+        }
+
+        .feature-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .feature-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4em;
+            color: #c5a059;
+            margin-bottom: 15px;
+        }
+
+        .feature-desc {
+            color: #aaa;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        /* User Profile Card */
+        .user-card {
+            background: linear-gradient(135deg, rgba(197, 160, 89, 0.1), rgba(44, 36, 27, 0.8));
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto 60px auto;
+        }
+
+        .user-card .avatar {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+
+        .user-card .name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5em;
+            color: #c5a059;
+        }
+
+        .user-card .badges {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        /* News Section */
+        .news-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 80px 40px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .news-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(197, 160, 89, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.4s;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .news-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .news-card:hover {
+            border-color: #c5a059;
+            background: rgba(197, 160, 89, 0.05);
+        }
+
+        .news-card h4 {
+            color: #c5a059;
+            margin: 0 0 15px 0;
+            font-family: 'Cinzel', serif;
+        }
+
+        .news-card a {
+            display: block;
+            color: #ddd;
+            font-size: 0.9em;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .news-card a:hover {
+            color: #c5a059;
+            padding-left: 10px;
+        }
+
+        /* Daily Artifact */
+        .artifact-highlight {
+            text-align: center;
+            padding: 80px 40px;
+        }
+
+        .artifact-image {
+            max-width: 500px;
+            border-radius: 20px;
+            border: 3px solid #c5a059;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s;
+        }
+
+        .artifact-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .modern-footer {
+            background: #0d0b09;
+            padding: 60px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        .modern-footer h2 {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            margin-bottom: 20px;
+        }
+
+        .modern-footer p {
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            line-height: 1.8;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-15px);
+            }
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(197, 160, 89, 0.5);
+            }
+
+            100% {
+                box-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+            }
+        }
+
+        /* Stagger animation delays for cards */
+        .feature-card:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .feature-card:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .feature-card:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        .feature-card:nth-child(5) {
+            transition-delay: 0.5s;
+        }
+
+        .feature-card:nth-child(6) {
+            transition-delay: 0.6s;
+        }
+
+        .feature-card:nth-child(7) {
+            transition-delay: 0.7s;
+        }
+
+        .feature-card:nth-child(8) {
+            transition-delay: 0.8s;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-content-modern h1 {
+                font-size: 2.5em;
+            }
+
+            .modern-header {
+                padding: 10px 20px;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="container header-content">
-            <div class="brand">🏛️ ARKEOBLA</div>
-            <div id="liveClock"
-                style="font-size: 14px; color: #c5a059; font-family: 'Cinzel', serif; margin-left: 20px;"></div>
-            <div class="nav-links">
-                <a href="/?lang=tr"
-                    style="font-size:12px; border:1px solid #c5a059; padding:2px 5px; border-radius:3px;">TR</a>
-                <a href="/?lang=en"
-                    style="font-size:12px; border:1px solid #c5a059; padding:2px 5px; border-radius:3px;">EN</a>
+    <!-- Animated Background -->
+    <div class="particles"></div>
 
-                <a href="/">Anasayfa</a>
-                <a href="#about">Hakkımızda</a>
-                <span th:if="${#authentication.name != 'anonymousUser'}">
-                    <form th:action="@{/logout}" method="post" style="display:inline;">
-                        <button type="submit"
-                            style="background:none; border:none; color:#e0d8cc; font-family:'Playfair Display'; cursor:pointer; font-size:16px;">Çıkış
-                            Yap</button>
-                    </form>
-                </span>
-                <span th:if="${#authentication.name == 'anonymousUser'}">
-                    <a href="/login" style="color:var(--primary-gold);">GİRİŞ YAP</a>
-                </span>
-            </div>
+    <!-- Modern Header -->
+    <header class="modern-header">
+        <div class="brand">🏛️ ARKEOBLA</div>
+        <div class="nav-links">
+            <a href="/">Anasayfa</a>
+            <a href="/map">Keşif Haritası</a>
+            <a href="/games">Oyunlar</a>
+            <a href="#about">Hakkımızda</a>
+            <span th:if="${#authentication.name != 'anonymousUser'}">
+                <form th:action="@{/logout}" method="post" style="display:inline;">
+                    <button type="submit"
+                        style="background:none; border:1px solid #c5a059; color:#c5a059; padding:8px 20px; border-radius:20px; cursor:pointer; font-family:'Cinzel';">Çıkış</button>
+                </form>
+            </span>
+            <a th:if="${#authentication.name == 'anonymousUser'}" href="/login"
+                style="background:#c5a059; color:#1a1612; padding:8px 20px; border-radius:20px; font-weight:bold;">Giriş
+                Yap</a>
         </div>
     </header>
 
-    <!-- Hero Section - Image -->
-    <div class="hero"></div>
+    <!-- Hero Section - Full Screen -->
+    <section class="hero-section">
+        <div class="hero-bg"></div>
+        <div class="hero-content-modern">
+            <h1>Tarihin Gizemlerini Keşfedin</h1>
+            <p>Arkeoloji, Sanat Tarihi ve Tarih Araştırmalarınıza Yön Verin</p>
+            <a href="/map" class="hero-cta" th:if="${#authentication.name != 'anonymousUser'}">🚀 Keşfetmeye Başla</a>
+            <a href="/register" class="hero-cta" th:if="${#authentication.name == 'anonymousUser'}">🌟 Maceraya
+                Katıl</a>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </section>
 
-    <!-- Hero Content - Below Image -->
-    <div class="hero-content">
-        <h1>Tarihin Gizemlerini Keşfedin</h1>
-        <p>Arkeoloji, Sanat Tarihi ve Tarih Araştırmalarınıza Yön Verin</p>
-        <a href="/register" class="btn-hero" th:if="${#authentication.name == 'anonymousUser'}">KEŞFET ></a>
-        <a href="/map" class="btn-hero" th:if="${#authentication.name != 'anonymousUser'}">KEŞFETMEYE BAŞLA ></a>
-    </div>
+    <!-- User Welcome (if logged in) -->
+    <section class="section" th:if="${#authentication.name != 'anonymousUser'}">
+        <div class="user-card">
+            <div class="avatar">👤</div>
+            <div class="name" th:text="${#authentication.principal.displayName}">Kullanıcı</div>
+            <div class="badges" th:if="${#authentication.principal.user.badges != null}"
+                th:text="'🏅 ' + ${#authentication.principal.user.badges}">Rozetler</div>
+        </div>
+    </section>
 
-    <div class="container main-grid">
+    <!-- Features Section - Card Grid -->
+    <section class="section">
+        <h2 class="section-title">Keşfet & Öğren</h2>
 
-        <!-- SOL SÜTUN: MENÜ -->
-        <aside class="sidebar-left">
-            <div class="menu-card">
-                <div class="user-profile" th:if="${#authentication.name != 'anonymousUser'}">
-                    <div style="font-size: 40px;">👤</div>
-                    <div style="font-weight: bold; margin-top: 5px;" th:text="${#authentication.principal.displayName}">
-                        Kullanıcı</div>
-                    <div style="font-size: 11px; color: #c5a059; margin-top: 5px;"
-                        th:if="${#authentication.principal.user.badges != null}"
-                        th:text="'🏅 ' + ${#authentication.principal.user.badges}">Rozetler</div>
-                    <div style="font-size: 12px; color: #888;" th:text="${#authentication.authorities}">Rol</div>
-                </div>
+        <div class="features-grid">
+            <a href="/map" class="feature-card">
+                <span class="feature-icon">🗺️</span>
+                <div class="feature-title">Keşif Haritası</div>
+                <div class="feature-desc">Dünya üzerindeki arkeolojik alanları interaktif haritada keşfedin.</div>
+            </a>
 
-                <nav>
-                    <a th:if="${#authentication.name != 'anonymousUser'}" href="/add-content" class="menu-link">➕ İçerik
-                        Paylaş</a>
-                    <a href="/" class="menu-link">🏠 Ana Akış</a>
-                    <a href="/map" class="menu-link">🗺️ Keşif Haritası</a>
-                    <a href="/time-machine" class="menu-link">⏳ Zaman Makinesi</a>
-                    <a href="/blog" class="menu-link">📚 Bilgelik Kütüphanesi</a>
-                    <a href="/museum" class="menu-link">🏺 Sanal Müze</a>
-                    <a href="/games" class="menu-link">🎮 Oyun Alanı</a>
-                    <a href="/leaderboard" class="menu-link">🏆 Liderlik Tablosu</a>
-                    <a th:if="${#authentication.name != 'anonymousUser'}" href="/profile" class="menu-link">👤
-                        Profilim</a>
-                    <a href="/photos" class="menu-link">📸 Fotoğraf Yarışması</a>
-                    <a th:if="${#authentication.name != 'anonymousUser'}" href="/chat" class="menu-link">💬 Global
-                        Sohbet</a>
-                    <a href="/meeting" class="menu-link">🎥 Canlı
-                        Toplantı</a>
-                    <a href="/ai-chat" class="menu-link">🤖 AI Asistan (Oracle)</a>
-                    <a th:if="${#authentication.name != 'anonymousUser'}" href="/certificate" class="menu-link">🏆
-                        Sertifikam</a>
-                    <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" href="/admin" class="menu-link"
-                        style="color:darkred;">🛡️ Yönetim Paneli</a>
-                </nav>
-            </div>
-        </aside>
+            <a href="/time-machine" class="feature-card">
+                <span class="feature-icon">⏳</span>
+                <div class="feature-title">Zaman Makinesi</div>
+                <div class="feature-desc">Tarih öncesinden modern çağa, dönemler arası yolculuğa çıkın.</div>
+            </a>
 
-        <!-- ORTA SÜTUN: İÇERİK AKIŞI -->
-        <main class="content-feed">
-            <div th:if="${#authentication.name == 'anonymousUser'}"
-                style="text-align:center; padding: 40px; background:white; border:1px solid #dcd6ce; border-top: 4px solid #c5a059;">
-                <h2 style="font-family: 'Cinzel', serif; color: #2c241b;">Hoşgeldin Gezgin.</h2>
-                <p style="color: #666; margin: 15px 0;">Geçmişin sırlarını keşfetmek için kapılarımız herkese açık.
-                    Müzeyi gezebilir, kazı yapabilir veya oyunlar oynayabilirsiniz.</p>
+            <a href="/blog" class="feature-card">
+                <span class="feature-icon">📚</span>
+                <div class="feature-title">Bilgelik Kütüphanesi</div>
+                <div class="feature-desc">Detaylı tarih makaleleri ve araştırmalarla bilginizi derinleştirin.</div>
+            </a>
 
-                <div style="margin-top: 20px;">
-                    <a href="/museum" class="btn-action" style="margin-right: 10px;">🏺 Müzeyi Gez</a>
-                    <a href="/excavation" class="btn-action" style="background-color: #5d4037;">⛏️ Kazı Yap</a>
-                </div>
+            <a href="/museum" class="feature-card">
+                <span class="feature-icon">🏺</span>
+                <div class="feature-title">Sanal Müze</div>
+                <div class="feature-desc">Antik eserler ve hazineleri 3D görüntülerle inceleyin.</div>
+            </a>
 
-                <p style="margin-top: 25px; font-size: 0.9em; color: #888;">
-                    Toplulukla sohbete katılmak için <a href="/register" style="color: #c5a059; font-weight: bold;">Üye
-                        Olun</a>.
-                </p>
-            </div>
+            <a href="/games" class="feature-card">
+                <span class="feature-icon">🎮</span>
+                <div class="feature-title">Oyun Alanı</div>
+                <div class="feature-desc">Kazı simülasyonu, puzzle ve quiz ile eğlenerek öğrenin.</div>
+            </a>
 
-            <!-- İçerik Kartları -->
-            <div th:each="content : ${contents}" class="post-card">
-                <div class="post-meta">
-                    <span th:text="${content.category}">Kategori</span> |
-                    <span th:text="${content.author.username}">Yazar</span> tarafından
-                    <span th:text="${#temporals.format(content.createdAt, 'dd MMM yyyy')}">Tarih</span> paylaşıldı
-                </div>
-                <h3 class="post-title" th:text="${content.title}">Başlık</h3>
-                <p class="post-body" th:text="${content.body}" th:id="'content-' + ${content.id}">İçerik...</p>
+            <a href="/leaderboard" class="feature-card">
+                <span class="feature-icon">🏆</span>
+                <div class="feature-title">Liderlik Tablosu</div>
+                <div class="feature-desc">En başarılı arkeologlarla yarışın, rozetler kazanın.</div>
+            </a>
 
-                <div style="margin-top: 20px; text-align: right;">
-                    <button onclick="alert('Beğeni özelliği yakında!')"
-                        style="background:none; border:none; color:#888; cursor:pointer;">❤️ Beğen</button>
-                    <button th:onclick="'readAloud(\'content-' + ${content.id} + '\')'"
-                        style="background:none; border:none; color:#c5a059; cursor:pointer; margin-left:10px;"
-                        title="Sesli Oku">🔊 Oku</button>
-                    <button onclick="alert('Yorumlar yakında!')"
-                        style="background:none; border:none; color:#888; cursor:pointer; margin-left:10px;">💬 Yorum
-                        Yap</button>
-                </div>
-            </div>
+            <a href="/ai-chat" class="feature-card">
+                <span class="feature-icon">🤖</span>
+                <div class="feature-title">AI Asistan</div>
+                <div class="feature-desc">Oracle ile tarih hakkında sorularınızı sorun.</div>
+            </a>
 
-            <div th:if="${contents.empty}" style="text-align:center; color:#888; padding: 50px;">
-                <p>Henüz keşfedilmemiş topraklar... İlk içeriği sen paylaş!</p>
-            </div>
-        </main>
+            <a href="/chat" class="feature-card" th:if="${#authentication.name != 'anonymousUser'}">
+                <span class="feature-icon">💬</span>
+                <div class="feature-title">Global Sohbet</div>
+                <div class="feature-desc">Diğer tarih meraklılarıyla anlık sohbet edin.</div>
+            </a>
+        </div>
+    </section>
 
-        <!-- SAĞ SÜTUN: HABERLER VE WIDGETLAR -->
-        <aside class="sidebar-right">
+    <!-- Daily Artifact -->
+    <section class="artifact-highlight" th:if="${dailyArtifact != null}">
+        <h2 class="section-title">Günün Eseri</h2>
+        <img th:src="${dailyArtifact.imageUrl}" class="artifact-image" th:alt="${dailyArtifact.title}">
+        <h3 style="color: #c5a059; margin-top: 25px; font-family: 'Cinzel';" th:text="${dailyArtifact.title}">Eser Adı
+        </h3>
+        <p style="color: #888;" th:text="${dailyArtifact.subtitle}">Konum</p>
+    </section>
 
-            <!-- Haber Modülü (Canlı) -->
-            <div class="news-widget">
-                <div class="news-header">
-                    <h3>📢 CANLI HABERLER</h3>
-                </div>
+    <!-- News Section -->
+    <section class="news-section">
+        <h2 class="section-title">Canlı Haberler</h2>
 
-                <h4 style="margin:10px 0 5px 0; font-size:14px; color:#c5a059; border-bottom:1px solid #ddd;">🏺
-                    Arkeoloji</h4>
-                <div th:each="news : ${archaeologyNews}" class="news-item">
-                    <!-- Site içine klonlamak için /news/read adresine gidiyoruz -->
-                    <a th:href="@{/news/read(url=${news.link})}" class="news-title" th:text="${news.title}">Haber
-                        Başlığı</a>
-                    <span class="news-date" th:text="${news.date}">Tarih</span>
-                </div>
-
-                <h4 style="margin:20px 0 5px 0; font-size:14px; color:#c5a059; border-bottom:1px solid #ddd;">📰 Gündem
-                </h4>
-                <div th:each="news : ${agendaNews}" class="news-item">
-                    <a th:href="@{/news/read(url=${news.link})}" class="news-title" th:text="${news.title}">Haber
-                        Başlığı</a>
-                    <span class="news-date" th:text="${news.date}">Tarih</span>
+        <div class="news-grid">
+            <div class="news-card">
+                <h4>🏺 Arkeoloji Haberleri</h4>
+                <div th:each="news : ${archaeologyNews}">
+                    <a th:href="@{/news/read(url=${news.link})}" th:text="${news.title}">Haber Başlığı</a>
                 </div>
             </div>
 
-            <!-- Günün Eseri Widget (Dinamik & Hover Efektli) -->
-            <div class="news-widget" style="text-align: center;">
-                <div class="news-header">
-                    <h3>🏺 GÜNÜN ESERİ</h3>
+            <div class="news-card">
+                <h4>📰 Gündem</h4>
+                <div th:each="news : ${agendaNews}">
+                    <a th:href="@{/news/read(url=${news.link})}" th:text="${news.title}">Haber Başlığı</a>
                 </div>
-
-                <div class="daily-artifact-container"
-                    style="position: relative; overflow: hidden; border-radius: 4px; cursor: pointer;">
-                    <img th:src="${dailyArtifact.imageUrl}"
-                        style="width: 100%; display: block; transition: transform 0.5s;">
-
-                    <!-- Hover Overlay -->
-                    <div class="artifact-overlay">
-                        <h4 th:text="${dailyArtifact.title}"
-                            style="color: #c5a059; margin: 0 0 5px 0; font-family: 'Cinzel', serif;">Eser</h4>
-                        <p th:text="${dailyArtifact.subtitle}" style="color: #fff; font-size: 13px; margin: 0;">Konum
-                        </p>
-                    </div>
-                </div>
-
-                <style>
-                    .daily-artifact-container:hover img {
-                        transform: scale(1.1);
-                    }
-
-                    .artifact-overlay {
-                        position: absolute;
-                        bottom: 0;
-                        left: 0;
-                        width: 100%;
-                        background: rgba(0, 0, 0, 0.8);
-                        /* Koyu transparan zemin */
-                        padding: 15px;
-                        transform: translateY(100%);
-                        /* Başlangıçta gizli (aşağıda) */
-                        transition: transform 0.3s ease-in-out;
-                        box-sizing: border-box;
-                        border-top: 2px solid #c5a059;
-                        text-align: center;
-                    }
-
-                    .daily-artifact-container:hover .artifact-overlay {
-                        transform: translateY(0);
-                        /* Hover olunca yukarı çıkar */
-                    }
-                </style>
-            </div>
-        </aside>
-
-    </div>
-
-    <!-- Footer / Hakkımızda -->
-    <footer id="about"
-        style="background: #2c241b; color: #dcd6ce; padding: 40px 0; margin-top: 50px; text-align: center; border-top: 4px solid #c5a059;">
-        <div class="container">
-            <h2 style="color: #c5a059; font-family: 'Cinzel', serif;">📜 Hakkımızda</h2>
-            <p style="max-width: 600px; margin: 20px auto; line-height: 1.6;">
-                <strong>ArkeoBla</strong>, arkeoloji tutkunlarını ve tarih meraklılarını bir araya
-                getiren
-                yeni nesil bir sosyal platformdur. Amacımız geçmişin gizemlerini modern teknolojiyle aydınlatmak ve
-                bilgiyi herkes için erişilebilir kılmaktır.
-            </p>
-            <div style="margin-top: 30px; font-size: 14px;">
-                <p>© 2025 ArkeoBla Platformu. Tüm hakları saklıdır.</p>
-                <p>İletişim: <a href="mailto:iletisim@arkeobla.com" style="color: #c5a059;">iletisim@arkeobla.com</a>
-                </p>
             </div>
         </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="modern-footer" id="about">
+        <h2>📜 Hakkımızda</h2>
+        <p>
+            <strong>ArkeoBla</strong>, arkeoloji tutkunlarını ve tarih meraklılarını bir araya getiren
+            yeni nesil bir sosyal platformdur. Amacımız geçmişin gizemlerini modern teknolojiyle aydınlatmak ve
+            bilgiyi herkes için erişilebilir kılmaktır.
+        </p>
+        <p style="color: #555; font-size: 14px;">© 2025 ArkeoBla Platformu. Tüm hakları saklıdır.</p>
+        <p><a href="mailto:iletisim@arkeobla.com" style="color: #c5a059;">iletisim@arkeobla.com</a></p>
     </footer>
 
-    <!-- TTS Script -->
+    <!-- Scroll Animation Script -->
     <script>
-        function readAloud(elementId) {
-            const text = document.getElementById(elementId).innerText;
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'tr-TR';
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Tarayıcınız sesli okumayı desteklemiyor.");
-            }
-        }
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        function updateClock() {
-            const now = new Date();
-            const options = {
-                timeZone: 'Europe/Istanbul',
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            };
-            const formatter = new Intl.DateTimeFormat('tr-TR', options);
-            const clockElement = document.getElementById('liveClock');
-            if (clockElement) {
-                clockElement.innerText = "🕒 " + formatter.format(now);
-            }
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animatable elements
+        document.querySelectorAll('.section-title, .feature-card, .news-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
 
 </body>
