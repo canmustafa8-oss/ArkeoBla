@@ -7,254 +7,354 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Konfeti Efekti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Cinzel', serif;
-            background-color: #2c241b;
+            background: linear-gradient(135deg, #1a1612, #2c241b);
             color: #dcd6ce;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-header {
             text-align: center;
+            margin-bottom: 30px;
         }
 
-        .puzzle-container {
-            max-width: 800px;
-            margin: 30px auto;
-        }
-
-        h2 {
+        .game-header h1 {
             color: #c5a059;
+            font-size: 2.5em;
             margin-bottom: 10px;
         }
 
         .level-info {
-            margin-bottom: 20px;
-            font-size: 1.2em;
             color: #aaa;
+            font-size: 1.2em;
         }
 
-        .game-area {
-            display: inline-block;
-            border: 5px solid #c5a059;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            padding: 5px;
-            background: #111;
-            position: relative;
+        .puzzle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
 
         .puzzle-board {
             display: grid;
-            /* Grid template JS ile ayarlanacak */
-            gap: 2px;
-            background: #333;
-            width: 500px;
-            height: 500px;
+            gap: 3px;
+            background: #000;
+            padding: 3px;
+            border: 5px solid #c5a059;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
         }
 
         .puzzle-piece {
-            background-size: 500px 500px;
-            /* Board boyutuyla aynı olmalı */
+            background-size: cover;
+            background-position: center;
             cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s;
-            position: relative;
+            transition: all 0.2s;
+            border: 2px solid transparent;
         }
 
         .puzzle-piece:hover {
-            opacity: 0.8;
-            border: 1px solid #fff;
-            z-index: 10;
-        }
-
-        .puzzle-piece.selected {
-            border: 2px solid #e74c3c;
-            opacity: 1;
+            opacity: 0.7;
+            border-color: #fff;
             transform: scale(0.95);
         }
 
-        /* Başarı Mesajı */
-        #success-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
-            padding: 40px;
-            border: 2px solid #c5a059;
-            border-radius: 10px;
-            z-index: 1000;
-            text-align: center;
+        .puzzle-piece.selected {
+            border-color: #e74c3c;
+            transform: scale(0.9);
         }
 
-        .next-btn {
-            background: #c5a059;
-            color: #1a1a1a;
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #c5a059, #b8935a);
+            color: #000;
             border: none;
-            padding: 10px 20px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            font-family: 'Cinzel', serif;
+            border-radius: 8px;
             cursor: pointer;
+            transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
-            margin-top: 20px;
         }
 
-        .next-btn:hover {
-            background: #d4af37;
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.5);
         }
 
-        /* Orijinal Resim Önizleme */
-        .preview-img {
-            width: 150px;
-            border: 2px solid #555;
-            margin-top: 20px;
-            border-radius: 4px;
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #2c241b, #1a1612);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 5px solid #c5a059;
+            box-shadow: 0 0 50px rgba(197, 160, 89, 0.5);
+            animation: modalPop 0.5s ease;
+        }
+
+        @keyframes modalPop {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            color: #c5a059;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .moves {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: #c5a059;
+            font-size: 1.2em;
         }
     </style>
 </head>
 
 <body>
-
-    <div class="puzzle-container">
-        <h2 th:text="'Level ' + ${level.id} + ': ' + ${level.title}">Level 1</h2>
-        <div class="level-info" th:text="'Zorluk: ' + ${level.difficulty}">3x3</div>
-
-        <!-- Puzzle Alanı -->
-        <div class="game-area">
-            <div id="board" class="puzzle-board"></div>
+    <div class="game-header">
+        <h1>🧩 Tarihi Puzzle</h1>
+        <div class="level-info">
+            <span th:text="'Level ' + ${level.id} + ': ' + ${level.title}">Level 1: Antik Mozaik</span>
+            <br>
+            <span th:text="${level.difficulty}">3x3 Kolay</span>
         </div>
-
-        <br>
-        <p style="font-size: 14px; color: #888;">İpucu: Parçaları yer değiştirmek için üzerine tıklayın.</p>
-
-        <!-- Önizleme -->
-        <br>
-        <img th:src="${level.imageUrl}" class="preview-img" title="Orijinal Resim">
-
-        <br><br>
-        <a href="/games" style="color: #c5a059; text-decoration: none;">🔙 Oyun Alanına Dön</a>
     </div>
 
-    <!-- Başarı Modalı -->
-    <div id="success-modal">
-        <h1 style="color: #2ecc71;">HARİKA! 🎉</h1>
-        <p>Bölümü başarıyla tamamladın.</p>
+    <div class="puzzle-container">
+        <div class="moves">Hamle: <span id="moveCount">0</span></div>
 
-        <a th:if="${nextLevel != null}" th:href="'/puzzle?level=' + ${nextLevel}" class="next-btn">Sonraki Bölüm ▶</a>
-        <a th:if="${isFinal}" href="/games" class="next-btn">🏆 OYUN BİTTİ (Menüye Dön)</a>
+        <div class="puzzle-board" id="puzzleBoard"></div>
+
+        <div class="controls">
+            <button class="btn" onclick="shufflePuzzle()">🔀 Karıştır</button>
+            <button class="btn btn-secondary" onclick="solvePuzzle()">💡 Çöz</button>
+            <a th:href="@{/games}" class="btn btn-secondary">← Oyun Alanına Dön</a>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <h2>🎉 Tebrikler!</h2>
+            <p style="font-size: 1.5em; margin: 20px 0;">Puzzle'ı tamamladınız!</p>
+            <p style="color: #aaa; margin-bottom: 30px;">Hamle sayısı: <span id="finalMoves">0</span></p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <a th:if="${nextLevel != null}" th:href="@{/puzzle(level=${nextLevel})
+}" class="btn">Sonraki Level ▶</a>
+                <a th:if="${isFinal}" th:href="@{/games}" class="btn">🏆 Oyun Alanına Dön</a>
+                <button class="btn btn-secondary" onclick="location.reload()">🔄 Tekrar Oyna</button>
+            </div>
+        </div>
     </div>
 
     <script th:inline="javascript">
-        // Backend verileri
-        const gridSize = [[${ level.gridSize }]]; // Örn: 3, 4, 5...
-        const imageUrl = "[[${level.imageUrl}]]";
+        const gridSize = /*[[${level.gridSize}]]*/ 3;
+        const imageUrl = /*[[${level.imageUrl}]]*/ '/img/puzzle1.jpg';
+        const pieceSize = 130; // Her parça 130px
+        const boardSize = pieceSize * gridSize + (gridSize + 1) * 3; // 3px gap
 
-        const board = document.getElementById('board');
-        const pieceCount = gridSize * gridSize;
-        const pieces = [];
-        let selectedPiece = null;
+        let board = [];
+        let emptyPos = { row: gridSize - 1, col: gridSize - 1 };
+        let moves = 0;
 
-        // Grid CSS ayarla
-        board.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-        board.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+        // Initialize board
+        function init() {
+            const puzzleBoard = document.getElementById('puzzleBoard');
+            puzzleBoard.style.gridTemplateColumns = `repeat(${gridSize}, ${pieceSize}px)`;
+            puzzleBoard.style.gridTemplateRows = `repeat(${gridSize}, ${pieceSize}px)`;
 
-        // Parçaları Oluştur
-        // 500px sabit genişlik varsayıyoruz
-        const pieceSize = 500 / gridSize;
+            // Create pieces
+            for (let row = 0; row < gridSize; row++) {
+                board[row] = [];
+                for (let col = 0; col < gridSize; col++) {
+                    const piece = document.createElement('div');
+                    piece.className = 'puzzle-piece';
+                    piece.style.width = pieceSize + 'px';
+                    piece.style.height = pieceSize + 'px';
 
-        for (let i = 0; i < pieceCount; i++) {
-            const row = Math.floor(i / gridSize);
-            const col = i % gridSize;
+                    if (row === emptyPos.row && col === emptyPos.col) {
+                        piece.style.opacity = '0';
+                        piece.dataset.empty = 'true';
+                    } else {
+                        piece.style.backgroundImage = `url('${imageUrl}')`;
+                        piece.style.backgroundPosition = `-${col * pieceSize}px -${row * pieceSize}px`;
+                        piece.style.backgroundSize = `${gridSize * pieceSize}px ${gridSize * pieceSize}px`;
+                    }
 
-            const div = document.createElement('div');
-            div.classList.add('puzzle-piece');
-            div.style.backgroundImage = `url('${imageUrl}')`;
-            div.style.backgroundPosition = `-${col * pieceSize}px -${row * pieceSize}px`;
+                    piece.dataset.row = row;
+                    piece.dataset.col = col;
+                    piece.onclick = () => movePiece(row, col);
 
-            // Gerçek konum bilgisini sakla (Doğruluk kontrolü için)
-            div.dataset.index = i;
-
-            // Olay Dinleyicisi
-            div.addEventListener('click', () => handlePieceClick(div));
-
-            pieces.push(div);
-        }
-
-        // Parçaları Karıştır
-        shuffleArray(pieces);
-
-        // Board'a ekle
-        pieces.forEach(p => board.appendChild(p));
-
-        // Tıklama Mantığı
-        function handlePieceClick(piece) {
-            if (selectedPiece === piece) {
-                // Seçimi iptal et
-                piece.classList.remove('selected');
-                selectedPiece = null;
-                return;
+                    board[row][col] = piece;
+                    puzzleBoard.appendChild(piece);
+                }
             }
 
-            if (selectedPiece === null) {
-                // İlk seçim
-                selectedPiece = piece;
-                piece.classList.add('selected');
-            } else {
-                // İkinci seçim (Yer Değiştir)
-                swapPieces(selectedPiece, piece);
-                selectedPiece.classList.remove('selected');
-                selectedPiece = null;
-
-                checkWin();
-            }
+            shufflePuzzle();
         }
 
-        function swapPieces(nodeA, nodeB) {
-            const nextA = nodeA.nextSibling;
-            const parentA = nodeA.parentNode;
-            const nextB = nodeB.nextSibling;
-            const parentB = nodeB.parentNode;
+        function movePiece(row, col) {
+            const rowDiff = Math.abs(row - emptyPos.row);
+            const colDiff = Math.abs(col - emptyPos.col);
 
-            // DOM'da yerlerini değiştir
-            if (nextA === nodeB) {
-                parentA.insertBefore(nodeB, nodeA);
-            } else if (nextB === nodeA) {
-                parentA.insertBefore(nodeA, nodeB);
-            } else {
-                parentA.insertBefore(nodeB, nextA);
-                parentB.insertBefore(nodeA, nextB);
-            }
-        }
+            if ((rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1)) {
+                // Swap piece with empty
+                const temp = board[row][col];
+                board[row][col] = board[emptyPos.row][emptyPos.col];
+                board[emptyPos.row][emptyPos.col] = temp;
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
+                // Update positions
+                board[row][col].dataset.row = row;
+                board[row][col].dataset.col = col;
+                board[emptyPos.row][emptyPos.col].dataset.row = emptyPos.row;
+                board[emptyPos.row][emptyPos.col].dataset.col = emptyPos.col;
+
+                // Update empty position
+                emptyPos = { row, col };
+
+                moves++;
+                document.getElementById('moveCount').textContent = moves;
+
+                renderBoard();
+
+                if (checkWin()) {
+                    setTimeout(() => {
+                        confetti({
+                            particleCount: 100,
+                            spread: 70,
+                            origin: { y: 0.6 }
+                        });
+                        document.getElementById('finalMoves').textContent = moves;
+                        document.getElementById('successModal').classList.add('show');
+                    }, 300);
+                }
             }
         }
 
-        // Kazanma Kontrolü
+        function renderBoard() {
+            const puzzleBoard = document.getElementById('puzzleBoard');
+            puzzleBoard.innerHTML = '';
+
+            for (let row = 0; row < gridSize; row++) {
+                for (let col = 0; col < gridSize; col++) {
+                    puzzleBoard.appendChild(board[row][col]);
+                }
+            }
+        }
+
+        function shufflePuzzle() {
+            moves = 0;
+            document.getElementById('moveCount').textContent = moves;
+
+            // Random shuffle
+            for (let i = 0; i < gridSize * gridSize * 10; i++) {
+                const possibleMoves = [];
+                if (emptyPos.row > 0) possibleMoves.push({ row: emptyPos.row - 1, col: emptyPos.col });
+                if (emptyPos.row < gridSize - 1) possibleMoves.push({ row: emptyPos.row + 1, col: emptyPos.col });
+                if (emptyPos.col > 0) possibleMoves.push({ row: emptyPos.row, col: emptyPos.col - 1 });
+                if (emptyPos.col < gridSize - 1) possibleMoves.push({ row: emptyPos.row, col: emptyPos.col + 1 });
+
+                const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+
+                // Silent move (no animation, no move count increase)
+                const temp = board[randomMove.row][randomMove.col];
+                board[randomMove.row][randomMove.col] = board[emptyPos.row][emptyPos.col];
+                board[emptyPos.row][emptyPos.col] = temp;
+
+                board[randomMove.row][randomMove.col].dataset.row = randomMove.row;
+                board[randomMove.row][randomMove.col].dataset.col = randomMove.col;
+                board[emptyPos.row][emptyPos.col].dataset.row = emptyPos.row;
+                board[emptyPos.row][emptyPos.col].dataset.col = emptyPos.col;
+
+                emptyPos = randomMove;
+            }
+
+            moves = 0;
+            document.getElementById('moveCount').textContent = moves;
+            renderBoard();
+        }
+
+        function solvePuzzle() {
+            // Reset to solved state
+            emptyPos = { row: gridSize - 1, col: gridSize - 1 };
+            for (let row = 0; row < gridSize; row++) {
+                for (let col = 0; col < gridSize; col++) {
+                    board[row][col].dataset.row = row;
+                    board[row][col].dataset.col = col;
+                }
+            }
+            renderBoard();
+        }
+
         function checkWin() {
-            const currentOrder = Array.from(board.children).map(child => parseInt(child.dataset.index));
-
-            // Sıralı mı? (0, 1, 2, ... N)
-            const isWin = currentOrder.every((val, index) => val === index);
-
-            if (isWin) {
-                setTimeout(() => {
-                    confetti({
-                        particleCount: 150,
-                        spread: 70,
-                        origin: { y: 0.6 }
-                    });
-                    document.getElementById('success-modal').style.display = 'block';
-                }, 300);
+            for (let row = 0; row < gridSize; row++) {
+                for (let col = 0; col < gridSize; col++) {
+                    if (parseInt(board[row][col].dataset.row) !== row ||
+                        parseInt(board[row][col].dataset.col) !== col) {
+                        return false;
+                    }
+                }
             }
+            return true;
         }
-    </script>
 
+        // Initialize game
+        init();
+    </script>
 </body>
 
 </html>
