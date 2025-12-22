@@ -6,10 +6,50 @@ import java.util.Locale;
 @Service
 public class AiService {
 
+    private final java.util.List<com.arkeobla.model.QuizQuestion> knowledgeBase = new java.util.ArrayList<>();
+
+    @jakarta.annotation.PostConstruct
+    public void init() {
+        try {
+            com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+            java.io.InputStream inputStream = getClass().getResourceAsStream("/questions.json");
+            if (inputStream == null) {
+                System.out.println("⚠️ AI Asistan: questions.json bulunamadı!");
+                return;
+            }
+            java.util.List<com.arkeobla.model.QuizQuestion> questions = mapper.readValue(inputStream,
+                    new com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.arkeobla.model.QuizQuestion>>() {
+                    });
+            knowledgeBase.addAll(questions);
+            System.out.println("✅ AI Asistan: " + knowledgeBase.size() + " bilgi maddesi yüklendi.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public String getAnswer(String question) {
         String q = question.toLowerCase(Locale.forLanguageTag("tr"));
 
-        // Genişletilmiş Bilgi Bankası (Demo)
+        // 1. ADIM: Bilgi Bankasında (questions.json) Arama Yap
+        com.arkeobla.model.QuizQuestion bestMatch = null;
+        double highestScore = 0.0;
+
+        for (com.arkeobla.model.QuizQuestion item : knowledgeBase) {
+            double score = calculateSimilarity(q, item.getText().toLowerCase(Locale.forLanguageTag("tr")));
+            if (score > highestScore) {
+                highestScore = score;
+                bestMatch = item;
+            }
+        }
+
+        // Eşik değer (Örn: %40 benzerlik)
+        if (highestScore > 0.4 && bestMatch != null) {
+            return "📖 <strong>Bilgi Bankamda Buldum:</strong><br>" +
+                    "<em>" + bestMatch.getText() + "</em><br><br>" +
+                    "✅ <strong>Cevap:</strong> " + bestMatch.getCorrectAnswer();
+        }
+
+        // 2. ADIM: Statik Kurallar (Eski Mantık)
         if (q.contains("arkeoloji")) {
             return "Arkeoloji, insanlık tarihini maddi kalıntılar üzerinden inceleyen bilim dalıdır. Kazılarla geçmişi aydınlatır.";
         } else if (q.contains("göbeklitepe") || q.contains("gobeklitepe")) {
@@ -23,13 +63,37 @@ public class AiService {
         } else if (q.contains("tarih")) {
             return "Tarih, geçmişteki olayları neden-sonuç ilişkisi içinde inceleyen bilimdir.";
         } else if (q.contains("merhaba") || q.contains("selam")) {
-            return "Merhaba! Ben ArkeoBla Asistanı. Tarih, arkeoloji ve sanat hakkında her şeyi sorabilirsin.";
+            return "Merhaba! Ben ArkeoBla Asistanı. Tarih, arkeoloji ve sanat hakkında geniş bir bilgi arşivine sahibim. Sorunuzu bekliyorum!";
         } else if (q.contains("kimsin")) {
-            return "Ben Google teknolojilerinden ilham alan ArkeoBla yapay zeka asistanıyım.";
-        } else {
-            // Cevap bulunamazsa Google'a yönlendir
-            return "Bu konuda henüz detaylı bilgim yok. Ama senin için Google'da arayabilirim: " +
-                   "<a href='https://www.google.com/search?q=" + question.replace(" ", "+") + "' target='_blank' style='color:blue; text-decoration:underline;'>'" + question + "' için Google'da Ara</a>";
+            return "Ben ArkeoBla yapay zeka asistanıyım. Yaklaşık " + knowledgeBase.size() + " konuda bilgi sahibiyim.";
         }
+
+        // 3. ADIM: Bulunamadı
+        return "Bu konuda veritabanımda kesin bir bilgi bulamadım. Ama senin için Google'da arayabilirim: " +
+                "<a href='https://www.google.com/search?q=" + question.replace(" ", "+")
+                + "' target='_blank' style='color:blue; text-decoration:underline;'>'" + question
+                + "' için Google'da Ara</a>";
+    }
+
+    // Basit Kelime Benzerliği Algoritması (Jaccard Benzeri)
+    private double calculateSimilarity(String userQuery, String dbText) {
+        String[] queryWords = userQuery.split("\\s+");
+        String[] dbWords = dbText.split("\\s+");
+
+        int matchCount = 0;
+        for (String qWord : queryWords) {
+            if (qWord.length() < 3)
+                continue; // "ve", "ile" gibi bağlaçları takılma
+            for (String dbWord : dbWords) {
+                if (dbWord.contains(qWord) || qWord.contains(dbWord)) {
+                    matchCount++;
+                    break;
+                }
+            }
+        }
+
+        // Skor = Eşleşen Kelime Sayısı / Sorgudaki Kelime Sayısı
+        // (Sorgunun ne kadarının karşılandığına bakıyoruz)
+        return (double) matchCount / queryWords.length;
     }
 }
