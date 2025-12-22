@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ArkeoBla - Keşif Haritası</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #map {
+            height: 100vh;
+            width: 100vw;
+            background: #aad3df;
+        }
+
+        .map-header {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(44, 36, 27, 0.9);
+            padding: 10px 30px;
+            border-radius: 5px;
+            border: 2px solid #c5a059;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .map-header h1 {
+            color: #c5a059;
+            margin: 0;
+            font-size: 24px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #c5a059;
+            color: #2c241b;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            font-family: 'Cinzel', serif;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-btn:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        /* Popup Stili */
+        .leaflet-popup-content-wrapper {
+            background: #f4f1ea;
+            border: 2px solid #2c241b;
+            border-radius: 4px;
+            font-family: 'Lora', serif;
+        }
+
+        .leaflet-popup-content b {
+            font-family: 'Cinzel', serif;
+            color: #8b3a3a;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 2px;
+        }
+
+        .leaflet-popup-content img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 2px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="/" class="back-btn">← Geri Dön</a>
+
+    <div class="map-header">
+        <h1>Dünya Keşif Haritası</h1>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+        // Haritayı başlat (Merkez: Türkiye)
+        var map = L.map('map').setView([39.92, 32.85], 4);
+
+        // OpenStreetMap Katmanı Ekle
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // API'den Lokasyonları Çek ve Ekle
+        fetch('/api/locations')
+            .then(response => response.json())
+            .then(locations => {
+                locations.forEach(loc => {
+                    var popupContent = `<b>${loc.name}</b><img src="${loc.imageUrl}"><br>${loc.description}`;
+
+                    L.marker([loc.latitude, loc.longitude])
+                        .addTo(map)
+                        .bindPopup(popupContent);
+                });
+            })
+            .catch(error => console.error('Hata:', error));
+    </script>
+</body>
+
+</html>
