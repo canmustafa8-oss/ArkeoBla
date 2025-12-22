@@ -24,12 +24,14 @@ public class SecurityConfig {
                                                 .requestMatchers("/games/**", "/museum/**", "/timeline/**",
                                                                 "/excavation/**", "/puzzle/**", "/quiz/**",
                                                                 "/time-machine/**", "/photos/**", "/ai-chat/**",
-                                                                "/certificate/**", "/map/**", "/api/locations/**")
+                                                                "/certificate/**", "/map/**", "/api/locations/**",
+                                                                "/leaderboard/**", "/chat/**")
                                                 .permitAll()
                                                 .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
 
                                                 // Sadece Giriş Yapmış Kullanıcılar
-                                                .requestMatchers("/meeting/**", "/blog/**", "/profile/**")
+                                                .requestMatchers("/meeting/**", "/blog/**", "/profile/**",
+                                                                "/add-content/**")
                                                 .authenticated()
 
                                                 // Admin
