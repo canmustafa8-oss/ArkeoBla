@@ -9,396 +9,598 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Cinzel', serif;
-            background-color: #2c241b;
+            background: linear-gradient(to bottom, #8B7355 0%, #6B5444 50%, #4A3728 100%);
             color: #dcd6ce;
-            text-align: center;
-            overflow: hidden;
+            overflow-x: hidden;
             user-select: none;
         }
 
-        .header-area {
-            margin-top: 20px;
+        .game-header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #c5a059;
         }
 
-        h1 {
-            color: #f1c40f;
-            text-shadow: 2px 2px 0 #000;
-            margin: 0;
+        .game-header h1 {
+            color: #c5a059;
             font-size: 2.5em;
-        }
-
-        .sub-text {
-            font-family: 'Lora', serif;
-            color: #aaa;
-            font-style: italic;
-        }
-
-        .region-badge {
-            background: #c5a059;
-            color: #000;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.8em;
-            vertical-align: middle;
-            margin-left: 10px;
-        }
-
-        .game-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .toolbar {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid #5d4037;
-        }
-
-        .tool-btn {
-            background: #3e2723;
-            border: 2px solid #5d4037;
-            color: #dcd6ce;
-            padding: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 80px;
-        }
-
-        .tool-btn:hover {
-            background: #4e342e;
-            transform: scale(1.05);
-        }
-
-        .tool-btn.active {
-            border-color: #f1c40f;
-            background: #5d4037;
-            box-shadow: 0 0 10px rgba(241, 196, 15, 0.3);
-        }
-
-        .tool-icon {
-            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
             margin-bottom: 5px;
         }
 
-        .tool-name {
-            font-size: 12px;
+        .region-name {
+            color: #fff;
+            font-size: 1.2em;
+            font-weight: normal;
+        }
+
+        .game-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .info-panel {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #8B7355;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            color: #c5a059;
             font-weight: bold;
         }
 
-        .canvas-container {
+        .stat-label {
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        .excavation-area {
             position: relative;
-            width: 640px;
-            height: 480px;
-            border: 8px solid #5d4037;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border-radius: 4px;
-            background: #000;
-            cursor: none;
-        }
-
-        /* İmleçler */
-        .cursor-brush {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23f1c40f" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"/></svg>'), auto;
-        }
-
-        .artifact-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            z-index: 1;
-        }
-
-        #dirt-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 2;
-        }
-
-        #custom-cursor {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            display: none;
-        }
-
-        .progress-container {
-            width: 640px;
+            max-width: 800px;
             margin: 0 auto;
-            margin-top: 10px;
-            background: #222;
-            border-radius: 10px;
-            height: 20px;
-            border: 1px solid #444;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .dirt-layer {
             position: relative;
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #8B7355 0%, #6B5444 50%, #4A3728 100%);
+            cursor: crosshair;
             overflow: hidden;
         }
 
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #d35400, #f1c40f);
-            width: 0%;
-            transition: width 0.2s;
-        }
-
-        .progress-text {
+        .dirt-particles {
             position: absolute;
+            pointer-events: none;
             width: 100%;
-            text-align: center;
-            top: 0;
-            font-size: 12px;
-            line-height: 20px;
-            color: #fff;
-            text-shadow: 1px 1px 2px #000;
+            height: 100%;
         }
 
-        #result-modal {
-            display: none;
-            position: fixed;
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .artifact-revealed {
+            position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(30, 25, 20, 0.95);
-            padding: 40px;
-            border: 3px solid #c5a059;
+            transform: translate(-50%, -50%) scale(0);
+            width: 300px;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.8);
+            transition: transform 0.5s ease;
+            opacity: 0;
+        }
+
+        .artifact-revealed.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .tools {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            background: linear-gradient(135deg, #3e2723, #5d4037);
+            border: 3px solid #8B7355;
+            color: #dcd6ce;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Cinzel', serif;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-btn:hover {
+            background: linear-gradient(135deg, #5d4037, #4e342e);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.3);
+        }
+
+        .tool-btn.active {
+            border-color: #c5a059;
+            background: linear-gradient(135deg, #c5a059, #b8935a);
+            color: #000;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.6);
+        }
+
+        .tool-icon {
+            font-size: 1.5em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 800px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.5);
             border-radius: 15px;
+            overflow: hidden;
+            margin: 20px auto;
+            border: 2px solid #8B7355;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #c5a059, #d4a574);
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
             z-index: 1000;
-            box-shadow: 0 0 50px rgba(197, 160, 89, 0.4);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #2c241b, #1a1612);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
             text-align: center;
-            min-width: 400px;
+            border: 5px solid #c5a059;
+            box-shadow: 0 0 50px rgba(197, 160, 89, 0.5);
+            animation: modalPop 0.5s ease;
+        }
+
+        @keyframes modalPop {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            color: #c5a059;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .artifact-image {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 20px auto;
+            border: 4px solid #c5a059;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .artifact-info {
+            color: #ddd;
+            line-height: 1.8;
+            font-size: 1.1em;
+            margin: 20px 0;
+        }
+
+        .artifact-title {
+            color: #fff;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .artifact-desc {
+            color: #aaa;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
         }
 
         .btn {
-            background: #c5a059;
-            color: #1a1a1a;
-            padding: 12px 25px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1em;
             cursor: pointer;
-            display: inline-block;
-            margin-top: 20px;
-            margin-right: 10px;
-            transition: 0.3s;
+            transition: all 0.3s;
         }
 
-        .btn:hover {
-            background: #d4af37;
+        .btn-primary {
+            background: linear-gradient(135deg, #c5a059, #b8935a);
+            color: #000;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.5);
         }
 
-        .btn.secondary {
-            background: #555;
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
             color: #fff;
+            border: 2px solid #666;
         }
 
-        .btn.secondary:hover {
-            background: #666;
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .instruction {
+            background: rgba(197, 160, 89, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #c5a059;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .instruction p {
+            margin: 5px 0;
+            color: #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .game-header h1 {
+                font-size: 1.8em;
+            }
+
+            .dirt-layer {
+                height: 350px;
+            }
+
+            .tools {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 
 <body>
-
-    <div class="header-area">
-        <h1>
-            ⛏️ KAZI SİMÜLATÖRÜ
-            <span class="region-badge" th:text="${regionName}">Bölge</span>
-        </h1>
-        <p class="sub-text">Seçilen bölgedeki tarihi eserleri gün yüzüne çıkarın.</p>
+    <div class="game-header">
+        <h1>⛏️ Arkeolojik Kazı Simülatörü</h1>
+        <p class="region-name" th:text="${regionName}">Bölge Adı</p>
     </div>
 
-    <div class="game-wrapper">
-        <div class="toolbar">
-            <div class="tool-btn active" onclick="selectTool('shovel')">
-                <div class="tool-icon">⛏️</div>
-                <div class="tool-name">Kaba Kazı</div>
-            </div>
-            <div class="tool-btn" onclick="selectTool('brush')">
-                <div class="tool-icon">🧹</div>
-                <div class="tool-name">İnce Fırça</div>
+    <div class="game-container">
+        <div class="instruction">
+            <p><strong>📋 Talimatlar:</strong></p>
+            <p>🖱️ Fareyle toprağı kazıyın ve gizli eserleri ortaya çıkarın</p>
+            <p>🔍 Dikkatli olun - bazı eserler çok narindir!</p>
+            <p>⭐ Her keşif sizin için bir başarıdır!</p>
+        </div>
+
+        <div class="info-panel">
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="progressPercent">0%</div>
+                    <div class="stat-label">Kazılmış Alan</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="artifactCount">0</div>
+                    <div class="stat-label">Bulunan Eser</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalArtifacts" th:text="${artifacts.size()}">5</div>
+                    <div class="stat-label">Toplam Eser</div>
+                </div>
             </div>
         </div>
 
-        <div>
-            <div class="canvas-container" id="canvas-container">
-                <div class="artifact-layer" th:style="'background-image: url(\'' + ${artifact.imageUrl} + '\');'"></div>
-                <canvas id="dirt-canvas" width="640" height="480"></canvas>
-                <div id="custom-cursor"></div>
-            </div>
+        <div class="tools">
+            <button class="tool-btn active" data-tool="brush" onclick="selectTool('brush')">
+                <span class="tool-icon">🖌️</span>
+                <span>Fırça (Küçük)</span>
+            </button>
+            <button class="tool-btn" data-tool="shovel" onclick="selectTool('shovel')">
+                <span class="tool-icon">⛏️</span>
+                <span>Kazma (Orta)</span>
+            </button>
+            <button class="tool-btn" data-tool="excavator" onclick="selectTool('excavator')">
+                <span class="tool-icon">🚜</span>
+                <span>Ekskavatör (Büyük)</span>
+            </button>
+        </div>
 
-            <div class="progress-container">
-                <div class="progress-bar" id="progress-bar"></div>
-                <div class="progress-text" id="progress-text">Kazı Durumu: %0</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill">0%</div>
+        </div>
+
+        <div class="excavation-area">
+            <div class="dirt-layer" id="dirtLayer">
+                <canvas id="dirtCanvas"></canvas>
+                <div class="dirt-particles" id="particles"></div>
             </div>
         </div>
     </div>
 
-    <div id="result-modal">
-        <h2 style="color: #2ecc71; font-size: 2em; margin-bottom: 10px;">🎉 ESER BULUNDU!</h2>
-        <div
-            style="background: #000; padding: 10px; display: inline-block; border-radius: 8px; border: 1px solid #444;">
-            <img th:src="${artifact.imageUrl}" style="max-height: 200px; max-width: 100%; border-radius: 4px;">
+    <!-- Artifact Discovery Modal -->
+    <div class="modal" id="artifactModal">
+        <div class="modal-content">
+            <h2>🎉 Eser Bulundu!</h2>
+            <div class="artifact-title" id="artifactTitle">Eser Adı</div>
+            <img id="artifactImage" class="artifact-image" src="" alt="Artifact">
+            <div class="artifact-desc" id="artifactDesc">Eser Açıklaması</div>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="continueExcavation()">Kaz İlmeye Devam Et</button>
+                <button class="btn btn-secondary" onclick="location.href='/excavation'">Bölge Seç</button>
+            </div>
         </div>
-        <h3 th:text="${artifact.name}" style="color: #f1c40f; margin: 15px 0 5px;">Eser Adı</h3>
-        <p th:text="${artifact.description}" style="color: #ccc; font-style: italic;">Açıklama</p>
-
-        <br>
-        <!-- Aynı bölgede yeni kazı -->
-        <a th:href="'/excavation/play?region=' + ${regionCode}" class="btn">🔄 Bu Bölgede Devam Et</a>
-        <!-- Bölge seçimine dön -->
-        <a href="/excavation" class="btn secondary">🌍 Bölge Değiştir</a>
     </div>
+
+    <!-- Hidden artifact data -->
+    <div id="artifactsData" style="display:none;" th:attr="data-artifacts=${artifactsJson}"></div>
 
     <script th:inline="javascript">
-        const canvas = document.getElementById('dirt-canvas');
+        const artifactsData = /*[[${artifacts}]]*/[];
+        const canvas = document.getElementById('dirtCanvas');
         const ctx = canvas.getContext('2d');
-        const container = document.getElementById('canvas-container');
-        const cursor = document.getElementById('custom-cursor');
-        const progressBar = document.getElementById('progress-bar');
-        const progressText = document.getElementById('progress-text');
+        const dirtLayer = document.getElementById('dirtLayer');
 
+        // Canvas setup
+        canvas.width = dirtLayer.offsetWidth;
+        canvas.height = dirtLayer.offsetHeight;
+
+        // Game state
+        let currentTool = 'brush';
+        let toolSizes = { brush: 20, shovel: 40, excavator: 60 };
         let isDrawing = false;
-        let isFinished = false;
+        let clearedPixels = 0;
+        let totalPixels = canvas.width * canvas.height;
+        let foundArtifacts = 0;
+        let currentArtifactIndex = 0;
+        let artifactRevealed = false;
 
-        let currentTool = 'shovel';
-        const tools = {
-            shovel: { size: 40, cursorSize: 80 },
-            brush: { size: 15, cursorSize: 30 }
-        };
+        // Initialize dirt texture
+        function initDirt() {
+            ctx.fillStyle = '#8B7355';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            // Add texture
+            for (let i = 0; i < 5000; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const shade = Math.floor(Math.random() * 50) - 25;
+                ctx.fillStyle = `rgb(${139 + shade}, ${115 + shade}, ${85 + shade})`;
+                ctx.fillRect(x, y, 2, 2);
+            }
+        }
+
+        initDirt();
+
+        // Tool selection
         function selectTool(tool) {
             currentTool = tool;
             document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            updateCursorStyle();
+            document.querySelector(`[data-tool="${tool}"]`).classList.add('active');
         }
 
-        updateCursorStyle();
+        // Digging mechanic
+        function dig(x, y) {
+            const size = toolSizes[currentTool];
+            const imageData = ctx.getImageData(Math.max(0, x - size), Math.max(0, y - size), size * 2, size * 2);
 
-        function updateCursorStyle() {
-            const size = tools[currentTool].cursorSize;
-            cursor.style.width = size + 'px';
-            cursor.style.height = size + 'px';
-            cursor.style.display = 'block';
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                const alpha = imageData.data[i + 3];
+                if (alpha > 0) clearedPixels++;
+                imageData.data[i + 3] = 0; // Make transparent
+            }
+
+            ctx.putImageData(imageData, Math.max(0, x - size), Math.max(0, y - size));
+
+            // Create particle effect
+            createParticles(x, y, size);
+
+            // Update progress
+            updateProgress();
         }
 
-        function fillDirt() {
-            ctx.fillStyle = '#5d4037';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < 8000; i++) {
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height;
-                const size = Math.random() * 4;
-                ctx.fillStyle = Math.random() > 0.5 ? '#3e2723' : '#795548';
-                ctx.fillRect(x, y, size, size);
+        function createParticles(x, y, size) {
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.width = '4px';
+                particle.style.height = '4px';
+                particle.style.background = '#8B7355';
+                particle.style.borderRadius = '50%';
+                particle.style.pointerEvents = 'none';
+
+                document.getElementById('particles').appendChild(particle);
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 3 + 1;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity - 2;
+
+                animateParticle(particle, vx, vy);
             }
         }
-        fillDirt();
 
-        ctx.globalCompositeOperation = 'destination-out';
+        function animateParticle(particle, vx, vy) {
+            let x = parseInt(particle.style.left);
+            let y = parseInt(particle.style.top);
+            let gravity = 0.2;
 
-        function dig(e) {
-            if (!isDrawing || isFinished) return;
+            function update() {
+                vy += gravity;
+                x += vx;
+                y += vy;
 
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.opacity = parseFloat(particle.style.opacity || 1) - 0.02;
+
+                if (parseFloat(particle.style.opacity) > 0) {
+                    requestAnimationFrame(update);
+                } else {
+                    particle.remove();
+                }
+            }
+
+            update();
+        }
+
+        function updateProgress() {
+            const progress = Math.min(100, (clearedPixels / totalPixels * 100) * 10);
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressPercent').textContent = Math.floor(progress) + '%';
+            document.getElementById('progressFill').textContent = Math.floor(progress) + '%';
+
+            // Check for artifact reveal
+            if (progress > 30 && !artifactRevealed && currentArtifactIndex < artifactsData.length) {
+                revealArtifact();
+            }
+        }
+
+        function revealArtifact() {
+            artifactRevealed = true;
+            const artifact = artifactsData[currentArtifactIndex];
+
+            // Confetti effect
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+
+            // Show modal
+            document.getElementById('artifactTitle').textContent = artifact.name;
+            document.getElementById('artifactImage').src = artifact.imageUrl;
+            document.getElementById('artifactDesc').textContent = artifact.description;
+            document.getElementById('artifactModal').classList.add('show');
+
+            foundArtifacts++;
+            document.getElementById('artifactCount').textContent = foundArtifacts;
+        }
+
+        function continueExcavation() {
+            document.getElementById('artifactModal').classList.remove('show');
+            artifactRevealed = false;
+            currentArtifactIndex++;
+            clearedPixels = 0;
+            initDirt();
+
+            if (currentArtifactIndex >= artifactsData.length) {
+                alert('🎊 Tebrikler! Tüm eserleri buldunuz!');
+                location.href = '/excavation';
+            }
+        }
+
+        // Mouse events
+        canvas.addEventListener('mousedown', () => isDrawing = true);
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseleave', () => isDrawing = false);
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
             const rect = canvas.getBoundingClientRect();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-            const x = clientX - rect.left;
-            const y = clientY - rect.top;
-
-            cursor.style.left = clientX + 'px';
-            cursor.style.top = clientY + 'px';
-
-            const toolSize = tools[currentTool].size;
-
-            ctx.beginPath();
-            ctx.arc(x, y, toolSize, 0, Math.PI * 2);
-            ctx.fill();
-
-            if (Math.random() > 0.5) checkProgress();
-        }
-
-        container.addEventListener('mousedown', () => isDrawing = true);
-        window.addEventListener('mouseup', () => isDrawing = false);
-        container.addEventListener('mousemove', (e) => {
-            const clientX = e.clientX;
-            const clientY = e.clientY;
-            cursor.style.left = clientX + 'px';
-            cursor.style.top = clientY + 'px';
-
-            if (isDrawing) dig(e);
+            const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            dig(x, y);
         });
 
-        container.addEventListener('mouseenter', () => cursor.style.display = 'block');
-        container.addEventListener('mouseleave', () => {
-            cursor.style.display = 'none';
-            isDrawing = false;
+        // Touch support
+        canvas.addEventListener('touchstart', (e) => {
+            isDrawing = true;
+            e.preventDefault();
         });
 
-        container.addEventListener('touchstart', (e) => { isDrawing = true; e.preventDefault(); dig(e); });
-        window.addEventListener('touchend', () => isDrawing = false);
-        container.addEventListener('touchmove', (e) => { e.preventDefault(); dig(e); });
+        canvas.addEventListener('touchend', () => isDrawing = false);
 
-        function checkProgress() {
-            if (!this.checkCounter) this.checkCounter = 0;
-            this.checkCounter++;
-
-            if (this.checkCounter % 10 === 0) {
-                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height, { willReadFrequently: true }).data;
-                let transparentPixels = 0;
-                const step = 200;
-
-                for (let i = 3; i < imageData.length; i += 4 * step) {
-                    if (imageData[i] === 0) transparentPixels++;
-                }
-
-                const totalSampled = imageData.length / (4 * step);
-                const percent = Math.floor((transparentPixels / totalSampled) * 100);
-
-                progressBar.style.width = percent + '%';
-                progressText.innerText = 'Kazı Durumu: %' + percent;
-
-                if (percent >= 70) {
-                    finishGame();
-                }
-            }
-        }
-
-        function finishGame() {
-            isFinished = true;
-            canvas.style.opacity = '0';
-            canvas.style.transition = 'opacity 1s';
-            confetti({ particleCount: 200, spread: 120, origin: { y: 0.6 } });
-
-            setTimeout(() => {
-                document.getElementById('result-modal').style.display = 'block';
-            }, 800);
-        }
+        canvas.addEventListener('touchmove', (e) => {
+            if (!isDrawing) return;
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+            dig(x, y);
+        });
     </script>
-
 </body>
 
 </html>
