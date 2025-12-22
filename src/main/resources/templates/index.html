@@ -506,12 +506,42 @@
 
 <body>
 
+    <!-- Loading Screen -->
+    <div id="loading-screen"
+        style="position:fixed; top:0; left:0; width:100%; height:100%; background:#1a1612; z-index:9999; display:flex; justify-content:center; align-items:center; flex-direction:column;">
+        <img src="/img/logo.png" style="width:150px; animation: pulse 1.5s infinite;" alt="ArkeoBla">
+        <p style="color:#c5a059; font-family:'Cinzel'; margin-top:20px;">Yükleniyor...</p>
+    </div>
+    <style>
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+    <script>
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                document.getElementById('loading-screen').style.display = 'none';
+            }, 800);
+        });
+    </script>
+
     <!-- Animated Background -->
     <div class="particles"></div>
 
     <!-- Modern Header -->
     <header class="modern-header">
-        <div class="brand" th:text="#{header.brand}">🏛️ ARKEOBLA</div>
+        <div class="brand">
+            <img src="/img/logo.png" style="height:40px; margin-right:10px; vertical-align:middle;" alt="Logo">
+            <span th:text="#{header.brand}">ARKEOBLA</span>
+        </div>
         <div class="nav-links">
             <a href="/" th:text="#{header.home}">Anasayfa</a>
             <a href="/map" th:text="#{header.map}">Keşif Haritası</a>
@@ -525,6 +555,11 @@
                 <a href="?lang=en"
                     style="font-size:12px; border:1px solid #c5a059; padding:4px 8px; border-radius:4px; color:#c5a059;">EN</a>
             </div>
+
+            <!-- Theme Toggle -->
+            <button id="theme-toggle" onclick="toggleTheme()"
+                style="background:none; border:1px solid #c5a059; color:#c5a059; padding:4px 10px; border-radius:4px; cursor:pointer; margin-left:10px; font-size:16px;"
+                title="Tema Değiştir">🌙</button>
 
             <span th:if="${#authentication.name != 'anonymousUser'}">
                 <form th:action="@{/logout}" method="post" style="display:inline;">
@@ -664,6 +699,33 @@
         <p style="color: #c5a059; font-size: 16px; font-weight: bold; margin: 15px 0;">
             Mustafa Can Yılmaz - Kurucu Yönetici
         </p>
+
+        <!-- Social Share Buttons -->
+        <div style="margin: 25px 0;">
+            <p style="color: #888; margin-bottom: 10px;">📢 Paylaş:</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="https://twitter.com/intent/tweet?text=ArkeoBla%20-%20Tarihin%20Gizemlerini%20Keşfedin!&url=https://arkeobla.com"
+                    target="_blank"
+                    style="background:#1DA1F2; color:white; padding:10px 20px; border-radius:25px; text-decoration:none; font-size:14px;">
+                    🐦 Twitter
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://arkeobla.com" target="_blank"
+                    style="background:#4267B2; color:white; padding:10px 20px; border-radius:25px; text-decoration:none; font-size:14px;">
+                    📘 Facebook
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://arkeobla.com&title=ArkeoBla"
+                    target="_blank"
+                    style="background:#0077B5; color:white; padding:10px 20px; border-radius:25px; text-decoration:none; font-size:14px;">
+                    💼 LinkedIn
+                </a>
+                <a href="https://wa.me/?text=ArkeoBla%20-%20Tarihin%20Gizemlerini%20Keşfedin!%20https://arkeobla.com"
+                    target="_blank"
+                    style="background:#25D366; color:white; padding:10px 20px; border-radius:25px; text-decoration:none; font-size:14px;">
+                    💬 WhatsApp
+                </a>
+            </div>
+        </div>
+
         <p style="color: #555; font-size: 14px;" th:text="#{footer.copyright}">© 2025 ArkeoBla Platformu. Tüm hakları
             saklıdır.</p>
         <p><a href="mailto:canmustafa8@hotmail.com" style="color: #c5a059;">canmustafa8@hotmail.com</a></p>
@@ -699,7 +761,68 @@
                 });
             });
         });
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('theme-toggle');
+
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                btn.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.add('light-mode');
+                btn.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            document.getElementById('theme-toggle').textContent = '☀️';
+        }
     </script>
+
+    <style>
+        /* Light Mode Styles */
+        body.light-mode {
+            background: linear-gradient(135deg, #f5f0e6, #e8dcc8) !important;
+            color: #2c241b !important;
+        }
+
+        body.light-mode .modern-header {
+            background: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .modern-header .brand,
+        body.light-mode .modern-header .nav-links a {
+            color: #2c241b !important;
+        }
+
+        body.light-mode .hero-content-modern {
+            background: linear-gradient(135deg, #f5f0e6, #e8dcc8) !important;
+        }
+
+        body.light-mode .hero-content-modern h1 {
+            color: #8b6914 !important;
+        }
+
+        body.light-mode .feature-card {
+            background: white !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        body.light-mode .section h2 {
+            color: #8b6914 !important;
+        }
+
+        body.light-mode .modern-footer {
+            background: #2c241b !important;
+        }
+    </style>
 
 </body>
 

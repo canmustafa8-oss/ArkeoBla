@@ -3,15 +3,18 @@ package com.arkeobla.service;
 import com.arkeobla.model.Role;
 import com.arkeobla.model.User;
 import com.arkeobla.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User registerUser(String username, String email, String password, String firstName, String lastName,
@@ -27,7 +30,7 @@ public class UserService {
         User user = new User();
         user.setUsername(username);
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password)); // BCrypt ile şifrele
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setBirthDate(birthDate);

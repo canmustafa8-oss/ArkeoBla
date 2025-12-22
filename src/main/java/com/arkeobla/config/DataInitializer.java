@@ -8,19 +8,20 @@ import com.arkeobla.model.MapLocation;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class DataInitializer {
         @Bean
         public CommandLineRunner initData(UserRepository userRepository, MapService mapService,
-                        com.arkeobla.repository.ContentRepository contentRepository) {
+                        com.arkeobla.repository.ContentRepository contentRepository, PasswordEncoder passwordEncoder) {
                 return args -> {
                         // 1. Admin Kullanıcısı (Mcquelss)
                         com.arkeobla.model.User admin = userRepository.findByUsername("Mcquelss").orElse(null);
                         if (admin == null) {
                                 admin = new User();
                                 admin.setUsername("Mcquelss");
-                                admin.setPassword("Mcan1346.");
+                                admin.setPassword(passwordEncoder.encode("Mcan1346."));
                                 admin.setFirstName("Mustafa Can");
                                 admin.setLastName("Yılmaz");
                                 admin.setBirthDate(java.time.LocalDate.of(1990, 1, 1));
