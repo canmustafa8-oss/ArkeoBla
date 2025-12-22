@@ -265,7 +265,28 @@ public class DataInitializer {
                         // 3. Blog İçerikleri (Küratörlü Top 100 Seeder)
                         if (contentRepository.count() < 10) {
                                 userRepository.findByUsername("Mcquelss").ifPresent(u -> {
-                                        System.out.println(">>> 200 Adet Demo İçerik Eklendi. (Admin bulundu: "
+                                        String[] categories = { "Arkeoloji", "Tarih", "Sanat Tarihi", "Mitoloji",
+                                                        "Keşif" };
+                                        String[] titles = { "Antik Dönemde Günlük Yaşam", "Roma Mimarisinin Sırları",
+                                                        "Göbeklitepe Neyi Değiştirdi?",
+                                                        "Mısır Piramitleri Nasıl Yapıldı?",
+                                                        "Yunan Mitolojisinde 12 Tanrı", "Kaybolan Uygarlıklar",
+                                                        "Sümer Tabletlerinin Şifresi", "Truva Savaşı Gerçek mi?",
+                                                        "İstanbul'un Yeraltı Tarihi", "Anadolu'nun İlk Yerleşimleri" };
+
+                                        for (int i = 0; i < 20; i++) {
+                                                com.arkeobla.model.Content c = new com.arkeobla.model.Content();
+                                                c.setTitle(titles[i % titles.length] + " - Bölüm " + (i + 1));
+                                                c.setBody("Bu yazıda, antik dünyanın en gizemli konularından biri olan "
+                                                                + titles[i % titles.length]
+                                                                + " detaylıca inceleniyor. Arkeolojik bulgular ışığında, geçmişin tozlu sayfalarını aralıyoruz. "
+                                                                + "Daha fazla bilgi için bizi takip etmeye devam edin. Tarih, sadece geçmiş değil, geleceğin de anahtarıdır.");
+                                                c.setCategory(categories[i % categories.length]);
+                                                c.setAuthor(u);
+                                                c.setCreatedAt(java.time.LocalDateTime.now().minusDays(i));
+                                                contentRepository.save(c);
+                                        }
+                                        System.out.println(">>> 20 Adet Demo İçerik Eklendi. (Admin: "
                                                         + u.getUsername() + ")");
                                 });
                         }

@@ -6,8 +6,6 @@ import java.util.Locale;
 @Service
 public class AiService {
 
-    private final com.arkeobla.model.QuizQuestion[] knowledgeBaseArray = new com.arkeobla.model.QuizQuestion[0]; // Placeholder
-                                                                                                                 // logic
     private final java.util.List<com.arkeobla.model.QuizQuestion> knowledgeBase = new java.util.ArrayList<>();
     private final com.arkeobla.repository.AiLogRepository aiLogRepository;
 
