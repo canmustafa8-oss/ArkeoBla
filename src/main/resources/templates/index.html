@@ -656,8 +656,6 @@
             <h1 th:text="#{hero.title}">Tarihin Gizemlerini Keşfedin</h1>
             <a href="/map" class="hero-cta" th:if="${#authentication.name != 'anonymousUser'}"
                 th:text="#{hero.cta.explore}">🚀 Keşfetmeye Başla</a>
-            <a href="/register" class="hero-cta" th:if="${#authentication.name == 'anonymousUser'}"
-                th:text="#{hero.cta.join}">🌟 Maceraya Katıl</a>
         </div>
     </section>
 
