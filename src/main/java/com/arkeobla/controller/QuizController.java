@@ -54,33 +54,38 @@ public class QuizController {
     // Seçim Sayfası veya Soru Sayfası
     @GetMapping("/quiz")
     public String showQuiz(@RequestParam(required = false) String category, Model model) {
-        if (category == null) {
+        if (category == null || category.isEmpty()) {
             return "quiz-select"; // Kategori seçme ekranı
         }
 
-        List<QuizQuestion> filteredQuestions = new ArrayList<>();
-        QuizCategory selectedCat = QuizCategory.valueOf(category);
+        try {
+            List<QuizQuestion> filteredQuestions = new ArrayList<>();
+            QuizCategory selectedCat = QuizCategory.valueOf(category.toUpperCase());
 
-        if (selectedCat == QuizCategory.KARISIK) {
-            filteredQuestions.addAll(allQuestions);
-        } else {
-            filteredQuestions = allQuestions.stream()
-                    .filter(q -> q.getCategory() == selectedCat)
-                    .collect(Collectors.toList());
+            if (selectedCat == QuizCategory.KARISIK) {
+                filteredQuestions.addAll(allQuestions);
+            } else {
+                filteredQuestions = allQuestions.stream()
+                        .filter(q -> q.getCategory() == selectedCat)
+                        .collect(Collectors.toList());
+            }
+
+            // --- RASTGELE SEÇİM MANTIĞI ---
+            Collections.shuffle(filteredQuestions);
+
+            // İlk 5 soruyu al
+            int questionLimit = 5;
+            List<QuizQuestion> randomQuestions = filteredQuestions.isEmpty()
+                    ? new ArrayList<>()
+                    : filteredQuestions.subList(0, Math.min(filteredQuestions.size(), questionLimit));
+
+            model.addAttribute("questions", randomQuestions);
+            model.addAttribute("selectedCategory", selectedCat.label);
+            return "quiz";
+        } catch (IllegalArgumentException e) {
+            // Geçersiz kategori - seçim sayfasına yönlendir
+            return "redirect:/quiz";
         }
-
-        // --- RASTGELE SEÇİM MANTIĞI ---
-        // Listeyi karıştır
-        Collections.shuffle(filteredQuestions);
-
-        // İlk 5 soruyu al (veya daha az varsa hepsini)
-        int questionLimit = 5;
-        List<QuizQuestion> randomQuestions = filteredQuestions.subList(0,
-                Math.min(filteredQuestions.size(), questionLimit));
-
-        model.addAttribute("questions", randomQuestions);
-        model.addAttribute("selectedCategory", selectedCat.label);
-        return "quiz";
     }
 
     @PostMapping("/quiz/submit")
