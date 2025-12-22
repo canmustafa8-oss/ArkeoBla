@@ -21,13 +21,24 @@ public class DataInitializer {
                                 admin = new User();
                                 admin.setUsername("Mcquelss");
                                 admin.setPassword("Mcan1346.");
+                                admin.setFirstName("Mustafa");
+                                admin.setLastName("Yılmaz");
+                                admin.setBirthDate(java.time.LocalDate.of(1990, 1, 1));
                                 admin.setRole(Role.ADMIN);
                                 admin.setBadges("KURUCU,YÖNETİCİ,KRAL");
+                                admin.setEnabled(true);
                                 userRepository.save(admin);
                                 System.out.println(">>> Varsayılan Admin kullanıcısı oluşturuldu: Mcquelss");
                         } else {
-                                // Mevcut admini güncelle (Eski kayıtlarda rol eksik olabilir)
+                                // Mevcut admini güncelle
                                 admin.setRole(Role.ADMIN);
+                                if (admin.getFirstName() == null)
+                                        admin.setFirstName("Mustafa");
+                                if (admin.getLastName() == null)
+                                        admin.setLastName("Yılmaz");
+                                if (admin.getBirthDate() == null)
+                                        admin.setBirthDate(java.time.LocalDate.of(1990, 1, 1));
+                                admin.setEnabled(true);
                                 userRepository.save(admin);
                                 System.out.println(">>> Admin yetkileri güncellendi: Mcquelss");
                         }
