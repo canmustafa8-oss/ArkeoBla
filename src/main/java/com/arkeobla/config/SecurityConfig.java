@@ -23,12 +23,12 @@ public class SecurityConfig {
                                                 .requestMatchers("/games/**", "/museum/**", "/timeline/**",
                                                                 "/excavation/**", "/puzzle/**", "/quiz/**",
                                                                 "/time-machine/**", "/photos/**", "/ai-chat/**",
-                                                                "/certificate/**", "/blog/**")
+                                                                "/certificate/**")
                                                 .permitAll()
                                                 .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
 
                                                 // Sadece Giriş Yapmış Kullanıcılar
-                                                .requestMatchers("/chat/**", "/meeting/**", "/profile/**")
+                                                .requestMatchers("/chat/**", "/meeting/**", "/profile/**", "/blog/**")
                                                 .authenticated()
 
                                                 // Admin
