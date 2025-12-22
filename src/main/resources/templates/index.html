@@ -38,14 +38,15 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <div class="hero">
-        <div class="hero-content">
-            <!-- h1 removed as requested -->
-            <p>Arkeoloji, Sanat Tarihi ve Tarih Araştırmalarınıza Yön Verin</p>
-            <a href="/register" class="btn-hero" th:if="${#authentication.name == 'anonymousUser'}">KEŞFET ></a>
-            <a href="/map" class="btn-hero" th:if="${#authentication.name != 'anonymousUser'}">KEŞFETMEYE BAŞLA ></a>
-        </div>
+    <!-- Hero Section - Image -->
+    <div class="hero"></div>
+
+    <!-- Hero Content - Below Image -->
+    <div class="hero-content">
+        <h1>Tarihin Gizemlerini Keşfedin</h1>
+        <p>Arkeoloji, Sanat Tarihi ve Tarih Araştırmalarınıza Yön Verin</p>
+        <a href="/register" class="btn-hero" th:if="${#authentication.name == 'anonymousUser'}">KEŞFET ></a>
+        <a href="/map" class="btn-hero" th:if="${#authentication.name != 'anonymousUser'}">KEŞFETMEYE BAŞLA ></a>
     </div>
 
     <div class="container main-grid">
