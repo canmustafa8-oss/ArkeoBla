@@ -138,10 +138,11 @@
 
         .hero-bg {
             width: 100%;
-            aspect-ratio: 16/9;
+            height: auto;
+            min-height: 300px;
             background-image: url('/img/hero.png');
-            background-size: contain;
-            background-position: center;
+            background-size: 100% auto;
+            background-position: center top;
             background-repeat: no-repeat;
             background-color: #1a1612;
         }
@@ -651,7 +652,7 @@
 
     <!-- Hero Section - Image on Top, Title Below -->
     <section class="hero-section">
-        <div class="hero-bg"></div>
+        <img src="/img/hero.png" alt="ArkeoBla Hero" style="width: 100%; height: auto; display: block;">
         <div class="hero-content-modern">
             <h1 th:text="#{hero.title}">Tarihin Gizemlerini Keşfedin</h1>
             <a href="/map" class="hero-cta" th:if="${#authentication.name != 'anonymousUser'}"
