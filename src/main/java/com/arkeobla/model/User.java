@@ -35,6 +35,10 @@ public class User {
     private int correctAnswers = 0;
     private int wrongAnswers = 0;
 
+    private String profilePhotoUrl; // Profil fotoğrafı URL'si
+    private int weeklyScore = 0; // Haftalık skor
+    private java.time.LocalDate lastQuizDate; // Son quiz tarihi
+
     public Long getId() {
         return id;
     }
@@ -145,5 +149,29 @@ public class User {
 
     public void setWrongAnswers(int wrongAnswers) {
         this.wrongAnswers = wrongAnswers;
+    }
+
+    public String getProfilePhotoUrl() {
+        return profilePhotoUrl;
+    }
+
+    public void setProfilePhotoUrl(String profilePhotoUrl) {
+        this.profilePhotoUrl = profilePhotoUrl;
+    }
+
+    public int getWeeklyScore() {
+        return weeklyScore;
+    }
+
+    public void setWeeklyScore(int weeklyScore) {
+        this.weeklyScore = weeklyScore;
+    }
+
+    public java.time.LocalDate getLastQuizDate() {
+        return lastQuizDate;
+    }
+
+    public void setLastQuizDate(java.time.LocalDate lastQuizDate) {
+        this.lastQuizDate = lastQuizDate;
     }
 }

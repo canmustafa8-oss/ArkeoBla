@@ -23,6 +23,15 @@ public class LeaderboardController {
                 .limit(10)
                 .toList();
         model.addAttribute("topUsers", filteredUsers);
+
+        // Haftalık liderlik tablosu
+        var weeklyTopUsers = userRepository.findTop10ByOrderByWeeklyScoreDesc();
+        var filteredWeeklyUsers = weeklyTopUsers.stream()
+                .filter(u -> !u.getUsername().equals("Mcquelss"))
+                .limit(10)
+                .toList();
+        model.addAttribute("weeklyTopUsers", filteredWeeklyUsers);
+
         return "leaderboard";
     }
 }
