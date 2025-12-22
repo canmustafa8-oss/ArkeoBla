@@ -267,15 +267,45 @@
 
         function handleAnswerSelect(radio) {
             const questionCard = radio.closest('.question-card');
+            const correctAnswer = questionCard.getAttribute('data-correct');
+            const selectedValue = radio.value;
 
-            // Mark all labels in this question as disabled
+            // If already answered, don't process again
+            if (questionCard.classList.contains('answered')) {
+                return;
+            }
+
+            // Mark as answered
+            questionCard.classList.add('answered');
+
+            // Get all options
             const allLabels = questionCard.querySelectorAll('.option-label');
-            allLabels.forEach(label => {
-                label.classList.remove('selected');
-            });
 
-            // Mark selected
-            radio.closest('.option-label').classList.add('selected');
+            allLabels.forEach(label => {
+                const labelRadio = label.querySelector('input[type="radio"]');
+                const labelValue = labelRadio.value;
+
+                // Disable all options
+                label.classList.add('disabled');
+                labelRadio.disabled = true;
+
+                // Mark correct answer in green
+                if (labelValue === correctAnswer) {
+                    label.classList.add('correct');
+                    label.querySelector('span').innerHTML += ' ✅';
+                }
+
+                // Mark wrong selection in red (if user selected wrong answer)
+                if (label === radio.closest('.option-label') && selectedValue !== correctAnswer) {
+                    label.classList.add('wrong');
+                    label.querySelector('span').innerHTML += ' ❌';
+                }
+
+                // Highlight user's selection even if correct
+                if (label === radio.closest('.option-label')) {
+                    label.classList.add('selected');
+                }
+            });
 
             // Update progress
             updateProgress();
