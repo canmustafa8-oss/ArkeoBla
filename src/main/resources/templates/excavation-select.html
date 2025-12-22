@@ -10,77 +10,144 @@
     <style>
         body {
             font-family: 'Cinzel', serif;
-            background-color: #1e1e1e;
+            background: linear-gradient(135deg, #1e1e1e, #2c241b);
             color: #dcd6ce;
-            text-align: center;
+            min-height: 100vh;
+            padding: 20px;
         }
 
         .container {
             max-width: 1200px;
             margin: 30px auto;
+            text-align: center;
         }
 
         h1 {
-            color: #f1c40f;
-            margin-bottom: 20px;
+            color: #c5a059;
+            margin-bottom: 10px;
             font-size: 2.5em;
-            text-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+            text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
         }
 
         .regions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
         }
 
         .region-card {
             background: #2c241b;
-            border: 2px solid #5d4037;
-            border-radius: 12px;
+            border: 3px solid #5d4037;
+            border-radius: 15px;
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s;
             text-decoration: none;
             color: inherit;
             position: relative;
         }
 
         .region-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(197, 160, 89, 0.4);
             border-color: #c5a059;
         }
 
         .region-img {
-            height: 160px;
+            height: 180px;
             background-size: cover;
             background-position: center;
-            border-bottom: 2px solid #444;
+            position: relative;
+        }
+
+        .region-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
         }
 
         .region-content {
-            padding: 15px;
+            padding: 20px;
         }
 
         .region-title {
-            font-size: 1.3em;
+            font-size: 1.5em;
             color: #c5a059;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             font-weight: bold;
         }
 
         .region-desc {
             color: #aaa;
-            font-size: 0.85em;
-            font-family: 'Lora', serif;
-            line-height: 1.4;
+            font-size: 1em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #c5a059, #b8935a);
+            color: #000;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.5);
+        }
+
+        /* Unique gradient backgrounds for each region */
+        .region-turkey {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #F4A460 100%);
+        }
+
+        .region-mesopotamia {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+        }
+
+        .region-egypt {
+            background: linear-gradient(135deg, #854d0e 0%, #ca8a04 50%, #fbbf24 100%);
+        }
+
+        .region-italy {
+            background: linear-gradient(135deg, #7f1d1d 0%, #dc2626 50%, #f87171 100%);
+        }
+
+        .region-greece {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #93c5fd 100%);
+        }
+
+        .region-china {
+            background: linear-gradient(135deg, #7c2d12 0%, #dc2626 50%, #fbbf24 100%);
+        }
+
+        .region-india {
+            background: linear-gradient(135deg, #fb923c 0%, #f97316 50%, #fdba74 100%);
+        }
+
+        .region-jordan {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fcd34d 100%);
+        }
+
+        .region-americas {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #86efac 100%);
+        }
+
+        .region-uk {
+            background: linear-gradient(135deg, #475569 0%, #64748b 50%, #94a3b8 100%);
         }
     </style>
 </head>
 
 <body>
-
     <div class="container">
         <h1>🌍 KAZI BÖLGELERİ</h1>
         <p style="color: #bbb; margin-bottom: 20px;">Dünyanın dört bir yanındaki medeniyetleri keşfedin.</p>
@@ -89,110 +156,88 @@
 
             <!-- 1. Türkiye -->
             <a href="/excavation/play?region=turkey" class="region-card">
-                <div class="region-img"
-                    style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/G%C3%B6bekli_Tepe%2C_Sanliurfa.jpg/600px-G%C3%B6bekli_Tepe%2C_Sanliurfa.jpg');">
-                </div>
+                <div class="region-img region-turkey"></div>
                 <div class="region-content">
                     <div class="region-title">🇹🇷 Türkiye</div>
                     <div class="region-desc">Medeniyetlerin beşiği Anadolu.</div>
                 </div>
             </a>
 
-
-
-            <!-- 3. Mezopotamya (Irak) -->
+            <!-- 2. Mezopotamya (Irak) -->
             <a href="/excavation/play?region=mesopotamia" class="region-card">
-                <div class="region-img"
-                    style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Ishtar_Gate_at_Berlin_Museum.jpg/600px-Ishtar_Gate_at_Berlin_Museum.jpg');">
-                </div>
+                <div class="region-img region-mesopotamia"></div>
                 <div class="region-content">
                     <div class="region-title">🇮🇶 Mezopotamya</div>
                     <div class="region-desc">Babil, Sümer ve Asur krallıkları.</div>
                 </div>
             </a>
 
-            <!-- 4. Mısır -->
+            <!-- 3. Mısır -->
             <a href="/excavation/play?region=egypt" class="region-card">
-                <div class="region-img"
-                    style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Great_Sphinx_of_Giza_-_20080716a.jpg/600px-Great_Sphinx_of_Giza_-_20080716a.jpg');">
-                </div>
+                <div class="region-img region-egypt"></div>
                 <div class="region-content">
                     <div class="region-title">🇪🇬 Mısır</div>
                     <div class="region-desc">Firavunların altın mirası.</div>
                 </div>
             </a>
 
-            <!-- 5. İtalya -->
+            <!-- 4. İtalya -->
             <a href="/excavation/play?region=italy" class="region-card">
-                <div class="region-img"
-                    style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/600px-Colosseo_2020.jpg');">
-                </div>
+                <div class="region-img region-italy"></div>
                 <div class="region-content">
                     <div class="region-title">🇮🇹 İtalya</div>
                     <div class="region-desc">Roma İmparatorluğu'nun kalbi.</div>
                 </div>
             </a>
 
-            <!-- 6. Yunanistan -->
+            <!-- 5. Yunanistan -->
             <a href="/excavation/play?region=greece" class="region-card">
-                <div class="region-img"
-                    style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/The_Parthenon_in_Athens.jpg/600px-The_Parthenon_in_Athens.jpg');">
-                </div>
+                <div class="region-img region-greece"></div>
                 <div class="region-content">
                     <div class="region-title">🇬🇷 Yunanistan</div>
                     <div class="region-desc">Antik sanat ve felsefe.</div>
                 </div>
             </a>
 
-            <!-- 7. Çin -->
+            <!-- 6. Çin -->
             <a href="/excavation/play?region=china" class="region-card">
-                <div class="region-img"
-                    style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Terracotta_Army_3.jpg/600px-Terracotta_Army_3.jpg');">
-                </div>
+                <div class="region-img region-china"></div>
                 <div class="region-content">
                     <div class="region-title">🇨🇳 Çin</div>
                     <div class="region-desc">Hanedanlıkların ihtişamı.</div>
                 </div>
             </a>
 
-            <!-- 8. Hindistan -->
+            <!-- 7. Hindistan -->
             <a href="/excavation/play?region=india" class="region-card">
-                <div class="region-img"
-                    style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Taj_Mahal%2C_Agra%2C_India_edit3.jpg/600px-Taj_Mahal%2C_Agra%2C_India_edit3.jpg');">
-                </div>
+                <div class="region-img region-india"></div>
                 <div class="region-content">
                     <div class="region-title">🇮🇳 Hindistan</div>
                     <div class="region-desc">İndus Vadisi ve mistik tapınaklar.</div>
                 </div>
             </a>
 
-            <!-- 9. Ürdün -->
+            <!-- 8. Ürdün -->
             <a href="/excavation/play?region=jordan" class="region-card">
-                <div class="region-img"
-                    style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Treasury_petra_crop.jpeg/600px-Treasury_petra_crop.jpeg');">
-                </div>
+                <div class="region-img region-jordan"></div>
                 <div class="region-content">
                     <div class="region-title">🇯🇴 Ürdün</div>
                     <div class="region-desc">Petra'nın kayıp şehri.</div>
                 </div>
             </a>
 
-            <!-- 10. Amerika -->
+            <!-- 9. Amerika -->
             <a href="/excavation/play?region=americas" class="region-card">
-                <div class="region-img"
-                    style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Monolito_de_la_Piedra_del_Sol.jpg/600px-Monolito_de_la_Piedra_del_Sol.jpg');">
-                </div>
+                <div class="region-img region-americas"></div>
                 <div class="region-content">
                     <div class="region-title">🌎 Amerika</div>
                     <div class="region-desc">Maya, Aztek ve İnka medeniyetleri.</div>
                 </div>
             </a>
 
-            <!-- 11. İngiltere -->
+            <!-- 10. İngiltere -->
             <a href="/excavation/play?region=uk" class="region-card">
-                <div class="region-img"
-                    style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Stonehenge2007_07_30.jpg/600px-Stonehenge2007_07_30.jpg');">
-                </div>
+                <div class="region-img region-uk"></div>
                 <div class="region-content">
                     <div class="region-title">🇬🇧 İngiltere</div>
                     <div class="region-desc">Keltler ve Roma Britanyası.</div>
@@ -201,10 +246,8 @@
 
         </div>
 
-        <br><br>
-        <a href="/games" style="color: #c5a059; text-decoration: none; font-weight: bold;">🔙 Oyun Alanına Dön</a>
+        <a href="/games" class="back-link">🔙 Oyun Alanına Dön</a>
     </div>
-
 </body>
 
 </html>
