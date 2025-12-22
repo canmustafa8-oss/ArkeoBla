@@ -14,6 +14,8 @@
     <header>
         <div class="container header-content">
             <div class="brand">🏛️ ARKEOBLA</div>
+            <div id="liveClock"
+                style="font-size: 14px; color: #c5a059; font-family: 'Cinzel', serif; margin-left: 20px;"></div>
             <div class="nav-links">
                 <a href="/?lang=tr"
                     style="font-size:12px; border:1px solid #c5a059; padding:2px 5px; border-radius:3px;">TR</a>
@@ -241,6 +243,26 @@
                 alert("Tarayıcınız sesli okumayı desteklemiyor.");
             }
         }
+
+        function updateClock() {
+            const now = new Date();
+            const options = {
+                timeZone: 'Europe/Istanbul',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            const formatter = new Intl.DateTimeFormat('tr-TR', options);
+            const clockElement = document.getElementById('liveClock');
+            if (clockElement) {
+                clockElement.innerText = "🕒 " + formatter.format(now);
+            }
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 
 </body>
