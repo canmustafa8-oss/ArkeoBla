@@ -51,6 +51,33 @@
     <a href="/" class="back-link">← Anasayfaya Dön</a>
     <h1>Admin Paneli 🛠️</h1>
 
+    <div
+        style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #90caf9;">
+        <h3>📊 Site İstatistikleri</h3>
+        <p><strong>Toplam Anasayfa Ziyareti:</strong> <span th:text="${totalVisits}"
+                style="font-size: 1.2em; font-weight: bold; color: #1565c0;">0</span></p>
+    </div>
+
+    <h2>🤖 Son AI Soruları</h2>
+    <div style="max-height: 300px; overflow-y: auto; border: 1px solid #ddd; margin-bottom: 30px;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Zaman</th>
+                    <th>Soru</th>
+                    <th>Cevap (Özet)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="log : ${aiLogs}">
+                    <td th:text="${#temporals.format(log.timestamp, 'dd MMM HH:mm')}">Zaman</td>
+                    <td th:text="${log.question}">Soru</td>
+                    <td th:text="${#strings.abbreviate(log.answer, 50)}">Cevap</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <h2>Kullanıcılar</h2>
     <table>
         <thead>

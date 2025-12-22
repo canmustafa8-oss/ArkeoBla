@@ -6,7 +6,14 @@ import java.util.Locale;
 @Service
 public class AiService {
 
+    private final com.arkeobla.model.QuizQuestion[] knowledgeBaseArray = new com.arkeobla.model.QuizQuestion[0]; // Placeholder
+                                                                                                                 // logic
     private final java.util.List<com.arkeobla.model.QuizQuestion> knowledgeBase = new java.util.ArrayList<>();
+    private final com.arkeobla.repository.AiLogRepository aiLogRepository;
+
+    public AiService(com.arkeobla.repository.AiLogRepository aiLogRepository) {
+        this.aiLogRepository = aiLogRepository;
+    }
 
     @jakarta.annotation.PostConstruct
     public void init() {
@@ -42,37 +49,42 @@ public class AiService {
             }
         }
 
-        // Eşik değer (Örn: %40 benzerlik)
+        String finalAnswer;
+
+        // Eşik değer (%40 benzerlik)
         if (highestScore > 0.4 && bestMatch != null) {
-            return "📖 <strong>Bilgi Bankamda Buldum:</strong><br>" +
+            finalAnswer = "📖 <strong>Bilgi Bankamda Buldum:</strong><br>" +
                     "<em>" + bestMatch.getText() + "</em><br><br>" +
                     "✅ <strong>Cevap:</strong> " + bestMatch.getCorrectAnswer();
-        }
-
-        // 2. ADIM: Statik Kurallar (Eski Mantık)
-        if (q.contains("arkeoloji")) {
-            return "Arkeoloji, insanlık tarihini maddi kalıntılar üzerinden inceleyen bilim dalıdır. Kazılarla geçmişi aydınlatır.";
+        } else if (q.contains("arkeoloji")) {
+            finalAnswer = "Arkeoloji, insanlık tarihini maddi kalıntılar üzerinden inceleyen bilim dalıdır. Kazılarla geçmişi aydınlatır.";
         } else if (q.contains("göbeklitepe") || q.contains("gobeklitepe")) {
-            return "Göbeklitepe, Şanlıurfa'da bulunan ve dünyanın bilinen en eski tapınak merkezi kabul edilen yapıdır (M.Ö. 9600). Tarihin sıfır noktası olarak anılır.";
+            finalAnswer = "Göbeklitepe, Şanlıurfa'da bulunan ve dünyanın bilinen en eski tapınak merkezi kabul edilen yapıdır (M.Ö. 9600). Tarihin sıfır noktası olarak anılır.";
         } else if (q.contains("piramit") || q.contains("mısır")) {
-            return "Mısır Piramitleri, firavunların mezarı olarak inşa edilmiştir. En büyüğü Keops Piramidi'dir ve Dünyanın Yedi Harikası'ndan biridir.";
+            finalAnswer = "Mısır Piramitleri, firavunların mezarı olarak inşa edilmiştir. En büyüğü Keops Piramidi'dir ve Dünyanın Yedi Harikası'ndan biridir.";
         } else if (q.contains("roma")) {
-            return "Roma İmparatorluğu, Akdeniz havzasına hükmeden antik çağın en büyük medeniyetlerinden biridir.";
+            finalAnswer = "Roma İmparatorluğu, Akdeniz havzasına hükmeden antik çağın en büyük medeniyetlerinden biridir.";
         } else if (q.contains("hitit") || q.contains("hattuşa")) {
-            return "Hititler, Anadolu'nun ilk büyük imparatorluğudur. Başkentleri Çorum'daki Hattuşa'dır.";
+            finalAnswer = "Hititler, Anadolu'nun ilk büyük imparatorluğudur. Başkentleri Çorum'daki Hattuşa'dır.";
         } else if (q.contains("tarih")) {
-            return "Tarih, geçmişteki olayları neden-sonuç ilişkisi içinde inceleyen bilimdir.";
+            finalAnswer = "Tarih, geçmişteki olayları neden-sonuç ilişkisi içinde inceleyen bilimdir.";
         } else if (q.contains("merhaba") || q.contains("selam")) {
-            return "Merhaba! Ben ArkeoBla Asistanı. Tarih, arkeoloji ve sanat hakkında geniş bir bilgi arşivine sahibim. Sorunuzu bekliyorum!";
+            finalAnswer = "Merhaba! Ben ArkeoBla Asistanı. Tarih, arkeoloji ve sanat hakkında geniş bir bilgi arşivine sahibim. Sorunuzu bekliyorum!";
         } else if (q.contains("kimsin")) {
-            return "Ben ArkeoBla yapay zeka asistanıyım. Yaklaşık " + knowledgeBase.size() + " konuda bilgi sahibiyim.";
+            finalAnswer = "Ben ArkeoBla yapay zeka asistanıyım. Yaklaşık " + knowledgeBase.size()
+                    + " konuda bilgi sahibiyim.";
+        } else {
+            // Bulunamadı
+            finalAnswer = "Bu konuda veritabanımda kesin bir bilgi bulamadım. Ama senin için Google'da arayabilirim: " +
+                    "<a href='https://www.google.com/search?q=" + question.replace(" ", "+")
+                    + "' target='_blank' style='color:blue; text-decoration:underline;'>'" + question
+                    + "' için Google'da Ara</a>";
         }
 
-        // 3. ADIM: Bulunamadı
-        return "Bu konuda veritabanımda kesin bir bilgi bulamadım. Ama senin için Google'da arayabilirim: " +
-                "<a href='https://www.google.com/search?q=" + question.replace(" ", "+")
-                + "' target='_blank' style='color:blue; text-decoration:underline;'>'" + question
-                + "' için Google'da Ara</a>";
+        // Log to DB
+        aiLogRepository.save(new com.arkeobla.model.AiLog(question, finalAnswer));
+
+        return finalAnswer;
     }
 
     // Basit Kelime Benzerliği Algoritması (Jaccard Benzeri)

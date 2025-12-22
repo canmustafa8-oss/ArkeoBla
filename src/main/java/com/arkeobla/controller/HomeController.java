@@ -17,10 +17,13 @@ public class HomeController {
 
     private final ContentService contentService;
     private final NewsService newsService;
+    private final com.arkeobla.service.StatsService statsService;
 
-    public HomeController(ContentService contentService, NewsService newsService) {
+    public HomeController(ContentService contentService, NewsService newsService,
+            com.arkeobla.service.StatsService statsService) {
         this.contentService = contentService;
         this.newsService = newsService;
+        this.statsService = statsService;
     }
 
     @PostConstruct
@@ -43,6 +46,9 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
+        // Ziyaret Sayacı
+        statsService.incrementHomePageVisits();
+
         // Anasayfada son 10 içeriği gösteriyoruz
         model.addAttribute("contents", contentService.getAllContents(PageRequest.of(0, 10)).getContent());
         // Google'dan canlı çekiyoruz:
