@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Admin Paneli - ArkeoBla</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .btn-delete {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="/" class="back-link">← Anasayfaya Dön</a>
+    <h1>Admin Paneli 🛠️</h1>
+
+    <h2>Kullanıcılar</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kullanıcı Adı</th>
+                <th>Rol</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">1</td>
+                <td th:text="${user.username}">User</td>
+                <td th:text="${user.role}">ROLE</td>
+                <td>
+                    <form th:if="${user.role.name() != 'ADMIN'}" th:action="@{/admin/delete-user/{id}(id=${user.id})}"
+                        method="post">
+                        <button type="submit" class="btn-delete"
+                            onclick="return confirm('Silmek istediğine emin misin?')">Sil</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>İçerikler</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Başlık</th>
+                <th>Yazar</th>
+                <th>Tarih</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="content : ${contents}">
+                <td th:text="${content.id}">1</td>
+                <td th:text="${content.title}">Başlık</td>
+                <td th:text="${content.author.username}">Yazar</td>
+                <td th:text="${content.createdAt}">Tarih</td>
+                <td>
+                    <form th:action="@{/admin/delete-content/{id}(id=${content.id})}" method="post">
+                        <button type="submit" class="btn-delete"
+                            onclick="return confirm('Silmek istediğine emin misin?')">Sil</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>AI Asistan - ArkeoBla</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .chat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-height: 300px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .user-message {
+            background-color: #e3f2fd;
+            text-align: right;
+            margin-left: auto;
+            width: 80%;
+        }
+
+        .ai-message {
+            background-color: #f1f0f0;
+            text-align: left;
+            margin-right: auto;
+            width: 80%;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 style="text-align: center; color: #6f42c1;">ArkeoBla AI Asistanı 🤖</h2>
+
+    <div class="chat-box">
+        <div th:if="${question}" class="message user-message">
+            <strong>Siz:</strong> <span th:text="${question}">Soru</span>
+        </div>
+        <div th:if="${answer}" class="message ai-message">
+            <strong>AI:</strong> <span th:utext="${answer}">Cevap</span>
+        </div>
+        <div th:unless="${question}" style="text-align: center; color: gray; margin-top: 100px;">
+            Merak ettiğin bir şeyi sor! (Örn: "Arkeoloji nedir?")
+        </div>
+    </div>
+
+    <form th:action="@{/ai-chat}" method="post">
+        <input type="text" name="question" placeholder="Bana bir soru sor..." required>
+        <button type="submit">Gönder</button>
+    </form>
+
+    <a href="/" class="back-link">Anasayfaya Dön</a>
+</body>
+
+</html>

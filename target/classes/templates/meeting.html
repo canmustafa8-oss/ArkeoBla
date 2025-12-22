@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Canlı Toplantı - ArkeoBla</title>
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            background-color: #202124;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 300px);
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid #555;
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn-join {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-leave {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .info {
+            margin-bottom: 20px;
+            background: #333;
+            padding: 10px;
+            display: inline-block;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Canlı Toplantı Odası 🎥</h2>
+
+    <div class="info">
+        <p>ID'niz: <span id="my-peer-id" style="font-weight:bold; color:#4ea8de;">...</span></p>
+        <input type="text" id="remote-peer-id" placeholder="Bağlanılacak ID'yi girin"
+            style="padding: 5px; border-radius: 4px;">
+        <button onclick="connectToPeer()" class="btn-join">Bağlan</button>
+    </div>
+
+    <div id="video-grid">
+        <!-- Videolar buraya gelecek -->
+    </div>
+
+    <div class="controls">
+        <button onclick="startMyVideo()" class="btn-join">Kameramı Aç</button>
+        <a href="/" style="color: #aaa; margin-left: 20px;">Anasayfaya Dön</a>
+    </div>
+
+    <script>
+        const peer = new Peer(); // PeerJS sunucusuna bağlanır
+        let myStream;
+        const videoGrid = document.getElementById('video-grid');
+
+        peer.on('open', (id) => {
+            document.getElementById('my-peer-id').innerText = id;
+            console.log('My ID (ArkeoBla): ' + id);
+        });
+
+        // Başkası beni ararsa
+        peer.on('call', (call) => {
+            if (!myStream) {
+                alert("Önce kameranızı açmalısınız!");
+                return;
+            }
+            call.answer(myStream); // Kendi yayınımı gönderiyorum
+            const video = document.createElement('video');
+            call.on('stream', (userVideoStream) => {
+                addVideoStream(video, userVideoStream);
+            });
+        });
+
+        function startMyVideo() {
+            navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true
+            }).then(stream => {
+                myStream = stream;
+                const myVideo = document.createElement('video');
+                myVideo.muted = true; // Kendi sesimi duymayayım
+                addVideoStream(myVideo, stream);
+            }).catch(err => {
+                alert("Kamera/Mikrofon izni alınamadı: " + err);
+            });
+        }
+
+        function connectToPeer() {
+            const remoteId = document.getElementById('remote-peer-id').value;
+            if (!remoteId || !myStream) {
+                alert("Lütfen ID girin ve kameranızı açtığınızdan emin olun.");
+                return;
+            }
+            const call = peer.call(remoteId, myStream);
+            const video = document.createElement('video');
+            call.on('stream', (userVideoStream) => {
+                addVideoStream(video, userVideoStream);
+            });
+        }
+
+        function addVideoStream(video, stream) {
+            video.srcObject = stream;
+            video.addEventListener('loadedmetadata', () => {
+                video.play();
+            });
+            videoGrid.append(video);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "com.arkeobla.App",
+            "projectName": "arkeobla"
+        },
+        {
+            "type": "java",
+            "name": "ArkeoBla'yı Başlat",
+            "request": "launch",
+            "mainClass": "com.arkeobla.App",
+            "projectName": "ArkeoBla"
+        }
+    ]
+}

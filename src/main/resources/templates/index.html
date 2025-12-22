@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ArkeoBla - Tarihin Kapısı</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="brand">🏛️ ARKEOBLA</div>
+            <div class="nav-links">
+                <a href="/?lang=tr"
+                    style="font-size:12px; border:1px solid #c5a059; padding:2px 5px; border-radius:3px;">TR</a>
+                <a href="/?lang=en"
+                    style="font-size:12px; border:1px solid #c5a059; padding:2px 5px; border-radius:3px;">EN</a>
+
+                <a href="/">Anasayfa</a>
+                <a href="#about">Hakkımızda</a>
+                <span th:if="${#authentication.name != 'anonymousUser'}">
+                    <form th:action="@{/logout}" method="post" style="display:inline;">
+                        <button type="submit"
+                            style="background:none; border:none; color:#e0d8cc; font-family:'Playfair Display'; cursor:pointer; font-size:16px;">Çıkış
+                            Yap</button>
+                    </form>
+                </span>
+                <span th:if="${#authentication.name == 'anonymousUser'}">
+                    <a href="/login" style="color:var(--primary-gold);">GİRİŞ YAP</a>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-grid">
+
+        <!-- SOL SÜTUN: MENÜ -->
+        <aside class="sidebar-left">
+            <div class="menu-card">
+                <div class="user-profile" th:if="${#authentication.name != 'anonymousUser'}">
+                    <div style="font-size: 40px;">👤</div>
+                    <div style="font-weight: bold; margin-top: 5px;" th:text="${#authentication.name}">Kullanıcı</div>
+                    <div style="font-size: 12px; color: #888;" th:text="${#authentication.authorities}">Rol</div>
+                </div>
+
+                <nav>
+                    <a th:if="${#authentication.name != 'anonymousUser'}" href="/add-content" class="menu-link">➕ İçerik
+                        Paylaş</a>
+                    <a href="/" class="menu-link">🏠 Ana Akış</a>
+                    <a th:if="${#authentication.name != 'anonymousUser'}" href="/chat" class="menu-link">💬 Global
+                        Sohbet</a>
+                    <a th:if="${#authentication.name != 'anonymousUser'}" href="/meeting" class="menu-link">🎥 Canlı
+                        Toplantı</a>
+                    <a href="/ai-chat" class="menu-link">🤖 AI Asistan (Oracle)</a>
+                    <a th:if="${#authentication.name != 'anonymousUser'}" href="/certificate" class="menu-link">🏆
+                        Sertifikam</a>
+                    <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" href="/admin" class="menu-link"
+                        style="color:darkred;">🛡️ Yönetim Paneli</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- ORTA SÜTUN: İÇERİK AKIŞI -->
+        <main class="content-feed">
+            <div th:if="${#authentication.name == 'anonymousUser'}"
+                style="text-align:center; padding: 40px; background:white; border:1px solid #dcd6ce;">
+                <h2>Hoşgeldiniz Gezgin.</h2>
+                <p>Tarihin tozlu sayfalarını aralamak için lütfen giriş yapın.</p>
+                <a href="/login" class="btn-action">Giriş Yap / Üye Ol</a>
+            </div>
+
+            <!-- İçerik Kartları -->
+            <div th:each="content : ${contents}" class="post-card">
+                <div class="post-meta">
+                    <span th:text="${content.category}">Kategori</span> |
+                    <span th:text="${content.author.username}">Yazar</span> tarafından
+                    <span th:text="${#temporals.format(content.createdAt, 'dd MMM yyyy')}">Tarih</span> paylaşıldı
+                </div>
+                <h3 class="post-title" th:text="${content.title}">Başlık</h3>
+                <p class="post-body" th:text="${content.body}" th:id="'content-' + ${content.id}">İçerik...</p>
+
+                <div style="margin-top: 20px; text-align: right;">
+                    <button onclick="alert('Beğeni özelliği yakında!')"
+                        style="background:none; border:none; color:#888; cursor:pointer;">❤️ Beğen</button>
+                    <button th:onclick="'readAloud(\'content-' + ${content.id} + '\')'"
+                        style="background:none; border:none; color:#c5a059; cursor:pointer; margin-left:10px;"
+                        title="Sesli Oku">🔊 Oku</button>
+                    <button onclick="alert('Yorumlar yakında!')"
+                        style="background:none; border:none; color:#888; cursor:pointer; margin-left:10px;">💬 Yorum
+                        Yap</button>
+                </div>
+            </div>
+
+            <div th:if="${contents.empty}" style="text-align:center; color:#888; padding: 50px;">
+                <p>Henüz keşfedilmemiş topraklar... İlk içeriği sen paylaş!</p>
+            </div>
+        </main>
+
+        <!-- SAĞ SÜTUN: HABERLER VE WIDGETLAR -->
+        <aside class="sidebar-right">
+
+            <!-- Haber Modülü (Canlı) -->
+            <div class="news-widget">
+                <div class="news-header">
+                    <h3>📢 CANLI HABERLER</h3>
+                </div>
+
+                <h4 style="margin:10px 0 5px 0; font-size:14px; color:#c5a059; border-bottom:1px solid #ddd;">🏺
+                    Arkeoloji</h4>
+                <div th:each="news : ${archaeologyNews}" class="news-item">
+                    <!-- Site içine klonlamak için /news/read adresine gidiyoruz -->
+                    <a th:href="@{/news/read(url=${news.link})}" class="news-title" th:text="${news.title}">Haber
+                        Başlığı</a>
+                    <span class="news-date" th:text="${news.date}">Tarih</span>
+                </div>
+
+                <h4 style="margin:20px 0 5px 0; font-size:14px; color:#c5a059; border-bottom:1px solid #ddd;">📰 Gündem
+                </h4>
+                <div th:each="news : ${agendaNews}" class="news-item">
+                    <a th:href="@{/news/read(url=${news.link})}" class="news-title" th:text="${news.title}">Haber
+                        Başlığı</a>
+                    <span class="news-date" th:text="${news.date}">Tarih</span>
+                </div>
+            </div>
+
+            <!-- Günün Eseri Widget (Statik) -->
+            <div class="news-widget" style="text-align: center;">
+                <div class="news-header">
+                    <h3>🏺 GÜNÜN ESERİ</h3>
+                </div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Amenemhat_III.jpg/180px-Amenemhat_III.jpg"
+                    style="width: 100%; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+                <p style="font-size: 14px; font-weight: bold; margin-top: 10px;">Amenemhat III Büstü</p>
+                <p style="font-size: 12px; color: #666;">Orta Krallık, Mısır</p>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Footer / Hakkımızda -->
+    <footer id="about"
+        style="background: #2c241b; color: #dcd6ce; padding: 40px 0; margin-top: 50px; text-align: center; border-top: 4px solid #c5a059;">
+        <div class="container">
+            <h2 style="color: #c5a059; font-family: 'Cinzel', serif;">📜 Hakkımızda</h2>
+            <p style="max-width: 600px; margin: 20px auto; line-height: 1.6;">
+                <strong>ArkeoBla</strong>, arkeoloji tutkunlarını, akademisyenleri ve tarih meraklılarını bir araya
+                getiren
+                yeni nesil bir sosyal platformdur. Amacımız geçmişin gizemlerini modern teknolojiyle aydınlatmak ve
+                bilgiyi herkes için erişilebilir kılmaktır.
+            </p>
+            <div style="margin-top: 30px; font-size: 14px;">
+                <p>© 2025 ArkeoBla Platformu. Tüm hakları saklıdır.</p>
+                <p>İletişim: <a href="mailto:iletisim@arkeobla.com" style="color: #c5a059;">iletisim@arkeobla.com</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- TTS Script -->
+    <script>
+        function readAloud(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'tr-TR';
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Tarayıcınız sesli okumayı desteklemiyor.");
+            }
+        }
+    </script>
+
+</body>
+
+</html>
