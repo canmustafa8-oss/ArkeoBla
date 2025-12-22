@@ -39,6 +39,14 @@ public class User {
     private int weeklyScore = 0; // Haftalık skor
     private java.time.LocalDate lastQuizDate; // Son quiz tarihi
 
+    // Gamification Fields
+    private int dailyStreak = 0; // Günlük giriş serisi
+    private java.time.LocalDate lastLoginDate; // Son giriş tarihi
+    private int coins = 0; // Sanal para (ödüller için)
+    private int totalQuizzes = 0; // Toplam çözülen quiz sayısı
+    private int totalPuzzles = 0; // Toplam çözülen puzzle sayısı
+    private int totalExcavations = 0; // Toplam kazı sayısı
+
     public Long getId() {
         return id;
     }
@@ -173,5 +181,54 @@ public class User {
 
     public void setLastQuizDate(java.time.LocalDate lastQuizDate) {
         this.lastQuizDate = lastQuizDate;
+    }
+
+    // Gamification Getters/Setters
+    public int getDailyStreak() {
+        return dailyStreak;
+    }
+
+    public void setDailyStreak(int dailyStreak) {
+        this.dailyStreak = dailyStreak;
+    }
+
+    public java.time.LocalDate getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(java.time.LocalDate lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
+    public int getTotalQuizzes() {
+        return totalQuizzes;
+    }
+
+    public void setTotalQuizzes(int totalQuizzes) {
+        this.totalQuizzes = totalQuizzes;
+    }
+
+    public int getTotalPuzzles() {
+        return totalPuzzles;
+    }
+
+    public void setTotalPuzzles(int totalPuzzles) {
+        this.totalPuzzles = totalPuzzles;
+    }
+
+    public int getTotalExcavations() {
+        return totalExcavations;
+    }
+
+    public void setTotalExcavations(int totalExcavations) {
+        this.totalExcavations = totalExcavations;
     }
 }

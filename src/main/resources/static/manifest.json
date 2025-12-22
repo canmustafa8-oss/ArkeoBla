@@ -1,0 +1,29 @@
+{
+    "name": "ArkeoBla",
+    "short_name": "ArkeoBla",
+    "description": "Tarihin Gizemlerini Keşfedin - Arkeoloji ve Tarih Platformu",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1a1612",
+    "theme_color": "#c5a059",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/img/logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/img/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "categories": [
+        "education",
+        "entertainment",
+        "games"
+    ],
+    "lang": "tr",
+    "dir": "ltr"
+}
