@@ -25,7 +25,7 @@ public class SecurityConfig {
                                                                 "/excavation/**", "/puzzle/**", "/quiz/**",
                                                                 "/time-machine/**", "/photos/**", "/ai-chat/**",
                                                                 "/certificate/**", "/map/**", "/api/locations/**",
-                                                                "/leaderboard/**", "/chat/**")
+                                                                "/leaderboard/**", "/chat/**", "/news/**")
                                                 .permitAll()
                                                 .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
 

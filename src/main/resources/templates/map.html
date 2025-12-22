@@ -3,6 +3,9 @@
 
 <head>
     <title>ArkeoBla - Keşif Haritası</title>
+    <!-- Leaflet Core CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <!-- Leaflet MarkerCluster CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
@@ -83,13 +86,64 @@
     </style>
 </head>
 
-<body>
+<body style="margin: 0; padding: 0; font-family: 'Lora', serif;">
+
+    <style>
+        #map {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .map-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(135deg, #2c241b 0%, #3e3226 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border-bottom: 3px solid #c5a059;
+        }
+
+        .map-header h1 {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 70px;
+            left: 10px;
+            z-index: 1000;
+            background: rgba(44, 36, 27, 0.9);
+            color: #c5a059;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            border: 1px solid #c5a059;
+        }
+
+        .back-btn:hover {
+            background: #c5a059;
+            color: #2c241b;
+        }
+    </style>
 
     <a href="/" class="back-btn">← Geri Dön</a>
 
     <div class="map-header">
-        <h1>Dünya Keşif Haritası</h1>
-        <div style="font-size: 12px; color: #eee; margin-top: 5px;">500+ Keşif Noktası</div>
+        <h1>🗺️ Dünya Keşif Haritası</h1>
     </div>
 
     <div id="map"></div>
