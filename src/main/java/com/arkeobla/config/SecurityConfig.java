@@ -16,6 +16,7 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http
+                                .csrf(csrf -> csrf.disable()) // Login hatalarını önlemek için CSRF kapatıldı
                                 .authorizeHttpRequests((requests) -> requests
                                                 // Herkese Açık Sayfalar
                                                 .requestMatchers("/", "/home", "/register", "/login", "/verify/**")

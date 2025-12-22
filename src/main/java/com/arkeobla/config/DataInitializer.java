@@ -267,7 +267,7 @@ public class DataInitializer {
 
                         // 3. Blog İçerikleri (Küratörlü Top 100 Seeder)
                         if (contentRepository.count() < 10) {
-                                User admin = userRepository.findByUsername("Mcquelss").get();
+                                User adminUser = userRepository.findByUsername("Mcquelss").get();
                                 System.out.println(">>> 200 Adet Demo İçerik Eklendi.");
                         }
                 };
