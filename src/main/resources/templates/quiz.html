@@ -5,156 +5,306 @@
     <title>ArkeoBla - Bilgi Yarışması</title>
     <link rel="stylesheet" href="/css/style.css">
     <style>
+        body {
+            background: linear-gradient(135deg, #1a1612, #2c241b);
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+        }
+
         .quiz-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 50px auto;
             background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-top: 5px solid #c5a059;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-top: 8px solid #c5a059;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .quiz-header h2 {
+            color: #2c241b;
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #c5a059, #d4a574);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
         }
 
         .question-card {
+            background: #fafafa;
             margin-bottom: 30px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 5px solid #c5a059;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-number {
+            color: #c5a059;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 10px;
         }
 
         .question-text {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             color: #2c241b;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .option-label {
-            display: block;
-            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
             font-size: 16px;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background 0.3s;
-            border: 1px solid transparent;
         }
 
         .option-label:hover {
             background-color: #f9f9f9;
+            border-color: #c5a059;
+            transform: translateX(5px);
         }
 
         .option-label input {
-            margin-right: 10px;
+            margin-right: 15px;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            accent-color: #c5a059;
         }
 
-        /* Doğru/Yanlış Stilleri */
+        .option-label.selected {
+            background-color: #fff8e7;
+            border-color: #c5a059;
+            font-weight: 500;
+        }
+
         .option-label.correct {
             background-color: #d4edda;
             color: #155724;
-            border-color: #c3e6cb;
+            border-color: #28a745;
+            font-weight: bold;
         }
 
         .option-label.wrong {
             background-color: #f8d7da;
             color: #721c24;
-            border-color: #f5c6cb;
+            border-color: #dc3545;
+        }
+
+        .option-label.disabled {
+            pointer-events: none;
+            opacity: 0.7;
         }
 
         .submit-btn {
-            background: #2c241b;
+            background: linear-gradient(135deg, #2c241b, #3e3226);
             color: #c5a059;
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 18px 40px;
+            font-size: 20px;
             border: none;
+            border-radius: 10px;
             cursor: pointer;
             width: 100%;
             font-family: 'Cinzel', serif;
             transition: 0.3s;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .submit-btn:hover {
-            background: #3e3226;
+            background: linear-gradient(135deg, #3e3226, #2c241b);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 20px 0;
+            color: #c5a059;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .empty-warning {
+            text-align: center;
+            padding: 60px 40px;
+            background: #fff3cd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .empty-warning p {
+            color: #856404;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .timer {
+            text-align: center;
+            font-size: 24px;
+            color: #c5a059;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Header (Sade) -->
-    <header style="background:#2c241b; padding:15px; text-align:center;">
-        <a href="/" style="color:#c5a059; font-family:'Cinzel', serif; font-size:24px; text-decoration:none;">🧠
-            Arkeo-Quiz</a>
+    <!-- Header -->
+    <header style="background:#2c241b; padding:20px; text-align:center;">
+        <a href="/" style="color:#c5a059; font-family:'Cinzel', serif; font-size:28px; text-decoration:none;">
+            🧠 Arkeo-Quiz
+        </a>
     </header>
 
     <div class="quiz-container">
-        <h2 style="text-align:center; color:#2c241b; font-family:'Cinzel', serif;">Bilgini Test Et, Rozeti Kap!</h2>
-        <p style="text-align:center; color:#666; margin-bottom:30px;">Aşağıdaki soruları bil, %80 barajını geç ve
-            <strong>'BİLGE KAŞİF'</strong> unvanını kazan.
-        </p>
+        <div class="quiz-header">
+            <h2>🏆 Bilgini Test Et, Rozeti Kap!</h2>
+            <p>Kategori: <strong th:text="${selectedCategory}">Arkeoloji</strong></p>
+            <p>Aşağıdaki soruları bil, <strong>%80 barajını geç</strong> ve <strong style="color:#c5a059;">'BİLGE
+                    KAŞİF'</strong> rozetini kazan!</p>
+        </div>
 
-        <form action="/quiz/submit" method="post">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <!-- Progress Bar -->
+        <div class="progress-bar" id="progressBar" th:if="${questions != null and not questions.empty}">
+            <div class="progress-fill" id="progressFill">0%</div>
+        </div>
 
-            <!-- Soru yoksa uyarı göster -->
-            <div th:if="${questions == null or questions.empty}"
-                style="text-align:center; padding:40px; background:#fff3cd; border-radius:8px; margin-bottom:20px;">
-                <p style="color:#856404; font-size:18px;">⚠️ Bu kategoride henüz soru bulunamadı.</p>
-                <a href="/quiz" style="color:#856404;">← Başka bir kategori seçin</a>
+        <form action="/quiz/submit" method="post" id="quizForm">
+            <!-- No CSRF token needed as CSRF is disabled -->
+
+            <!-- Empty Question Warning -->
+            <div th:if="${questions == null or questions.empty}" class="empty-warning">
+                <p>⚠️ Bu kategoride henüz soru bulunamadı.</p>
+                <a href="/quiz" class="back-link">← Başka bir kategori seçin</a>
             </div>
 
-            <div th:each="q : ${questions}" class="question-card" th:data-correct="${q.correctAnswer}">
-                <div class="question-text" th:text="${q.id} + '. ' + ${q.text}">Soru Metni</div>
+            <!-- Questions -->
+            <div th:each="q, iterStat : ${questions}" class="question-card" th:data-correct="${q.correctAnswer}"
+                th:id="'question-' + ${q.id}">
+                <div class="question-number" th:text="'Soru ' + (${iterStat.index} + 1) + '/' + ${questions.size()}">
+                    Soru 1/5
+                </div>
+                <div class="question-text" th:text="${q.text}">Soru Metni</div>
 
-                <div th:each="opt : ${q.options}">
-                    <label class="option-label" onclick="checkAnswer(this)">
-                        <input type="radio" th:name="'q' + ${q.id}" th:value="${opt}" required>
+                <div class="options">
+                    <label th:each="opt : ${q.options}" class="option-label">
+                        <input type="radio" th:name="'q' + ${q.id}" th:value="${opt}" required
+                            onchange="handleAnswerSelect(this)">
                         <span th:text="${opt}">Seçenek</span>
                     </label>
                 </div>
             </div>
 
             <button type="submit" class="submit-btn" id="submitBtn"
-                th:if="${questions != null and not questions.empty}">YARIŞMAYI BİTİR VE SONUCU GÖR</button>
+                th:if="${questions != null and not questions.empty}">
+                🎯 YARIŞMAYI BİTİR VE SONUCU GÖR
+            </button>
         </form>
+
+        <a href="/quiz" class="back-link">← Kategori Seçimine Dön</a>
     </div>
 
     <script>
-        function checkAnswer(label) {
-            const card = label.closest('.question-card');
+        let totalQuestions = document.querySelectorAll('.question-card').length;
+        let answeredCount = 0;
 
-            // Eğer daha önce cevaplandıysa işlem yapma
-            if (card.classList.contains('answered')) return;
+        function handleAnswerSelect(radio) {
+            const questionCard = radio.closest('.question-card');
 
-            const correctAnswer = card.getAttribute('data-correct');
-            const radio = label.querySelector('input[type="radio"]');
-            const selectedValue = radio.value;
-            const options = card.querySelectorAll('.option-label');
-
-            // Kartı cevaplandı olarak işaretle (Tekrar tıklamayı engellemek için)
-            card.classList.add('answered');
-
-            // Tüm seçenekleri döngüye al
-            options.forEach(opt => {
-                const optValue = opt.querySelector('input').value;
-
-                // Doğru cevabı her durumda yeşil yak
-                if (optValue === correctAnswer) {
-                    opt.classList.add('correct');
-                    // Yanına tik işareti ekle
-                    opt.querySelector('span').innerHTML += ' ✅';
-                }
-
-                // Tıklanan şık yanlışsa kırmızı yap
-                if (opt === label && selectedValue !== correctAnswer) {
-                    opt.classList.add('wrong');
-                    // Yanına çarpı işareti ekle
-                    opt.querySelector('span').innerHTML += ' ❌';
-                }
-
-                // Seçenekleri kilitle (Görüntü olarak değil ama CSS ile pointer event kapatalım)
-                opt.style.pointerEvents = 'none';
+            // Mark all labels in this question as disabled
+            const allLabels = questionCard.querySelectorAll('.option-label');
+            allLabels.forEach(label => {
+                label.classList.remove('selected');
             });
+
+            // Mark selected
+            radio.closest('.option-label').classList.add('selected');
+
+            // Update progress
+            updateProgress();
         }
+
+        function updateProgress() {
+            let answered = document.querySelectorAll('input[type="radio"]:checked').length;
+            let percentage = Math.round((answered / totalQuestions) * 100);
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressFill').textContent = percentage + '%';
+
+            // Enable submit button only when all questions answered
+            if (answered === totalQuestions) {
+                document.getElementById('submitBtn').disabled = false;
+            }
+        }
+
+        // Disable submit initially
+        if (totalQuestions > 0) {
+            document.getElementById('submitBtn').disabled = true;
+        }
+
+        // Prevent double submission
+        document.getElementById('quizForm')?.addEventListener('submit', function (e) {
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').textContent = 'Gönderiliyor...';
+        });
     </script>
+
+</body>
 
 </html>
