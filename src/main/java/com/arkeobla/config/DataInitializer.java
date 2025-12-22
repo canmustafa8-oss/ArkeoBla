@@ -25,7 +25,7 @@ public class DataInitializer {
                                 admin.setLastName("Yılmaz");
                                 admin.setBirthDate(java.time.LocalDate.of(1990, 1, 1));
                                 admin.setRole(Role.ADMIN);
-                                admin.setBadges("KURUCU,YÖNETİCİ,KRAL");
+                                admin.setBadges("KURUCU,YÖNETİCİ");
                                 admin.setEnabled(true);
                                 userRepository.save(admin);
                                 System.out.println(">>> Varsayılan Admin kullanıcısı oluşturuldu: Mcquelss");
