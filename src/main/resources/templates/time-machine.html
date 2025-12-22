@@ -221,7 +221,7 @@
                 <p class="info-desc" th:text="${selectedEra.description}">Açıklama</p>
 
                 <div style="margin-top: 20px;">
-                    <a href="#" onclick="alert('Bu döneme ait detaylı simülasyon yakında!')" class="btn"
+                    <a th:href="@{'/time-machine/era/' + ${selectedEra.id}}" class="btn"
                         style="background:#c5a059; color:#000; font-weight:bold; padding:10px 25px; border-radius:4px; text-decoration:none;">🚀
                         Bu Döneme Işınlan</a>
                 </div>

@@ -21,7 +21,7 @@ public class DataInitializer {
                                 admin = new User();
                                 admin.setUsername("Mcquelss");
                                 admin.setPassword("Mcan1346.");
-                                admin.setFirstName("Mustafa");
+                                admin.setFirstName("Mustafa Can");
                                 admin.setLastName("Yılmaz");
                                 admin.setBirthDate(java.time.LocalDate.of(1990, 1, 1));
                                 admin.setRole(Role.ADMIN);
@@ -33,7 +33,7 @@ public class DataInitializer {
                                 // Mevcut admini güncelle
                                 admin.setRole(Role.ADMIN);
                                 if (admin.getFirstName() == null)
-                                        admin.setFirstName("Mustafa");
+                                        admin.setFirstName("Mustafa Can");
                                 if (admin.getLastName() == null)
                                         admin.setLastName("Yılmaz");
                                 if (admin.getBirthDate() == null)
@@ -273,19 +273,15 @@ public class DataInitializer {
                                         c1.setHistoricalDate("MÖ 9600 - MÖ 8200");
                                         c1.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/G%C3%B6bekli_Tepe%2C_Urfa.jpg/1200px-G%C3%B6bekli_Tepe%2C_Urfa.jpg");
                                         c1.setSummary("Şanlıurfa'da keşfedilen dünyanın en eski tapınağı, insanlık tarihini yeniden yazdı.");
-                                        c1.setBody("NE? Göbeklitepe, Şanlıurfa'nın yaklaşık 18 km kuzeydoğusunda, deniz seviyesinden 760 metre yükseklikte yer alan devasa bir arkeolojik alandır. T şeklindeki devasa taş dikilitlerden oluşan yapılar kompleksidir.\n\n"
+                                        c1.setBody("Göbeklitepe, Şanlıurfa'nın yaklaşık 18 km kuzeydoğusunda, deniz seviyesinden 760 metre yükseklikte yer alan devasa bir arkeolojik alandır. T şeklindeki devasa taş dikilitlerden oluşan bu yapılar kompleksi, henüz tarımı bile keşfetmemiş avcı-toplayıcı topluluklar tarafından inşa edilmiştir.\n\n"
                                                         +
-                                                        "KİM? Henüz tarımı bile keşfetmemiş, avcı-toplayıcı yaşam süren topluluklar tarafından inşa edildi. Alman arkeolog Klaus Schmidt bu siteyi 1994'te dünyaya tanıttı ve ölümüne kadar kazı çalışmalarını yönetti.\n\n"
+                                                        "Alman arkeolog Klaus Schmidt bu siteyi 1994'te dünyaya tanıttı ve ölümüne kadar kazı çalışmalarını yönetti. Radyokarbon tarihleme sonuçlarına göre yapılar MÖ 9600-8200 yılları arasına, yani günümüzden yaklaşık 12.000 yıl öncesine tarihleniyor. Bu, Mısır piramitlerinden 7.000, Stonehenge'den 6.000 yıl daha eskidir.\n\n"
                                                         +
-                                                        "NE ZAMAN? Radyokarbon tarihleme sonuçlarına göre MÖ 9600-8200 yılları arasına, yani günümüzden yaklaşık 12.000 yıl öncesine tarihleniyor. Bu, Mısır piramitlerinden 7.000, Stonehenge'den 6.000 yıl daha eskidir.\n\n"
+                                                        "Güneydoğu Anadolu'da, Bereketli Hilal'in tam kalbinde yer alan Göbeklitepe, insanlığın ilk tarıma geçtiği bölgede bulunmaktadır. Göbeklitepe, 'önce tapınak, sonra şehir' tezini ortaya koyarak arkeoloji dünyasını sarstı. Geleneksel görüşe göre insanlar önce yerleşik hayata geçer, sonra dini yapılar inşa ederdi. Göbeklitepe bunun tersini kanıtladı.\n\n"
                                                         +
-                                                        "NEREDE? Güneydoğu Anadolu'da, Bereketli Hilal'in tam kalbinde. Burası insanlığın ilk tarıma geçtiği bölgedir.\n\n"
+                                                        "10-15 ton ağırlığındaki kireçtaşı bloklar, taş aletlerle yontulup yaklaşık 500 metre uzaklıktaki taş ocağından taşındı. Metal aletler, tekerlek veya hayvan gücü kullanılmadan, sırf insan emeğiyle yapıldı.\n\n"
                                                         +
-                                                        "NEDEN ÖNEMLİ? Göbeklitepe, 'önce tapınak, sonra şehir' tezini ortaya koyarak arkeoloji dünyasını sarstı. Geleneksel görüşe göre insanlar önce yerleşik hayata geçer, sonra dini yapılar inşa ederdi. Göbeklitepe bunun tersini kanıtladı: İnanç sistemleri, uygarlığın öncüsü olabilir.\n\n"
-                                                        +
-                                                        "NASIL İNŞA EDİLDİ? 10-15 ton ağırlığındaki kireçtaşı bloklar, taş aletlerle yontulup yaklaşık 500 metre uzaklıktaki taş ocağından taşındı. Metal aletler, tekerlek veya hayvan gücü kullanılmadan, sırf insan emeğiyle yapıldı.\n\n"
-                                                        +
-                                                        "DÖNEM HİKAYESİ: Neolitik Çağ, insanlığın en radikal dönüşümünü yaşadığı dönemdir. Buzul Çağı'nın sona ermesiyle iklim yumuşamış, yabani tahıllar bollaşmış, insanlar yavaş yavaş avcılıktan tarıma geçmeye başlamıştı. Göbeklitepe'yi inşa edenler bu geçişin tam eşiğindeydi. Belki de bu devasa tapınaklar için bir araya gelme ihtiyacı, ilk köylerin kurulmasına yol açtı.");
+                                                        "Neolitik Çağ, insanlığın en radikal dönüşümünü yaşadığı dönemdir. Buzul Çağı'nın sona ermesiyle iklim yumuşamış, yabani tahıllar bollaşmış, insanlar yavaş yavaş avcılıktan tarıma geçmeye başlamıştı. Göbeklitepe'yi inşa edenler bu geçişin tam eşiğindeydi.");
                                         c1.setAuthor(u);
                                         c1.setCreatedAt(java.time.LocalDateTime.now().minusDays(1));
                                         contentRepository.save(c1);
@@ -296,21 +292,17 @@ public class DataInitializer {
                                         c2.setCategory("Tarih");
                                         c2.setEra("Antik Mısır");
                                         c2.setHistoricalDate("MÖ 2560");
-                                        c2.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/1200px-Kheops-Pyramid.jpg");
+                                        c2.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/1200px-Kheops-Piramit.jpg");
                                         c2.setSummary("Antik dünyanın yedi harikasından günümüze ulaşan tek yapı: Keops Piramidi.");
-                                        c2.setBody("NE? Giza Platosu'ndaki üç büyük piramidin en büyüğü ve en eskisidir. Orijinal yüksekliği 146.6 metre olup, 3.800 yıl boyunca dünyanın en yüksek yapısı olarak kalmıştır.\n\n"
+                                        c2.setBody("Giza Platosu'ndaki üç büyük piramidin en büyüğü ve en eskisi olan Keops Piramidi, orijinal yüksekliği 146.6 metre olup 3.800 yıl boyunca dünyanın en yüksek yapısı olarak kalmıştır.\n\n"
                                                         +
-                                                        "KİM? 4. Hanedan firavunu Khufu (Yunanca: Keops) için inşa edildi. Mimar Hemiunu'nun projesi olduğu düşünülmektedir.\n\n"
+                                                        "4. Hanedan firavunu Khufu (Yunanca: Keops) için inşa edilen bu devasa yapı, Mimar Hemiunu'nun projesi olduğu düşünülmektedir. MÖ 2560 civarında yaklaşık 20 yılda tamamlandı.\n\n"
                                                         +
-                                                        "NE ZAMAN? MÖ 2560 civarında, yaklaşık 20 yılda tamamlandı.\n\n"
+                                                        "Kahire'nin hemen güneybatısında, Giza Platosu üzerinde yer alan piramit, Nil Nehri'nin batı kıyısında konumlandırılmıştır. Mısırlılar için batı 'ölüler diyarı'nı simgeliyordu.\n\n"
                                                         +
-                                                        "NEREDE? Kahire'nin hemen güneybatısında, Giza Platosu üzerinde. Nil Nehri'nin batı kıyısında, çünkü Mısırlılar için batı 'ölüler diyarı'nı simgeliyordu.\n\n"
+                                                        "Piramit sadece bir mezar değil, firavunun ölümsüzlüğe ulaşması için kozmik bir makineydi. İç odalar ve koridorlar, firavunun ruhunun yıldızlara yükselmesini sağlayacak şekilde tasarlandı.\n\n"
                                                         +
-                                                        "NEDEN ÖNEMLİ? Piramit sadece bir mezar değil, firavunun ölümsüzlüğe ulaşması için kozmik bir makineydi. İç odalar ve koridorlar, firavunun ruhunun (Ka ve Ba) yıldızlara yükselmesini sağlayacak şekilde tasarlandı.\n\n"
-                                                        +
-                                                        "NASIL İNŞA EDİLDİ? 2.3 milyon kireçtaşı ve granit blok kullanıldı. Bloklar ortalama 2.5 ton, bazıları 80 tona kadar çıkıyor. Rampa sistemleri, kaldıraçlar ve devasa işgücüyle taşındı. Köleler değil, maaşlı işçiler çalıştı.\n\n"
-                                                        +
-                                                        "DÖNEM HİKAYESİ: Eski Krallık dönemi, Mısır'ın 'Piramit Çağı'ydı. Merkezi devlet gücü doruk noktasındaydı. Firavun bir tanrı-kral olarak görülüyor, tüm ülkenin kaynakları onun ebedi anıtına akıtılıyordu. Bu dönem yüzlerce yıl süren istikrar ve refahla bilinir.");
+                                                        "2.3 milyon kireçtaşı ve granit blok kullanılarak inşa edildi. Bloklar ortalama 2.5 ton, bazıları 80 tona kadar çıkıyor. Rampa sistemleri, kaldıraçlar ve devasa işgücüyle taşındı. Araştırmalar, işçilerin köle değil maaşlı çalışanlar olduğunu göstermektedir.");
                                         c2.setAuthor(u);
                                         c2.setCreatedAt(java.time.LocalDateTime.now().minusDays(2));
                                         contentRepository.save(c2);
@@ -323,19 +315,13 @@ public class DataInitializer {
                                         c3.setHistoricalDate("MÖ 312 - MS 400");
                                         c3.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Appian_Way.jpg/1200px-Appian_Way.jpg");
                                         c3.setSummary("'Bütün yollar Roma'ya çıkar' sözünün arkasındaki mühendislik harikası.");
-                                        c3.setBody("NE? Roma İmparatorluğu'nun inşa ettiği, toplam 400.000 km'yi bulan yol ağı. Bunun 80.000 km'si taş döşeli ana yollardır (Via).\n\n"
+                                        c3.setBody("Roma İmparatorluğu'nun inşa ettiği yol ağı toplam 400.000 km'yi buluyordu. Bunun 80.000 km'si taş döşeli ana yollardır.\\n\\n"
                                                         +
-                                                        "KİM? Roma devleti tarafından planlı bir şekilde inşa edildi. İlk büyük yol olan Via Appia, Censor Appius Claudius Caecus tarafından MÖ 312'de başlatıldı.\n\n"
+                                                        "Roma devleti tarafından planlı bir şekilde inşa edilen bu yollar, imparatorluğun can damarlarıydı. İlk büyük yol olan Via Appia, Censor Appius Claudius Caecus tarafından MÖ 312'de başlatıldı.\\n\\n"
                                                         +
-                                                        "NE ZAMAN? 700 yıl boyunca sürekli genişletildi. En yoğun yapım dönemi Cumhuriyet ve erken İmparatorluk dönemleridir.\n\n"
+                                                        "700 yıl boyunca sürekli genişletilen yol ağı, İspanya'dan Mezopotamya'ya, Britanya'dan Kuzey Afrika'ya tüm imparatorluk topraklarını kapsıyordu.\\n\\n"
                                                         +
-                                                        "NEREDE? İspanya'dan Mezopotamya'ya, Britanya'dan Kuzey Afrika'ya tüm imparatorluk toprakları.\n\n"
-                                                        +
-                                                        "NEDEN ÖNEMLİ? Lejyonlar bu yollar sayesinde hızla hareket edebiliyordu. Ayrıca ticaret, haberleşme ve Roma kültürünün yayılması için kritikti.\n\n"
-                                                        +
-                                                        "NASIL YAPILDI? Çok katmanlı mühendislik: Önce zemin kazılır, büyük taşlarla taban oluşturulur, üzerine çakıl, sonra ince kum, en üste düzgün kesilmiş bazalt döşenirdi. Drenaj kanalları ve kavisli yüzeylerle su birikmesi önlenirdi.\n\n"
-                                                        +
-                                                        "DÖNEM HİKAYESİ: Roma'nın yükselişi, askeri güç kadar mühendislik başarısına dayanır. Yollar, köprüler, su kemerleri ve kanalizasyon sistemleri Roma medeniyetinin altyapısını oluşturuyordu. Bu yollardan bazıları 2000 yıl sonra bugün bile kullanılmaktadır.");
+                                                        "Çok katmanlı mühendislik kullanılarak yapılan bu yolların bazıları 2000 yıl sonra bugün bile kullanılmaktadır.");
                                         c3.setAuthor(u);
                                         c3.setCreatedAt(java.time.LocalDateTime.now().minusDays(3));
                                         contentRepository.save(c3);

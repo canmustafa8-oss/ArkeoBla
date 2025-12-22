@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${era.title} + ' - Zaman Makinesi'">Dönem Detayı</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital@0;1&display=swap"
+        rel="stylesheet">
+    <!-- Markdown Renderer -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background-color: #1a1612;
+            color: #dcd6ce;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        .hero {
+            height: 50vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, #1a1612 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5em;
+            color: #c5a059;
+            margin: 0;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero .period {
+            font-size: 1.5em;
+            color: #aaa;
+            margin-top: 10px;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Markdown Styling */
+        .content-body h2 {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            font-size: 2em;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3e3226;
+        }
+
+        .content-body h3 {
+            font-family: 'Cinzel', serif;
+            color: #d4af37;
+            font-size: 1.5em;
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+
+        .content-body h4 {
+            color: #888;
+            font-size: 1.2em;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+
+        .content-body p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .content-body ul,
+        .content-body ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .content-body li {
+            margin-bottom: 8px;
+        }
+
+        .content-body strong {
+            color: #c5a059;
+        }
+
+        .content-body hr {
+            border: none;
+            border-top: 1px solid #3e3226;
+            margin: 40px 0;
+        }
+
+        .content-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .content-body th,
+        .content-body td {
+            border: 1px solid #3e3226;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .content-body th {
+            background: #2c241b;
+            color: #c5a059;
+            font-family: 'Cinzel', serif;
+        }
+
+        .content-body blockquote {
+            border-left: 4px solid #c5a059;
+            margin: 30px 0;
+            padding: 15px 25px;
+            background: rgba(197, 160, 89, 0.1);
+            font-style: italic;
+        }
+
+        .content-body code {
+            background: #2c241b;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .back-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .btn-back {
+            background: rgba(44, 36, 27, 0.9);
+            color: #c5a059;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: 'Cinzel', serif;
+            border: 1px solid #c5a059;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .btn-back:hover {
+            background: #c5a059;
+            color: #1a1612;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #c5a059, #d4af37);
+            z-index: 9999;
+            transition: width 0.1s;
+        }
+
+        .toc {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(26, 22, 18, 0.95);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #3e3226;
+            max-width: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .toc h4 {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            margin: 0 0 15px 0;
+            font-size: 0.9em;
+        }
+
+        .toc a {
+            display: block;
+            color: #888;
+            text-decoration: none;
+            font-size: 0.8em;
+            padding: 5px 0;
+            border-left: 2px solid transparent;
+            padding-left: 10px;
+            transition: all 0.2s;
+        }
+
+        .toc a:hover,
+        .toc a.active {
+            color: #c5a059;
+            border-left-color: #c5a059;
+        }
+
+        @media (max-width: 1400px) {
+            .toc {
+                display: none;
+            }
+        }
+
+        .era-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #3e3226;
+        }
+
+        .era-nav a {
+            color: #888;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #3e3226;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .era-nav a:hover {
+            border-color: #c5a059;
+            color: #c5a059;
+        }
+
+        /* Word count and reading time */
+        .meta-info {
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 40px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 5px;
+        }
+
+        .meta-info span {
+            margin: 0 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="progress"></div>
+
+    <!-- Back Navigation -->
+    <div class="back-nav">
+        <a href="/time-machine" class="btn-back">← Zaman Makinesi</a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero" th:style="'background-image: url(' + ${era.imageUrl} + ');'">
+        <div class="hero-content">
+            <h1 th:text="${era.title}">Dönem Başlığı</h1>
+            <div class="period" th:text="${era.period}">Tarih Aralığı</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="meta-info">
+            <span>📖 Okuma Süresi: <strong id="readingTime">~15 dk</strong></span>
+            <span>📝 Kelime Sayısı: <strong id="wordCount">-</strong></span>
+        </div>
+
+        <div class="content-body" id="content">
+            <!-- Markdown content will be rendered here -->
+        </div>
+
+        <div class="era-nav">
+            <a href="/time-machine">🏠 Tüm Dönemler</a>
+            <a href="/" style="background: #c5a059; color: #1a1612; font-weight: bold;">🚀 Ana Sayfaya Dön</a>
+        </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <nav class="toc" id="toc">
+        <h4>📑 İçindekiler</h4>
+        <!-- Generated by JS -->
+    </nav>
+
+    <script th:inline="javascript">
+        // Get markdown content from server
+        const markdownContent = /*[[${era.detailedContent}]]*/ '';
+
+        // Render markdown
+        document.getElementById('content').innerHTML = marked.parse(markdownContent);
+
+        // Calculate reading time
+        const text = document.getElementById('content').textContent;
+        const wordCount = text.split(/\s+/).filter(word => word.length > 0).length;
+        const readingTime = Math.ceil(wordCount / 200); // 200 words per minute
+
+        document.getElementById('wordCount').textContent = wordCount.toLocaleString('tr-TR');
+        document.getElementById('readingTime').textContent = '~' + readingTime + ' dakika';
+
+        // Generate Table of Contents
+        const headings = document.querySelectorAll('.content-body h2, .content-body h3');
+        const toc = document.getElementById('toc');
+
+        headings.forEach((heading, index) => {
+            heading.id = 'section-' + index;
+            const link = document.createElement('a');
+            link.href = '#section-' + index;
+            link.textContent = heading.textContent.replace(/^[#\s]+/, '').substring(0, 30);
+            if (heading.tagName === 'H3') {
+                link.style.paddingLeft = '20px';
+                link.style.fontSize = '0.75em';
+            }
+            toc.appendChild(link);
+        });
+
+        // Reading progress bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        });
+    </script>
+
+</body>
+
+</html>

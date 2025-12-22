@@ -14,21 +14,25 @@ public class PuzzleController {
     private final List<PuzzleLevel> levels = new ArrayList<>();
 
     public PuzzleController() {
-        // Level 1: Zeugma (Kolay 4x4)
-        levels.add(new PuzzleLevel(1, "Zeugma Çingene Kızı", "4x4", 4,
-                "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&w=600&q=80"));
+        // Level 1: Zeugma (Kolay 3x3)
+        levels.add(new PuzzleLevel(1, "Zeugma Çingene Kızı", "3x3 Kolay", 3,
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Gaziantep_Zeugma_Museum_Gypsy_Girl_mosaic_close-up_1926.jpg/600px-Gaziantep_Zeugma_Museum_Gypsy_Girl_mosaic_close-up_1926.jpg"));
 
-        // Level 2: Göbeklitepe (Orta 6x6)
-        levels.add(new PuzzleLevel(2, "Göbeklitepe Sütunları", "6x6", 6,
-                "https://images.unsplash.com/photo-1544558635-667480601430?auto=format&fit=crop&w=600&q=80"));
+        // Level 2: Göbeklitepe (Orta 4x4)
+        levels.add(new PuzzleLevel(2, "Göbeklitepe Sütunları", "4x4 Orta", 4,
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/G%C3%B6bekli_Tepe%2C_Urfa.jpg/600px-G%C3%B6bekli_Tepe%2C_Urfa.jpg"));
 
-        // Level 3: Truva Atı (Zor 8x8)
-        levels.add(new PuzzleLevel(3, "Truva Atı", "8x8", 8,
-                "https://images.unsplash.com/photo-1628151015968-3a4429e9efc0?auto=format&fit=crop&w=600&q=80"));
+        // Level 3: Piramitler (Zor 5x5)
+        levels.add(new PuzzleLevel(3, "Giza Piramitleri", "5x5 Zor", 5,
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/All_Gizah_Pyramids.jpg/600px-All_Gizah_Pyramids.jpg"));
 
-        // Level 4: Mısır Piramitleri (Final 10x10)
-        levels.add(new PuzzleLevel(4, "Büyük Giza Piramitleri", "10x10", 10,
-                "https://images.unsplash.com/photo-1539650116455-d2b585a2290c?auto=format&fit=crop&w=600&q=80"));
+        // Level 4: Kolezyum (Uzman 6x6)
+        levels.add(new PuzzleLevel(4, "Roma Kolezyumu", "6x6 Uzman", 6,
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/600px-Colosseo_2020.jpg"));
+
+        // Level 5: Parthenon (Final 7x7)
+        levels.add(new PuzzleLevel(5, "Parthenon Tapınağı", "7x7 Usta", 7,
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/The_Parthenon_in_Athens.jpg/600px-The_Parthenon_in_Athens.jpg"));
     }
 
     @GetMapping("/puzzle")

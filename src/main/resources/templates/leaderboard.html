@@ -99,7 +99,7 @@
             <thead>
                 <tr>
                     <th>Sıra</th>
-                    <th>Arkeolog (Kullanıcı)</th>
+                    <th>Kullanıcı</th>
                     <th>Puan</th>
                     <th>Rozetler</th>
                 </tr>
@@ -107,7 +107,9 @@
             <tbody>
                 <tr th:each="user, iter : ${topUsers}">
                     <td class="rank" th:classappend="'rank-' + (${iter.index} + 1)" th:text="${iter.index + 1}">1</td>
-                    <td th:text="${user.username}" style="font-weight: bold;">Kullanıcı Adı</td>
+                    <td style="font-weight: bold;"
+                        th:text="${user.firstName != null && user.lastName != null ? user.firstName + ' ' + user.lastName : user.username}">
+                        Kullanıcı Adı</td>
                     <td th:text="${user.totalScore}">0</td>
                     <td>
                         <span th:if="${user.badges != null}" th:each="badge : ${user.badges.split(',')}"

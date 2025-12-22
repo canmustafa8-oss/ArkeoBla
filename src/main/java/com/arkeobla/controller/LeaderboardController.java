@@ -16,7 +16,13 @@ public class LeaderboardController {
 
     @GetMapping("/leaderboard")
     public String leaderboard(Model model) {
-        model.addAttribute("topUsers", userRepository.findTop10ByOrderByTotalScoreDesc());
+        // Admin kullanıcısını hariç tut (Mcquelss)
+        var allTopUsers = userRepository.findTop10ByOrderByTotalScoreDesc();
+        var filteredUsers = allTopUsers.stream()
+                .filter(u -> !u.getUsername().equals("Mcquelss"))
+                .limit(10)
+                .toList();
+        model.addAttribute("topUsers", filteredUsers);
         return "leaderboard";
     }
 }
