@@ -300,11 +300,16 @@
         }
 
         function shufflePuzzle() {
+            // Don't check for win during shuffle
+            let shuffling = true;
+
             moves = 0;
             document.getElementById('moveCount').textContent = moves;
 
-            // Random shuffle
-            for (let i = 0; i < gridSize * gridSize * 10; i++) {
+            // Random shuffle with enough moves to scramble
+            const shuffleMoves = gridSize * gridSize * 20;
+
+            for (let i = 0; i < shuffleMoves; i++) {
                 const possibleMoves = [];
                 if (emptyPos.row > 0) possibleMoves.push({ row: emptyPos.row - 1, col: emptyPos.col });
                 if (emptyPos.row < gridSize - 1) possibleMoves.push({ row: emptyPos.row + 1, col: emptyPos.col });
@@ -313,17 +318,21 @@
 
                 const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
 
-                // Silent move (no animation, no move count increase)
+                // Silent swap
                 const temp = board[randomMove.row][randomMove.col];
                 board[randomMove.row][randomMove.col] = board[emptyPos.row][emptyPos.col];
                 board[emptyPos.row][emptyPos.col] = temp;
 
-                board[randomMove.row][randomMove.col].dataset.row = randomMove.row;
-                board[randomMove.row][randomMove.col].dataset.col = randomMove.col;
-                board[emptyPos.row][emptyPos.col].dataset.row = emptyPos.row;
-                board[emptyPos.row][emptyPos.col].dataset.col = emptyPos.col;
-
+                // DON'T update dataset during shuffle - that causes the win detection bug
                 emptyPos = randomMove;
+            }
+
+            // NOW update all dataset values after shuffle is complete
+            for (let row = 0; row < gridSize; row++) {
+                for (let col = 0; col < gridSize; col++) {
+                    board[row][col].dataset.row = row;
+                    board[row][col].dataset.col = col;
+                }
             }
 
             moves = 0;
