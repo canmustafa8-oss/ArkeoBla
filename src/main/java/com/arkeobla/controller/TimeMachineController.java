@@ -33,7 +33,7 @@ public class TimeMachineController {
                                 "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/G%C3%B6bekli_Tepe%2C_Pair_of_pillars_with_low_reliefs_of_animals.jpg/800px-G%C3%B6bekli_Tepe%2C_Pair_of_pillars_with_low_reliefs_of_animals.jpg",
                                 getNeolithicContent()));
 
-                addEra(new Era("chalcolithic", "Kalkolitik Çağ", "Tarih Öncesi", "MÖ 5.500 - MÖ 3.300",
+                addEra(new Era("chalcolithic", "Kalkolitik Çağ", "Tarih Öncesi", "MÖ 6.000 - MÖ 3.200",
                                 "Bakır Çağı: İlk madencilik, sosyal sınıfların doğuşu ve şehirleşmenin temelleri.",
                                 "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Copper_Age_Weapons.jpg/800px-Copper_Age_Weapons.jpg",
                                 getChalcolithicContent()));
