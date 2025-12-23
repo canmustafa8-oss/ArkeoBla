@@ -25,45 +25,45 @@ public class TimeMachineController {
 
                 addEra(new Era("mesolithic", "Mezolitik Çağ", "Tarih Öncesi", "MÖ 22.000 - MÖ 10.000",
                                 "Buzul Çağı'nın son evresi: Mikrolit teknolojisi, köpeğin evcilleştirilmesi ve yarı-yerleşik yaşam.",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Star_Carr_pendant_2015.jpg/800px-Star_Carr_pendant_2015.jpg",
+                                "https://upload.wikimedia.org/wikipedia/commons/8/8e/Star_Carr_pendant_2015.jpg",
                                 getMesolithicContent()));
 
                 addEra(new Era("neolithic", "Neolitik Çağ", "Tarih Öncesi", "MÖ 10.000 - MÖ 6.000",
                                 "Tarım Devrimi: Göbeklitepe, Çatalhöyük, ilk köyler ve yerleşik yaşama geçiş.",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/G%C3%B6bekli_Tepe%2C_Pair_of_pillars_with_low_reliefs_of_animals.jpg/800px-G%C3%B6bekli_Tepe%2C_Pair_of_pillars_with_low_reliefs_of_animals.jpg",
+                                "https://upload.wikimedia.org/wikipedia/commons/e/e7/G%C3%B6bekli_Tepe%2C_Pair_of_pillars_with_low_reliefs_of_animals.jpg",
                                 getNeolithicContent()));
 
                 addEra(new Era("chalcolithic", "Kalkolitik Çağ", "Tarih Öncesi", "MÖ 6.000 - MÖ 3.200",
                                 "Bakır Çağı: İlk madencilik, sosyal sınıfların doğuşu ve şehirleşmenin temelleri.",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Copper_Age_Weapons.jpg/800px-Copper_Age_Weapons.jpg",
+                                "https://upload.wikimedia.org/wikipedia/commons/6/60/Copper_Age_Weapons.jpg",
                                 getChalcolithicContent()));
 
                 // --- ANTİK ÇAĞ ---
                 addEra(new Era("ancient-egypt", "Antik Mısır", "Antik Çağ", "MÖ 3100 - MÖ 30",
                                 "Nil'in Hediyesi: Piramitler, firavunlar, hiyeroglif yazı ve mumyalama sanatı.",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/800px-Kheops-Pyramid.jpg",
+                                "https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg",
                                 getAncientEgyptContent()));
 
                 addEra(new Era("ancient-greece", "Antik Yunan & Roma", "Antik Çağ", "MÖ 800 - MS 476",
                                 "Klasik Dönem: Demokrasi, felsefe, Olimpiyat Oyunları ve Roma mühendisliği.",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/The_Parthenon_in_Athens.jpg/800px-The_Parthenon_in_Athens.jpg",
+                                "https://upload.wikimedia.org/wikipedia/commons/d/da/The_Parthenon_in_Athens.jpg",
                                 getAncientGreeceRomeContent()));
 
                 // --- ORTA ÇAĞ ---
                 addEra(new Era("medieval", "Orta Çağ", "Orta Çağ", "MS 476 - 1453",
                                 "Feodalizm Dönemi: Şövalyeler, kaleler, Haçlı Seferleri ve İslam'ın Altın Çağı.",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Crac_des_chevaliers_syria.jpeg/800px-Crac_des_chevaliers_syria.jpeg",
+                                "https://upload.wikimedia.org/wikipedia/commons/b/b2/Crac_des_chevaliers_syria.jpeg",
                                 getMedievalContent()));
 
                 // --- YENİ & YAKIN ÇAĞ ---
                 addEra(new Era("early-modern", "Yeni Çağ & Rönesans", "Yeni Çağ", "1453 - 1789",
                                 "Aydınlanma: Rönesans sanatı, matbaa, coğrafi keşifler ve bilimsel devrim.",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/VanGogh-starry_night_ballance1.jpg/800px-VanGogh-starry_night_ballance1.jpg",
+                                "https://upload.wikimedia.org/wikipedia/commons/6/66/VanGogh-starry_night_ballance1.jpg",
                                 getEarlyModernContent()));
 
                 addEra(new Era("industrial", "Sanayi Devrimi", "Yakın Çağ", "1760 - 1914",
                                 "Makine Çağı: Buhar gücü, fabrikalar, demiryolları ve modern dünyanın doğuşu.",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Hartlepool_Merchant_Navy_Convoy_in_World_War_II.jpg/800px-Hartlepool_Merchant_Navy_Convoy_in_World_War_II.jpg",
+                                "https://upload.wikimedia.org/wikipedia/commons/4/41/Hartlepool_Merchant_Navy_Convoy_in_World_War_II.jpg",
                                 getIndustrialContent()));
         }
 
