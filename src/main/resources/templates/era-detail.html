@@ -306,8 +306,18 @@
         </div>
 
         <div class="era-nav">
-            <a href="/time-machine">🏠 Tüm Dönemler</a>
-            <a href="/" style="background: #c5a059; color: #1a1612; font-weight: bold;">🚀 Ana Sayfaya Dön</a>
+            <a th:if="${prevEra != null}" th:href="@{'/time-machine/era/' + ${prevEra.id}}"
+                style="display: flex; align-items: center; gap: 8px;">
+                ← <span th:text="${prevEra.title}">Önceki</span>
+            </a>
+            <a th:if="${prevEra == null}" href="/time-machine" style="opacity: 0.5;">🏠 Tüm Dönemler</a>
+
+            <a th:if="${nextEra != null}" th:href="@{'/time-machine/era/' + ${nextEra.id}}"
+                style="background: linear-gradient(135deg, #c5a059, #d4af37); color: #1a1612; font-weight: bold; display: flex; align-items: center; gap: 8px;">
+                <span th:text="${nextEra.title}">Sonraki</span> →
+            </a>
+            <a th:if="${nextEra == null}" href="/time-machine"
+                style="background: #c5a059; color: #1a1612; font-weight: bold;">🏆 Tamamlandı!</a>
         </div>
     </div>
 
