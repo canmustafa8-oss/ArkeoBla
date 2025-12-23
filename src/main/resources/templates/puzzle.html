@@ -229,6 +229,10 @@
                     piece.style.width = pieceSize + 'px';
                     piece.style.height = pieceSize + 'px';
 
+                    // Correct Position (Target) - NEVER CHANGE THESE AFTER INIT
+                    piece.dataset.row = row;
+                    piece.dataset.col = col;
+
                     if (row === emptyPos.row && col === emptyPos.col) {
                         piece.style.opacity = '0';
                         piece.dataset.empty = 'true';
@@ -238,9 +242,8 @@
                         piece.style.backgroundSize = `${gridSize * pieceSize}px ${gridSize * pieceSize}px`;
                     }
 
-                    piece.dataset.row = row;
-                    piece.dataset.col = col;
-                    piece.onclick = () => movePiece(row, col);
+                    // On click, we find the current position of this piece
+                    piece.onclick = () => handlePieceClick(piece);
 
                     board[row][col] = piece;
                     puzzleBoard.appendChild(piece);
@@ -248,6 +251,21 @@
             }
 
             shufflePuzzle();
+        }
+
+        function handlePieceClick(piece) {
+            // Find current position of the clicked piece in the board array
+            let curRow = -1, curCol = -1;
+            for (let r = 0; r < gridSize; r++) {
+                for (let c = 0; c < gridSize; c++) {
+                    if (board[r][c] === piece) {
+                        curRow = r;
+                        curCol = c;
+                        break;
+                    }
+                }
+            }
+            if (curRow !== -1) movePiece(curRow, curCol);
         }
 
         function movePiece(row, col) {
@@ -259,12 +277,6 @@
                 const temp = board[row][col];
                 board[row][col] = board[emptyPos.row][emptyPos.col];
                 board[emptyPos.row][emptyPos.col] = temp;
-
-                // Update positions
-                board[row][col].dataset.row = row;
-                board[row][col].dataset.col = col;
-                board[emptyPos.row][emptyPos.col].dataset.row = emptyPos.row;
-                board[emptyPos.row][emptyPos.col].dataset.col = emptyPos.col;
 
                 // Update empty position
                 emptyPos = { row, col };
@@ -300,63 +312,96 @@
         }
 
         function shufflePuzzle() {
-            // Don't check for win during shuffle
-            let shuffling = true;
-
             moves = 0;
             document.getElementById('moveCount').textContent = moves;
 
             // Random shuffle with enough moves to scramble
-            const shuffleMoves = gridSize * gridSize * 20;
+            const shuffleMoves = gridSize * gridSize * 10; // Slightly less moves but higher quality
+            let lastMove = null;
 
             for (let i = 0; i < shuffleMoves; i++) {
                 const possibleMoves = [];
-                if (emptyPos.row > 0) possibleMoves.push({ row: emptyPos.row - 1, col: emptyPos.col });
-                if (emptyPos.row < gridSize - 1) possibleMoves.push({ row: emptyPos.row + 1, col: emptyPos.col });
-                if (emptyPos.col > 0) possibleMoves.push({ row: emptyPos.row, col: emptyPos.col - 1 });
-                if (emptyPos.col < gridSize - 1) possibleMoves.push({ row: emptyPos.row, col: emptyPos.col + 1 });
+                if (emptyPos.row > 0) possibleMoves.push({ row: emptyPos.row - 1, col: emptyPos.col, dir: 'UP' });
+                if (emptyPos.row < gridSize - 1) possibleMoves.push({ row: emptyPos.row + 1, col: emptyPos.col, dir: 'DOWN' });
+                if (emptyPos.col > 0) possibleMoves.push({ row: emptyPos.row, col: emptyPos.col - 1, dir: 'LEFT' });
+                if (emptyPos.col < gridSize - 1) possibleMoves.push({ row: emptyPos.row, col: emptyPos.col + 1, dir: 'RIGHT' });
 
-                const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+                // Filter out the reverse of the last move to prevent just moving back and forth
+                const validMoves = possibleMoves.filter(m => {
+                    if (!lastMove) return true;
+                    if (lastMove === 'UP' && m.dir === 'DOWN') return false;
+                    if (lastMove === 'DOWN' && m.dir === 'UP') return false;
+                    if (lastMove === 'LEFT' && m.dir === 'RIGHT') return false;
+                    if (lastMove === 'RIGHT' && m.dir === 'LEFT') return false;
+                    return true;
+                });
 
-                // Silent swap
+                // Fallback to all moves if boxed in (unlikely in puzzle)
+                const candidates = validMoves.length > 0 ? validMoves : possibleMoves;
+                const randomMove = candidates[Math.floor(Math.random() * candidates.length)];
+
+                // Silent swap in array
                 const temp = board[randomMove.row][randomMove.col];
                 board[randomMove.row][randomMove.col] = board[emptyPos.row][emptyPos.col];
                 board[emptyPos.row][emptyPos.col] = temp;
 
-                // DON'T update dataset during shuffle - that causes the win detection bug
-                emptyPos = randomMove;
+                emptyPos = { row: randomMove.row, col: randomMove.col }; // Ensure strictly new object
+                lastMove = randomMove.dir;
             }
 
-            // NOW update all dataset values after shuffle is complete
-            for (let row = 0; row < gridSize; row++) {
-                for (let col = 0; col < gridSize; col++) {
-                    board[row][col].dataset.row = row;
-                    board[row][col].dataset.col = col;
-                }
+            // If by miracle it resolved itself, shuffle again
+            if (checkWin()) {
+                console.log("Shuffle resulted in solved state, reshuffling...");
+                setTimeout(shufflePuzzle, 10);
+            } else {
+                renderBoard();
+                console.log("Puzzle shuffled. Grid state verified.");
             }
-
-            moves = 0;
-            document.getElementById('moveCount').textContent = moves;
-            renderBoard();
         }
 
         function solvePuzzle() {
-            // Reset to solved state
-            emptyPos = { row: gridSize - 1, col: gridSize - 1 };
-            for (let row = 0; row < gridSize; row++) {
-                for (let col = 0; col < gridSize; col++) {
-                    board[row][col].dataset.row = row;
-                    board[row][col].dataset.col = col;
+            // Reconstruct board based on dataset (target) positions
+            const newBoard = [];
+            for (let r = 0; r < gridSize; r++) newBoard[r] = [];
+
+            // Find pieces in current board and place them in correct spots in newBoard
+            for (let r = 0; r < gridSize; r++) {
+                for (let c = 0; c < gridSize; c++) {
+                    const piece = board[r][c];
+                    const targetRow = parseInt(piece.dataset.row);
+                    const targetCol = parseInt(piece.dataset.col);
+                    newBoard[targetRow][targetCol] = piece;
+
+                    if (piece.dataset.empty === 'true') {
+                        emptyPos = { row: targetRow, col: targetCol };
+                    }
                 }
             }
+
+            board = newBoard;
             renderBoard();
+
+            // Trigger win
+            if (checkWin()) {
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                    document.getElementById('finalMoves').textContent = moves;
+                    document.getElementById('successModal').classList.add('show');
+                }, 300);
+            }
         }
 
         function checkWin() {
             for (let row = 0; row < gridSize; row++) {
                 for (let col = 0; col < gridSize; col++) {
-                    if (parseInt(board[row][col].dataset.row) !== row ||
-                        parseInt(board[row][col].dataset.col) !== col) {
+                    const piece = board[row][col];
+                    // Check if current piece currently resides at its target row/col
+                    if (parseInt(piece.dataset.row) !== row ||
+                        parseInt(piece.dataset.col) !== col) {
                         return false;
                     }
                 }

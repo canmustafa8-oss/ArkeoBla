@@ -414,7 +414,7 @@
     </div>
 
     <!-- Hidden artifact data -->
-    <div id="artifactsData" style="display:none;" th:attr="data-artifacts=${artifactsJson}"></div>
+    <!-- Artifact data loaded via inline JS below -->
 
     <script th:inline="javascript">
         const artifactsData = /*[[${artifacts}]]*/[];

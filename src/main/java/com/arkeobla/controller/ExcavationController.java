@@ -153,9 +153,11 @@ public class ExcavationController {
         @GetMapping("/excavation/play")
         public String playExcavation(@RequestParam String region, Model model) {
                 List<Artifact> artifacts = regionArtifacts.getOrDefault(region, regionArtifacts.get("turkey"));
-                Artifact randomArtifact = artifacts.get(new Random().nextInt(artifacts.size()));
 
-                model.addAttribute("artifact", randomArtifact);
+                // Shuffle artifacts for randomness each time
+                Collections.shuffle(artifacts);
+
+                model.addAttribute("artifacts", artifacts);
                 model.addAttribute("regionName", getRegionDisplayName(region));
                 model.addAttribute("regionCode", region);
 

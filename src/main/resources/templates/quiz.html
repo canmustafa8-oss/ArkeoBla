@@ -331,8 +331,15 @@
             document.getElementById('submitBtn').disabled = true;
         }
 
-        // Prevent double submission
+        // Prevent double submission & enable inputs for submission
         document.getElementById('quizForm')?.addEventListener('submit', function (e) {
+            // Disabled inputs are NOT sent in form submission
+            // We must re-enable them right before submitting
+            const allRadios = document.querySelectorAll('input[type="radio"]');
+            allRadios.forEach(radio => {
+                radio.disabled = false;
+            });
+
             document.getElementById('submitBtn').disabled = true;
             document.getElementById('submitBtn').textContent = 'Gönderiliyor...';
         });

@@ -501,6 +501,11 @@
                 font-size: 2em;
             }
 
+            .hero-section img {
+                margin-top: 20px;
+            }
+
+
             .modern-header {
                 padding: 10px 15px;
                 flex-wrap: wrap;
@@ -573,9 +578,7 @@
                 letter-spacing: 1px;
             }
 
-            .modern-header .brand span {
-                display: none;
-            }
+            /* .modern-header .brand span { display: none; }  Removed to show text logo on mobile */
 
             #theme-toggle {
                 padding: 2px 6px !important;
@@ -619,7 +622,6 @@
     <!-- Modern Header -->
     <header class="modern-header">
         <div class="brand">
-            <img src="/img/logo.png" style="height:40px; margin-right:10px; vertical-align:middle;" alt="Logo">
             <span th:text="#{header.brand}">ARKEOBLA</span>
         </div>
         <div class="nav-links">
@@ -660,6 +662,7 @@
             style="width: 100vw; max-width: 100vw; height: auto; display: block; object-fit: cover;">
         <div class="hero-content-modern">
             <h1 th:text="#{hero.title}">Tarihin Gizemlerini Keşfedin</h1>
+            <p th:text="#{hero.description}">ArkeoBla Açıklama</p>
             <a href="/map" class="hero-cta" th:if="${#authentication.name != 'anonymousUser'}"
                 th:text="#{hero.cta.explore}">🚀 Keşfetmeye Başla</a>
         </div>
