@@ -18,17 +18,17 @@ public class TimeMachineController {
                 // Doğrulanmış tarihler: Britannica, UNESCO, Smithsonian kaynaklarından
 
                 // --- TARİH ÖNCESİ ÇAĞLAR ---
-                addEra(new Era("paleolithic", "Paleolitik Çağ", "Tarih Öncesi", "MÖ 3.3 Milyon - MÖ 10.000",
+                addEra(new Era("paleolithic", "Paleolitik Çağ", "Tarih Öncesi", "MÖ 2.5 Milyon - MÖ 10.000",
                                 "İnsanlığın şafağı: İlk taş aletler, ateşin keşfi, mağara sanatı ve avcı-toplayıcı yaşam.",
                                 "https://upload.wikimedia.org/wikipedia/commons/1/1e/Lascaux_painting.jpg",
                                 getPaleolithicContent()));
 
-                addEra(new Era("mesolithic", "Mezolitik Çağ", "Tarih Öncesi", "MÖ 10.000 - MÖ 8.000",
-                                "Buzul Çağı'nın sonu: Mikrolit teknolojisi, köpeğin evcilleştirilmesi ve yarı-yerleşik yaşam.",
+                addEra(new Era("mesolithic", "Mezolitik Çağ", "Tarih Öncesi", "MÖ 22.000 - MÖ 10.000",
+                                "Buzul Çağı'nın son evresi: Mikrolit teknolojisi, köpeğin evcilleştirilmesi ve yarı-yerleşik yaşam.",
                                 "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Star_Carr_pendant_2015.jpg/800px-Star_Carr_pendant_2015.jpg",
                                 getMesolithicContent()));
 
-                addEra(new Era("neolithic", "Neolitik Çağ", "Tarih Öncesi", "MÖ 10.000 - MÖ 4.500",
+                addEra(new Era("neolithic", "Neolitik Çağ", "Tarih Öncesi", "MÖ 10.000 - MÖ 6.000",
                                 "Tarım Devrimi: Göbeklitepe, Çatalhöyük, ilk köyler ve yerleşik yaşama geçiş.",
                                 "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/G%C3%B6bekli_Tepe%2C_Pair_of_pillars_with_low_reliefs_of_animals.jpg/800px-G%C3%B6bekli_Tepe%2C_Pair_of_pillars_with_low_reliefs_of_animals.jpg",
                                 getNeolithicContent()));
