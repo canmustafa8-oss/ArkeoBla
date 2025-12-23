@@ -61,6 +61,16 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/privacy")
+    public String privacy() {
+        return "privacy";
+    }
+
+    @GetMapping("/terms")
+    public String terms() {
+        return "terms";
+    }
+
     private java.util.List<ArtifactData> artifactPool = new java.util.ArrayList<>();
 
     private ArtifactData getArtifactOfTheDay() {
