@@ -206,6 +206,8 @@
                 th:style="'background-image: url(' + ${era.imageUrl} + ');'">
 
                 <div class="era-content">
+                    <span class="era-category" th:text="${era.category}"
+                        style="font-size: 0.8em; color: #c5a059; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px;">Kategori</span>
                     <h3 class="era-title" th:text="${era.title}">Dönem</h3>
                     <div class="era-period" th:text="${era.period}">Tarih</div>
                 </div>

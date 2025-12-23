@@ -196,143 +196,217 @@
             <p style="font-size: 1.5em; margin: 20px 0;">Puzzle'ı tamamladınız!</p>
             <p style="color: #aaa; margin-bottom: 30px;">Hamle sayısı: <span id="finalMoves">0</span></p>
             <div style="display: flex; gap: 15px; justify-content: center;">
-                <a th:if="${nextLevel != null}" th:href="@{/puzzle(level=${nextLevel})
-}" class="btn">Sonraki Level ▶</a>
+                <a th:if="${nextLevel != null}" th:href="@{/puzzle(level=${nextLevel})}" class="btn">Sonraki Level ▶</a>
                 <a th:if="${isFinal}" th:href="@{/games}" class="btn">🏆 Oyun Alanına Dön</a>
                 <button class="btn btn-secondary" onclick="location.reload()">🔄 Tekrar Oyna</button>
             </div>
         </div>
     </div>
 
-    const gridSize = /*[[${level.gridSize}]]*/ 3;
-    const imageUrl = /*[[${level.imageUrl}]]*/ '/img/puzzle1.jpg';
-    const pieceSize = 130;
-    const boardSize = pieceSize * gridSize + (gridSize + 1) * 3;
+    <script th:inline="javascript">
+        const gridSize = /*[[${level.gridSize}]]*/ 3;
+        const imageUrl = /*[[${level.imageUrl}]]*/ '/img/puzzle1.jpg';
+        const pieceSize = 130;
 
-    let board = [];
-    let moves = 0;
-    let draggedPiece = null;
+        // Variables
+        let moves = 0;
+        let draggedPiece = null;
+        let touchStartItem = null;
 
-    function init() {
-    const puzzleBoard = document.getElementById('puzzleBoard');
-    puzzleBoard.innerHTML = ''; // Clear previous
-    puzzleBoard.style.gridTemplateColumns = `repeat(${gridSize}, ${pieceSize}px)`;
-    puzzleBoard.style.gridTemplateRows = `repeat(${gridSize}, ${pieceSize}px)`;
+        function init() {
+            const puzzleBoard = document.getElementById('puzzleBoard');
+            puzzleBoard.innerHTML = '';
+            puzzleBoard.style.gridTemplateColumns = `repeat(${gridSize}, ${pieceSize}px)`;
+            puzzleBoard.style.gridTemplateRows = `repeat(${gridSize}, ${pieceSize}px)`;
 
-    // Create pieces (All visible, no empty slot)
-    for (let row = 0; row < gridSize; row++) { board[row]=[]; for (let col=0; col < gridSize; col++) { const
-        piece=document.createElement('div'); piece.className='puzzle-piece' ; piece.style.width=pieceSize + 'px' ;
-        piece.style.height=pieceSize + 'px' ; piece.draggable=true; // Enable Drag // Target (Correct) Position
-        piece.dataset.row=row; piece.dataset.col=col; // Current Position (will be shuffled) // Initially same as target
-        piece.dataset.curRow=row; piece.dataset.curCol=col; piece.style.backgroundImage=`url('${imageUrl}')`;
-        piece.style.backgroundPosition=`-${col * pieceSize}px -${row * pieceSize}px`;
-        piece.style.backgroundSize=`${gridSize * pieceSize}px ${gridSize * pieceSize}px`; // Drag Events
-        piece.addEventListener('dragstart', handleDragStart); piece.addEventListener('dragover', handleDragOver);
-        piece.addEventListener('drop', handleDrop); piece.addEventListener('dragenter', handleDragEnter);
-        piece.addEventListener('dragleave', handleDragLeave); // Touch support (basic)
-        piece.addEventListener('touchstart', handleTouchStart, {passive: false}); piece.addEventListener('touchend',
-        handleTouchEnd); board[row][col]=piece; puzzleBoard.appendChild(piece); } } shufflePuzzle(); } // Drag Functions
-        function handleDragStart(e) { draggedPiece=this; this.style.opacity='0.4' ; e.dataTransfer.effectAllowed='move'
-        ; e.dataTransfer.setData('text/html', this.innerHTML); } function handleDragOver(e) { if (e.preventDefault)
-        e.preventDefault(); e.dataTransfer.dropEffect='move' ; return false; } function handleDragEnter(e) {
-        this.classList.add('selected'); } function handleDragLeave(e) { this.classList.remove('selected'); } function
-        handleDrop(e) { if (e.stopPropagation) e.stopPropagation(); this.classList.remove('selected'); if (draggedPiece
-        !==this) { swapPieces(draggedPiece, this); moves++; document.getElementById('moveCount').textContent=moves;
-        checkWinCondition(); } return false; } function handleDragEnd(e) { this.style.opacity='1' ; draggedPiece=null;
-        document.querySelectorAll('.puzzle-piece').forEach(p=> p.classList.remove('selected'));
+            let board = [];
+            // Create pieces 
+            for (let row = 0; row < gridSize; row++) {
+                board[row] = [];
+                for (let col = 0; col < gridSize; col++) {
+                    const piece = document.createElement('div');
+                    piece.className = 'puzzle-piece';
+                    piece.style.width = pieceSize + 'px';
+                    piece.style.height = pieceSize + 'px';
+                    piece.draggable = true;
+
+                    // Logical coordinates
+                    piece.dataset.row = row;
+                    piece.dataset.col = col;
+
+                    // Visual settings
+                    piece.style.backgroundImage = `url('${imageUrl}')`;
+                    piece.style.backgroundPosition = `-${col * pieceSize}px -${row * pieceSize}px`;
+                    piece.style.backgroundSize = `${gridSize * pieceSize}px ${gridSize * pieceSize}px`;
+
+                    // Drag Events
+                    piece.addEventListener('dragstart', handleDragStart);
+                    piece.addEventListener('dragover', handleDragOver);
+                    piece.addEventListener('drop', handleDrop);
+                    piece.addEventListener('dragenter', handleDragEnter);
+                    piece.addEventListener('dragleave', handleDragLeave);
+                    piece.addEventListener('dragend', handleDragEnd);
+
+                    // Touch Events for Mobile
+                    piece.addEventListener('touchstart', handleTouchStart, { passive: false });
+                    piece.addEventListener('touchend', handleTouchEnd);
+
+                    board[row][col] = piece;
+                    puzzleBoard.appendChild(piece);
+                }
+            }
+            shufflePuzzle();
         }
 
-        // Touch Handlers for Mobile
-        let touchStartItem = null;
+        // --- Drag Handlers ---
+        function handleDragStart(e) {
+            draggedPiece = this;
+            this.style.opacity = '0.4';
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            this.classList.add('selected');
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('selected');
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) e.stopPropagation();
+            this.classList.remove('selected');
+            if (draggedPiece !== this && draggedPiece !== null) {
+                swapPieces(draggedPiece, this);
+                incrementMoves();
+            }
+            return false;
+        }
+
+        function handleDragEnd(e) {
+            this.style.opacity = '1';
+            draggedPiece = null;
+            document.querySelectorAll('.puzzle-piece').forEach(p => p.classList.remove('selected'));
+        }
+
+        // --- Touch Handlers ---
         function handleTouchStart(e) {
-        // e.preventDefault(); // prevents scrolling
-        touchStartItem = this;
-        this.style.opacity = '0.6';
+            if (e.cancelable) e.preventDefault(); // Prevent scroll while dragging puzzle
+            touchStartItem = this;
+            this.style.opacity = '0.6';
         }
 
         function handleTouchEnd(e) {
-        this.style.opacity = '1';
-        let changedTouch = e.changedTouches[0];
-        let elem = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
+            this.style.opacity = '1';
+            if (!touchStartItem) return;
 
-        if(elem && elem.classList.contains('puzzle-piece') && elem !== touchStartItem) {
-        swapPieces(touchStartItem, elem);
-        moves++;
-        document.getElementById('moveCount').textContent = moves;
-        checkWinCondition();
-        }
+            let changedTouch = e.changedTouches[0];
+            let elem = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
+
+            if (elem && elem.classList.contains('puzzle-piece') && elem !== touchStartItem) {
+                swapPieces(touchStartItem, elem);
+                incrementMoves();
+            }
+            touchStartItem = null;
         }
 
+        // --- Logic ---
         function swapPieces(piece1, piece2) {
-        // Swap Backgrounds and Data Attributes
-        const tempBg = piece1.style.backgroundPosition;
-        piece1.style.backgroundPosition = piece2.style.backgroundPosition;
-        piece2.style.backgroundPosition = tempBg;
+            // Swap Background Positions (Visuals)
+            const tempBg = piece1.style.backgroundPosition;
+            piece1.style.backgroundPosition = piece2.style.backgroundPosition;
+            piece2.style.backgroundPosition = tempBg;
 
-        const tempRow = piece1.dataset.row;
-        const tempCol = piece1.dataset.col;
-        piece1.dataset.row = piece2.dataset.row;
-        piece1.dataset.col = piece2.dataset.col;
-        piece2.dataset.row = tempRow;
-        piece2.dataset.col = tempCol;
+            // Swap Dataset Attributes (Logic)
+            const tempRow = piece1.dataset.row;
+            const tempCol = piece1.dataset.col;
+            piece1.dataset.row = piece2.dataset.row;
+            piece1.dataset.col = piece2.dataset.col;
+            piece2.dataset.row = tempRow;
+            piece2.dataset.col = tempCol;
 
-        // Add animation class
-        piece1.classList.add('selected');
-        setTimeout(() => piece1.classList.remove('selected'), 300);
+            // Highlight animation
+            piece1.classList.add('selected');
+            setTimeout(() => piece1.classList.remove('selected'), 300);
+        }
+
+        function incrementMoves() {
+            moves++;
+            document.getElementById('moveCount').textContent = moves;
+            checkWinCondition();
         }
 
         function checkWinCondition() {
-        // Check if every piece is in its correct place
-        // Logic: dataset.row/col matches the loop index (which is visual order)
-        // But here elements are DOM nodes.
-        // Better check: Does the piece physically located at row X col Y have dataset row X col Y?
+            const pieces = document.querySelectorAll('.puzzle-piece');
+            let isWin = true;
+            let index = 0;
 
-        // Actually, in our swap logic we swapped background and identity (dataset), but not the DOM node order.
-        // So if DOM node at (0,0) has dataset (0,0), it is correct.
-        // But wait, my swapPieces swapped the IDENTITY (dataset) and Visuals.
-        // So yes, we just check if the DOM elements in order define the correct sequence.
-
-        // Using the board array is risky because we didn't update it on swap.
-        // Let's iterate the DOM nodes.
-        const pieces = document.querySelectorAll('.puzzle-piece');
-        let isWin = true;
-        let index = 0;
-
-        for(let r=0; r<gridSize; r++) { for(let c=0; c<gridSize; c++) { const p=pieces[index]; // The DOM order is fixed
-            (grid layout). We checked if the "content" (dataset) matches position. // My expected position for this DOM
-            slot is (r, c). // Does this piece hold the (r, c) chunk of image? if(parseInt(p.dataset.row) !==r ||
-            parseInt(p.dataset.col) !==c) { isWin=false; } index++; } } if (isWin) { setTimeout(()=> {
-            confetti({
-            particleCount: 150,
-            spread: 80,
-            origin: { y: 0.6 }
-            });
-            document.getElementById('finalMoves').textContent = moves;
-            document.getElementById('successModal').classList.add('show');
-            }, 300);
-            }
+            // The puzzle pieces are appended in order (0,0), (0,1), ... (2,2)
+            // We just need to check if the piece at that slot holds the correct (row, col) dataset
+            for (let r = 0; r < gridSize; r++) {
+                for (let c = 0; c < gridSize; c++) {
+                    const p = pieces[index];
+                    if (parseInt(p.dataset.row) !== r || parseInt(p.dataset.col) !== c) {
+                        isWin = false;
+                    }
+                    index++;
+                }
             }
 
-            function shufflePuzzle() {
+            if (isWin) {
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 150,
+                        spread: 80,
+                        origin: { y: 0.6 }
+                    });
+                    document.getElementById('finalMoves').textContent = moves;
+                    document.getElementById('successModal').classList.add('show');
+                }, 300);
+            }
+        }
+
+        function shufflePuzzle() {
             moves = 0;
             document.getElementById('moveCount').textContent = moves;
-
             const pieces = document.querySelectorAll('.puzzle-piece');
-            // Fisher-Yates shuffle visuals
-            // We just simply swap random pairs X times
 
-            for(let i=0; i<30; i++) { const r1=Math.floor(Math.random() * pieces.length); const
-                r2=Math.floor(Math.random() * pieces.length); if(r1 !==r2) { swapPieces(pieces[r1], pieces[r2]); } } //
-                If accidentally solved, shuffle once more // (Lazy check) } function solvePuzzle() { const
-                pieces=document.querySelectorAll('.puzzle-piece'); let index=0; // We want to put correct pieces in
-                correct slots. // Naive approach: Just reload init() but don't shuffle? // Or brute force set
-                backgrounds. for(let r=0; r<gridSize; r++) { for(let c=0; c<gridSize; c++) { const p=pieces[index];
-                p.dataset.row=r; p.dataset.col=c; p.style.backgroundPosition=`-${c * pieceSize}px -${r * pieceSize}px`;
-                index++; } } // Trigger win checkWinCondition(); } init(); // Add dragend listener to all new pieces
-                document.querySelectorAll('.puzzle-piece').forEach(p=> {
-                p.addEventListener('dragend', handleDragEnd);
-                });
-                </script>
+            // Swap random pairs
+            for (let i = 0; i < 20; i++) {
+                const r1 = Math.floor(Math.random() * pieces.length);
+                const r2 = Math.floor(Math.random() * pieces.length);
+                if (r1 !== r2) {
+                    swapPieces(pieces[r1], pieces[r2]);
+                }
+            }
+        }
+
+        function solvePuzzle() {
+            const pieces = document.querySelectorAll('.puzzle-piece');
+            let index = 0;
+            for (let r = 0; r < gridSize; r++) {
+                for (let c = 0; c < gridSize; c++) {
+                    const p = pieces[index];
+                    // Restores to original state
+                    p.dataset.row = r;
+                    p.dataset.col = c;
+                    p.style.backgroundPosition = `-${c * pieceSize}px -${r * pieceSize}px`;
+                    index++;
+                }
+            }
+            checkWinCondition();
+        }
+
+        // Start
+        init();
+    </script>
 </body>
 
 </html>

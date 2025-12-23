@@ -87,6 +87,37 @@
             font-size: 10px;
             margin-right: 5px;
         }
+
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border: 1px solid #c5a059;
+            background: transparent;
+            color: #c5a059;
+            font-family: 'Cinzel', serif;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+
+        .tab-btn.active {
+            background: #c5a059;
+            color: white;
+        }
+
+        .lb-table {
+            display: none;
+        }
+
+        .lb-table.active {
+            display: table;
+        }
     </style>
 </head>
 
@@ -94,13 +125,50 @@
 
     <div class="leaderboard-container">
         <h2>🏆 LİDERLİK TABLOSU</h2>
+        <p style="text-align: center; color: #777; margin-bottom: 20px;">En başarılı araştırmacılarla yarışın.</p>
 
-        <table>
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="showTab('monthly', this)">📅 Bu Ay</button>
+            <button class="tab-btn" onclick="showTab('alltime', this)">♾️ Tüm Zamanlar</button>
+        </div>
+
+        <!-- Aylık Tablo -->
+        <table id="monthlyTable" class="lb-table active">
             <thead>
                 <tr>
                     <th>Sıra</th>
                     <th>Kullanıcı</th>
-                    <th>Puan</th>
+                    <th>Aylık Puan</th>
+                    <th>Rozetler</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user, iter : ${monthlyTopUsers}">
+                    <td class="rank" th:classappend="'rank-' + (${iter.index} + 1)" th:text="${iter.index + 1}">1</td>
+                    <td style="font-weight: bold;"
+                        th:text="${user.firstName != null && user.lastName != null ? user.firstName + ' ' + user.lastName : user.username}">
+                        Kullanıcı Adı</td>
+                    <td th:text="${user.monthlyScore}">0</td>
+                    <td>
+                        <span th:if="${user.badges != null}" th:each="badge : ${user.badges.split(',')}"
+                            class="badge-icon" th:text="${badge}">ROZET</span>
+                        <span th:if="${user.badges == null or user.badges == ''}">-</span>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(monthlyTopUsers)}">
+                    <td colspan="4" style="text-align:center; padding: 20px;">Bu ay henüz puan kazanan yok. İlk sen
+                        ol!</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Genel Tablo -->
+        <table id="alltimeTable" class="lb-table">
+            <thead>
+                <tr>
+                    <th>Sıra</th>
+                    <th>Kullanıcı</th>
+                    <th>Genel Puan</th>
                     <th>Rozetler</th>
                 </tr>
             </thead>
@@ -125,6 +193,22 @@
         </div>
     </div>
 
+    <script>
+        function showTab(type, btn) {
+            // Hide all tables
+            document.querySelectorAll('.lb-table').forEach(t => t.classList.remove('active'));
+            // Deactivate buttons
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+            // Activate selected
+            if (type === 'monthly') {
+                document.getElementById('monthlyTable').classList.add('active');
+            } else {
+                document.getElementById('alltimeTable').classList.add('active');
+            }
+            btn.classList.add('active');
+        }
+    </script>
 </body>
 
 </html>

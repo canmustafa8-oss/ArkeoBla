@@ -46,10 +46,6 @@ public class UserService {
     }
 
     public boolean verifyUser(String code) {
-        // Not: Burada repository.findByVerificationCode lazım.
-        // Hız için tüm userları gezip bulalım (Performanssız ama demo için ok)
-        // Doğrusu UserRepository'e metod eklemektir.
-
         for (User user : userRepository.findAll()) {
             if (code.equals(user.getVerificationCode())) {
                 user.setEnabled(true);
@@ -59,5 +55,12 @@ public class UserService {
             }
         }
         return false;
+    }
+
+    public void addScore(User user, int points) {
+        user.setTotalScore(user.getTotalScore() + points);
+        user.setMonthlyScore(user.getMonthlyScore() + points);
+        user.setWeeklyScore(user.getWeeklyScore() + points);
+        userRepository.save(user);
     }
 }

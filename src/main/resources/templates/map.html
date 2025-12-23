@@ -202,18 +202,17 @@
             .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
             .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
             .pointOfView({ lat: 39.0, lng: 35.0, altitude: 2.0 }) // Start over Turkey
-            .pointAltitude(0.05) // Yüksek noktalar (sütun gibi)
-            .pointRadius(0.5)
+            .pointAltitude(0.02) // Reduced altitude for subtle look
+            .pointRadius(0.25)   // Reduced radius for elegance
             .pointColor(() => '#c5a059')
-            .pointResolution(16)
-            .labelLat(d => d.latitude)
-            .labelLng(d => d.longitude)
-            .labelText(d => d.name)
-            .labelSize(1.5)
-            .labelDotRadius(0.5)
-            .labelColor(() => 'rgba(255, 255, 255, 0.75)')
-            .labelResolution(2)
-            .onLabelClick(d => showModal(d))
+            .pointResolution(24) // Smoother points
+            // Labels removed from surface to reduce clutter
+            // .labelText(d => d.name) 
+            // .labelSize(1.5)
+            // .labelDotRadius(0.5)
+            // .labelColor(() => 'rgba(255, 255, 255, 0.75)')
+            .onLabelClick(d => showModal(d)) // Keeps tooltip clicking if any label logic remains
+            .onPointClick(d => showModal(d))
             .onPointClick(d => showModal(d))
             // Custom html tooltip
             .labelLabel(d => `

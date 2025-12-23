@@ -37,6 +37,7 @@ public class User {
 
     private String profilePhotoUrl; // Profil fotoğrafı URL'si
     private int weeklyScore = 0; // Haftalık skor
+    private int monthlyScore = 0; // Aylık skor (New)
     private java.time.LocalDate lastQuizDate; // Son quiz tarihi
 
     // Gamification Fields
@@ -173,6 +174,14 @@ public class User {
 
     public void setWeeklyScore(int weeklyScore) {
         this.weeklyScore = weeklyScore;
+    }
+
+    public int getMonthlyScore() {
+        return monthlyScore;
+    }
+
+    public void setMonthlyScore(int monthlyScore) {
+        this.monthlyScore = monthlyScore;
     }
 
     public java.time.LocalDate getLastQuizDate() {

@@ -16,10 +16,15 @@ public class ForumController {
 
     private final ForumTopicRepository topicRepository;
     private final ForumCommentRepository commentRepository;
+    private final com.arkeobla.service.UserService userService;
+    private final com.arkeobla.repository.UserRepository userRepository;
 
-    public ForumController(ForumTopicRepository topicRepository, ForumCommentRepository commentRepository) {
+    public ForumController(ForumTopicRepository topicRepository, ForumCommentRepository commentRepository,
+            com.arkeobla.service.UserService userService, com.arkeobla.repository.UserRepository userRepository) {
         this.topicRepository = topicRepository;
         this.commentRepository = commentRepository;
+        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -42,6 +47,12 @@ public class ForumController {
         topic.setCategory(category);
         topic.setAuthor(principal.getName());
         topicRepository.save(topic);
+
+        // Award points for topic creation
+        userRepository.findByUsername(principal.getName()).ifPresent(user -> {
+            userService.addScore(user, 20);
+        });
+
         return "redirect:/forum";
     }
 
@@ -59,6 +70,12 @@ public class ForumController {
         comment.setAuthor(principal.getName());
         comment.setTopic(topic);
         commentRepository.save(comment);
+
+        // Award points for comment
+        userRepository.findByUsername(principal.getName()).ifPresent(user -> {
+            userService.addScore(user, 5);
+        });
+
         return "redirect:/forum/" + topicId;
     }
 }

@@ -151,11 +151,19 @@
         <a href="/" class="back-btn">Ana Sayfaya Dön</a>
     </header>
 
-    <div class="stage">
+    <div class="stage" id="stage-area">
         <!-- 3D MODEL GÖRÜNTÜLEYİCİ -->
-        <model-viewer id="main-viewer" th:src="${artifacts[0].modelUrl}" th:poster="${artifacts[0].posterUrl}"
-            alt="3D Artifact" auto-rotate camera-controls shadow-intensity="1" exposure="1"
-            environment-image="neutral"></model-viewer>
+        <model-viewer id="main-viewer" th:if="${artifacts[0].modelUrl != null and artifacts[0].modelUrl != ''}"
+            th:src="${artifacts[0].modelUrl}" th:poster="${artifacts[0].posterUrl}" alt="3D Artifact" auto-rotate
+            camera-controls shadow-intensity="1" exposure="1" environment-image="neutral"></model-viewer>
+
+        <!-- 2D IMAGE FALLBACK -->
+        <img id="main-image" th:if="${artifacts[0].modelUrl == null or artifacts[0].modelUrl == ''}"
+            th:src="${artifacts[0].posterUrl}" style="width:100%; height:100%; object-fit:contain; display:block;"
+            alt="Artifact Image">
+
+        <img id="main-image-hidden" style="width:100%; height:100%; object-fit:contain; display:none;"
+            alt="Artifact Image">
     </div>
 
     <!-- Bilgi Paneli (Sahnenin Altında) -->
@@ -166,24 +174,39 @@
 
     <div class="gallery-strip">
         <div th:each="art, iter : ${artifacts}" class="artifact-card" th:classappend="${iter.index == 0} ? 'active'"
-            th:onclick="changeArtifact([[${art.modelUrl}]], [[${art.name}]], [[${art.description}]], this)">
-            <!-- Poster görseli yoksa standart ikon kullanabiliriz ama şimdilik model URL'den türetelim veya boş bırakalım -->
-            <div
-                style="width:100%; height:100%; background:#333; display:flex; justify-content:center; align-items:center; font-size:24px;">
-                🏺</div>
+            th:onclick="changeArtifact([[${art.modelUrl}]], [[${art.posterUrl}]], [[${art.name}]], [[${art.description}]], this)">
+            <img th:src="${art.posterUrl}" alt="Thumbnail" onerror="this.src='/img/placeholder.png'">
         </div>
     </div>
 
     <script>
-        function changeArtifact(modelUrl, name, desc, element) {
+        function changeArtifact(modelUrl, posterUrl, name, desc, element) {
             const viewer = document.getElementById('main-viewer');
+            const img = document.getElementById('main-image') || document.getElementById('main-image-hidden');
             const title = document.getElementById('info-title');
             const descElem = document.getElementById('info-desc');
 
-            // Model ve Bilgileri Güncelle
-            viewer.src = modelUrl;
+            // Bilgileri Güncelle
             title.innerText = name;
             descElem.innerText = desc;
+
+            // Görsel/Model Değişimi
+            if (modelUrl && modelUrl.trim() !== '') {
+                // 3D Model Var
+                if (viewer) {
+                    viewer.style.display = 'block';
+                    viewer.src = modelUrl;
+                    viewer.poster = posterUrl;
+                }
+                if (img) img.style.display = 'none';
+            } else {
+                // Sadece 2D Görsel
+                if (viewer) viewer.style.display = 'none';
+                if (img) {
+                    img.style.display = 'block';
+                    img.src = posterUrl;
+                }
+            }
 
             // Görsel Efekt (Active Class)
             document.querySelectorAll('.artifact-card').forEach(el => el.classList.remove('active'));
