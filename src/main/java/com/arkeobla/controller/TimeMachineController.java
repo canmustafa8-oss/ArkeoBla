@@ -123,6 +123,8 @@ public class TimeMachineController {
                                 **Tarih:** MÖ 3.3 Milyon - MÖ 10.000
                                 **Kaynak:** Smithsonian Institution, Britannica Encyclopedia
 
+                                ![Lascaux Mağara Resimleri](https://upload.wikimedia.org/wikipedia/commons/1/1e/Lascaux_painting.jpg)
+
                                 ---
 
                                 ### 📋 DÖNEM ÖZETİ
@@ -237,7 +239,7 @@ public class TimeMachineController {
                                 **Tarih:** MÖ 10.000 - MÖ 8.000 (Avrupa'da MÖ 2700'e kadar sürdü)
                                 **Kaynak:** Britannica, Oxford University Archaeological Research
 
-                                ---
+                                ![Star Carr Kolye Ucu](https://upload.wikimedia.org/wikipedia/commons/8/8e/Star_Carr_pendant_2015.jpg)
 
                                 ### 📋 DÖNEM ÖZETİ
 
@@ -347,10 +349,10 @@ public class TimeMachineController {
         private String getNeolithicContent() {
                 return """
                                 ## 🌾 NEOLİTİK ÇAĞ (YENİ TAŞ ÇAĞI)
-                                **Tarih:** MÖ 10.000 - MÖ 4.500
-                                **Kaynak:** UNESCO, Britannica, National Geographic
+                                **Tarih:** MÖ 10.000 - MÖ 3.000
+                                **Kaynak:** Britannica, UNESCO, Çatalhöyük Research Project
 
-                                ---
+                                ![Göbeklitepe T-Sütunları](https://upload.wikimedia.org/wikipedia/commons/e/e7/G%C3%B6bekli_Tepe%2C_Pair_of_pillars_with_low_reliefs_of_animals.jpg)
 
                                 ### 📋 TARIM DEVRİMİ
 
@@ -483,7 +485,7 @@ public class TimeMachineController {
                                 **Tarih:** MÖ 5500 - MÖ 3300
                                 **Kaynak:** Britannica, Archaeological Institute of America
 
-                                ---
+                                ![Varna Nekropolü'nden Altın Eserler](https://upload.wikimedia.org/wikipedia/commons/e/e0/Varna_gold_artefacts.jpg)
 
                                 ### 📋 DÖNEM ÖZETİ
 
@@ -613,7 +615,7 @@ public class TimeMachineController {
                                 **Tarih:** MÖ 3.200 - MÖ 1.200
                                 **Kaynak:** Britannica, UNESCO, Anadolu Medeniyetleri Müzesi
 
-                                ---
+                                ![Hattuşaş Aslanlı Kapı](https://upload.wikimedia.org/wikipedia/commons/9/90/Lion_Gate_Hattusa.jpg)
 
                                 ### 📋 DÖNEM ÖZETİ
 
@@ -776,7 +778,7 @@ public class TimeMachineController {
                                 **Tarih:** MÖ 3100 - MÖ 30
                                 **Kaynak:** Britannica, UNESCO, Metropolitan Museum of Art
 
-                                ---
+                                ![Giza Piramitleri](https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg)
 
                                 ### 📋 DÖNEM ÖZETİ
 
@@ -883,7 +885,7 @@ public class TimeMachineController {
                                 **Tarih:** MÖ 800 - MÖ 323
                                 **Kaynak:** Britannica, Oxford Classical Dictionary
 
-                                ---
+                                ![Parthenon Tapınağı](https://upload.wikimedia.org/wikipedia/commons/d/da/The_Parthenon_in_Athens.jpg)
 
                                 ### 📋 DÖNEM ÖZETİ
 
@@ -986,7 +988,7 @@ public class TimeMachineController {
                                 **Tarih:** MÖ 323 - MÖ 31
                                 **Kaynak:** Britannica, Cambridge Ancient History
 
-                                ---
+                                ![Büyük İskender Mozaiği](https://upload.wikimedia.org/wikipedia/commons/e/e1/Alexander_the_Great_mosaic.jpg)
 
                                 ### 📋 DÖNEM ÖZETİ
 
@@ -1090,7 +1092,7 @@ public class TimeMachineController {
                                 **Tarih:** MÖ 753 - MS 476
                                 **Kaynak:** Britannica, Oxford Classical Dictionary
 
-                                ---
+                                ![Kolezyum](https://upload.wikimedia.org/wikipedia/commons/d/d8/Colosseum_in_Rome-April_2007-1-_copie_2B.jpg)
 
                                 ### 📋 DÖNEM ÖZETİ
 
@@ -1209,7 +1211,7 @@ public class TimeMachineController {
                                 **Tarih:** MS 476 - 1453
                                 **Kaynak:** Britannica, Cambridge Medieval History
 
-                                ---
+                                ![Krak des Chevaliers Kalesi](https://upload.wikimedia.org/wikipedia/commons/b/b2/Crac_des_chevaliers_syria.jpeg)
 
                                 ### 📋 DÖNEM ÖZETİ
 
@@ -1301,7 +1303,7 @@ public class TimeMachineController {
                                 **Tarih:** 1453 - 1789
                                 **Kaynak:** Britannica, Metropolitan Museum of Art
 
-                                ---
+                                ![Mona Lisa - Leonardo da Vinci](https://upload.wikimedia.org/wikipedia/commons/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg)
 
                                 ### 📋 DÖNEM ÖZETİ
 
@@ -1401,9 +1403,9 @@ public class TimeMachineController {
                 return """
                                 ## 🏭 SANAYİ DEVRİMİ
                                 **Tarih:** 1760 - 1914
-                                **Kaynak:** Britannica, Economic History Association
+                                **Kaynak:** Britannica, Science Museum London
 
-                                ---
+                                ![Buhar Makinesi](https://upload.wikimedia.org/wikipedia/commons/5/5a/Watt_steam_pumping_engine.JPG)
 
                                 ### 📋 DÖNEM ÖZETİ
 
