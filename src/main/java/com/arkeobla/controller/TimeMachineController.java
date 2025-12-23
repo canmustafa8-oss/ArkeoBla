@@ -43,16 +43,25 @@ public class TimeMachineController {
                                 "https://upload.wikimedia.org/wikipedia/commons/9/90/Lion_Gate_Hattusa.jpg",
                                 getBronzeAgeContent()));
 
-                // --- ANTİK ÇAĞ ---
                 addEra(new Era("ancient-egypt", "Antik Mısır", "Antik Çağ", "MÖ 3100 - MÖ 30",
                                 "Nil'in Hediyesi: Piramitler, firavunlar, hiyeroglif yazı ve mumyalama sanatı.",
                                 "https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg",
                                 getAncientEgyptContent()));
 
-                addEra(new Era("ancient-greece", "Antik Yunan & Roma", "Antik Çağ", "MÖ 800 - MS 476",
-                                "Klasik Dönem: Demokrasi, felsefe, Olimpiyat Oyunları ve Roma mühendisliği.",
+                addEra(new Era("classical-greece", "Klasik Yunan", "Antik Çağ", "MÖ 800 - MÖ 323",
+                                "Demokrasinin beşiği: Atina, Sparta, felsefe, Olimpiyat Oyunları ve Pers Savaşları.",
                                 "https://upload.wikimedia.org/wikipedia/commons/d/da/The_Parthenon_in_Athens.jpg",
-                                getAncientGreeceRomeContent()));
+                                getClassicalGreeceContent()));
+
+                addEra(new Era("hellenistic", "Helenistik Çağ", "Antik Çağ", "MÖ 323 - MÖ 31",
+                                "Büyük İskender'in mirası: Helenizm, İskenderiye Kütüphanesi ve Doğu-Batı sentezi.",
+                                "https://upload.wikimedia.org/wikipedia/commons/e/e1/Alexander_the_Great_mosaic.jpg",
+                                getHellenisticContent()));
+
+                addEra(new Era("roman-empire", "Roma İmparatorluğu", "Antik Çağ", "MÖ 753 - MS 476",
+                                "Pax Romana: Hukuk, mühendislik, gladyatörler, Sezar ve imparatorlar çağı.",
+                                "https://upload.wikimedia.org/wikipedia/commons/d/d8/Colosseum_in_Rome-April_2007-1-_copie_2B.jpg",
+                                getRomanEmpireContent()));
 
                 // --- ORTA ÇAĞ ---
                 addEra(new Era("medieval", "Orta Çağ", "Orta Çağ", "MS 476 - 1453",
@@ -865,104 +874,102 @@ public class TimeMachineController {
                                 - Metropolitan Museum of Art
                                 - British Museum
                                 - Britannica Encyclopedia
-                                                """;
+                                """;
         }
 
-        private String getAncientGreeceRomeContent() {
+        private String getClassicalGreeceContent() {
                 return """
-                                ## 🏛️ ANTİK YUNAN & ROMA
-                                **Tarih:** MÖ 800 - MS 476
+                                ## 🏛️ KLASİK YUNAN
+                                **Tarih:** MÖ 800 - MÖ 323
                                 **Kaynak:** Britannica, Oxford Classical Dictionary
 
                                 ---
 
                                 ### 📋 DÖNEM ÖZETİ
 
-                                Batı medeniyetinin temellerini atan iki büyük uygarlık:
-                                - **Yunanistan:** Demokrasi, felsefe, sanat
-                                - **Roma:** Hukuk, mühendislik, yönetim
+                                Batı medeniyetinin temellerini atan uygarlık:
+                                - Demokrasinin doğuşu
+                                - Felsefenin altın çağı
+                                - Sanat ve mimarinin zirvesi
+                                - Pers İmparatorluğu'na karşı zafer
 
                                 ---
-
-                                ## ⚡ ANTİK YUNAN
 
                                 ### 📅 DÖNEMLER
 
                                 | Dönem | Tarih | Özellikler |
                                 |-------|-------|------------|
-                                | Karanlık Çağ | MÖ 1100-800 | Yazının kaybı |
-                                | Arkaik | MÖ 800-480 | Şehir-devletler, kolonizasyon |
-                                | Klasik | MÖ 480-323 | Altın Çağ |
-                                | Helenistik | MÖ 323-31 | İskender sonrası |
+                                | Karanlık Çağ | MÖ 1100-800 | Yazının kaybı, Dor istilaları |
+                                | Arkaik Dönem | MÖ 800-480 | Polis'lerin kuruluşu, kolonizasyon |
+                                | Klasik Dönem | MÖ 480-323 | Altın Çağ, Atina hegemonyası |
 
                                 ---
 
                                 ### 🗳️ ATİNA DEMOKRASİSİ
 
-                                **Kurucular:** Kleistenes (MÖ 508)
+                                **Kurucular:**
+                                - Solon (MÖ 594) - Ekonomik reformlar
+                                - Kleistenes (MÖ 508) - Demokratik anayasa
+                                - Perikles (MÖ 461-429) - Tam demokrasi
 
                                 | Kurum | İşlevi |
                                 |-------|--------|
-                                | Ekklesia | Halk Meclisi |
-                                | Boule | 500 kişilik konsey |
-                                | Dikasteria | Jüri mahkemeleri |
+                                | Ekklesia | Halk Meclisi (6.000+ vatandaş) |
+                                | Boule | 500 kişilik yürütme konseyi |
+                                | Dikasteria | 6.000 hakim ile jüri mahkemeleri |
+                                | Strategos | 10 seçilmiş general |
 
-                                **Sınırları:** Sadece yetişkin, özgür erkek vatandaşlar oy kullanabilirdi (nüfusun %10-15'i).
+                                **Ostrakismos:** Tehlikeli görülen vatandaşların 10 yıl sürgüne gönderilmesi.
 
                                 ---
 
-                                ### 💭 YUNAN FELSEFESİ
+                                ### ⚔️ PERS SAVAŞLARI
 
+                                | Savaş | Tarih | Sonuç |
+                                |-------|-------|-------|
+                                | Marathon | MÖ 490 | Atina zaferi |
+                                | Termopylae | MÖ 480 | 300 Spartalı'nın direnişi |
+                                | Salamis | MÖ 480 | Yunan donanması zaferi |
+                                | Plataea | MÖ 479 | Kesin Yunan zaferi |
+
+                                ---
+
+                                ### 💭 FİLOZOFLAR
+
+                                **Üç Büyük:**
                                 | Filozof | Dönem | Katkısı |
                                 |---------|-------|---------|
-                                | Sokrates | MÖ 470-399 | Sorgulama yöntemi |
-                                | Platon | MÖ 428-348 | İdealar teorisi |
-                                | Aristoteles | MÖ 384-322 | Mantık, bilim |
+                                | Sokrates | MÖ 470-399 | Sorgulama yöntemi, etik |
+                                | Platon | MÖ 428-348 | İdealar teorisi, Akademia |
+                                | Aristoteles | MÖ 384-322 | Mantık, doğa bilimleri |
+
+                                **Diğerleri:**
+                                - Thales (ilk filozof)
+                                - Herakleitos (değişim felsefesi)
+                                - Demokritos (atomculuk)
 
                                 ---
 
                                 ### 🏟️ OLİMPİYAT OYUNLARI
 
-                                - **Başlangıç:** MÖ 776 (Olympia)
-                                - **Sıklık:** Her 4 yılda bir
-                                - **Branşlar:** Koşu, güreş, disk, cirit, boks
+                                - **Başlangıç:** MÖ 776 (Olympia, Zeus onuruna)
+                                - **Sıklık:** Her 4 yılda bir (Olimpiyat = 4 yıl)
                                 - **Ödül:** Zeytin dalı çelengi
 
-                                ---
-
-                                ## 🦅 ROMA İMPARATORLUĞU
-
-                                ### 📅 DÖNEMLER
-
-                                | Dönem | Tarih | Özellikler |
-                                |-------|-------|------------|
-                                | Krallık | MÖ 753-509 | Etrüsk etkisi |
-                                | Cumhuriyet | MÖ 509-27 | Senato yönetimi |
-                                | İlk İmparatorluk | MÖ 27-MS 284 | Pax Romana |
-                                | Geç İmparatorluk | MS 284-476 | Bölünme ve çöküş |
+                                **Branşlar:** Stadion (koşu), Pentatlon (5'li), Güreş, Boks, Araba yarışı
 
                                 ---
 
-                                ### ⚖️ ROMA HUKUKU
+                                ### 🏛️ SANAT VE MİMARİ
 
-                                Roma hukuku, modern Batı hukukunun temelidir:
-                                - 12 Levha Kanunları (MÖ 450)
-                                - Masumiyet karinesi
-                                - Yazılı sözleşmeler
-                                - Mülkiyet hakları
+                                **Üç Düzen:**
+                                | Düzen | Özellik | Örnek |
+                                |-------|---------|-------|
+                                | Dor | Sade, güçlü | Parthenon |
+                                | İyon | Volütlü (kıvrımlı) | Erechtheion |
+                                | Korint | Akanthus yapraklı | Olympos Zeus |
 
-                                ---
-
-                                ### 🛣️ ROMA MÜHENDİSLİĞİ
-
-                                | Yapı | Özellik |
-                                |------|---------|
-                                | Via Appia | En eski Roma yolu |
-                                | Pont du Gard | Su kemeri, Fransa |
-                                | Colosseum | 50.000 seyirci |
-                                | Pantheon | Beton kubbe |
-
-                                **Yol Ağı:** 80.000 km taş döşeli yol
+                                **Heykelciler:** Fidias, Praksiteles, Miron
 
                                 ---
 
@@ -970,7 +977,230 @@ public class TimeMachineController {
                                 - Oxford Classical Dictionary
                                 - Britannica Encyclopedia
                                 - Cambridge Ancient History
-                                                """;
+                                """;
+        }
+
+        private String getHellenisticContent() {
+                return """
+                                ## 🌍 HELENİSTİK ÇAĞ
+                                **Tarih:** MÖ 323 - MÖ 31
+                                **Kaynak:** Britannica, Cambridge Ancient History
+
+                                ---
+
+                                ### 📋 DÖNEM ÖZETİ
+
+                                Büyük İskender'in ölümünden (MÖ 323) Actium Savaşı'na (MÖ 31) kadar:
+                                - Yunan kültürünün Doğu'ya yayılması
+                                - Doğu-Batı sentezi (Helenizm)
+                                - Büyük kütüphaneler ve bilim merkezleri
+                                - Devasa imparatorlukların kuruluşu
+
+                                ---
+
+                                ### ⚔️ BÜYÜK İSKENDER (MÖ 356-323)
+
+                                **Makedonyalı Filip II'nin oğlu**, Aristoteles'in öğrencisi.
+
+                                | Fetih | Tarih |
+                                |-------|-------|
+                                | İssos Savaşı (Hatay) | MÖ 333 |
+                                | Mısır'ın fethi | MÖ 332 |
+                                | Gaugamela (Pers çöküşü) | MÖ 331 |
+                                | Babil'in alınışı | MÖ 331 |
+                                | Persepolis'in yakılması | MÖ 330 |
+                                | Hindistan seferi | MÖ 326 |
+                                | Babil'de ölümü | MÖ 323 |
+
+                                **Mirası:** 13 yılda Yunanistan'dan Hindistan'a uzanan imparatorluk.
+
+                                ---
+
+                                ### 👑 DİADOKHOİ (HALEFLER)
+
+                                İskender'in ölümünden sonra imparatorluk 3'e bölündü:
+
+                                | Krallık | Hanedan | Başkent |
+                                |---------|---------|---------|
+                                | Makedonya | Antigonidler | Pella |
+                                | Mısır | Ptolemaioslar | İskenderiye |
+                                | Asya | Seleukoslar | Antiokheia |
+
+                                **Ayrıca:**
+                                - Pergamon Krallığı (Bergama)
+                                - Bithynia (Bursa bölgesi)
+                                - Pontus (Karadeniz)
+
+                                ---
+
+                                ### 📚 İSKENDERİYE KÜTÜPHANESİ
+
+                                Dünyanın en büyük antik kütüphanesi:
+                                - **Kuruluş:** MÖ 300 (I. Ptolemaios)
+                                - **Koleksiyon:** 400.000-700.000 rulo
+                                - **Mouseion:** İlk araştırma üniversitesi
+
+                                **Bilim İnsanları:**
+                                | İsim | Alan | Katkı |
+                                |------|------|-------|
+                                | Euklides | Matematik | Geometri temelleri |
+                                | Eratosthenes | Coğrafya | Dünya'nın çevresini hesapladı |
+                                | Aristarkos | Astronomi | Güneş merkezli evren |
+                                | Arşimet | Fizik | Kaldırma prensibi |
+                                | Hipparkhos | Astronomi | Yıldız kataloğu |
+
+                                ---
+
+                                ### 🏛️ HELENİSTİK SANAT
+
+                                Klasik dönemden farklı olarak:
+                                - **Duygu ve hareket** ön planda
+                                - Dramatik ifadeler
+                                - Gerçekçi portreler
+
+                                **Önemli Eserler:**
+                                | Eser | Özellik |
+                                |------|---------|
+                                | Laokoon Grubu | Ağrı ve çaresizlik |
+                                | Samothrace Nike | Zafer ve hareket |
+                                | Pergamon Sunağı | Dev rölyefler |
+                                | Ölmekte Olan Galat | Trajedi |
+
+                                ---
+
+                                ### 🌐 HELENİZM
+
+                                Yunan dili ve kültürü Akdeniz'den Orta Asya'ya yayıldı:
+                                - **Koine Yunancası** ortak dil oldu
+                                - Yunan tiyatrosu, felsefesi, bilimi benimsendi
+                                - Yerel kültürlerle sentez (Greko-Budizm, Mısır-Yunan tanrıları)
+
+                                ---
+
+                                ### 📚 KAYNAKLAR
+                                - Britannica Encyclopedia
+                                - Cambridge Ancient History
+                                - Peter Green, "Alexander to Actium"
+                                """;
+        }
+
+        private String getRomanEmpireContent() {
+                return """
+                                ## 🦅 ROMA İMPARATORLUĞU
+                                **Tarih:** MÖ 753 - MS 476
+                                **Kaynak:** Britannica, Oxford Classical Dictionary
+
+                                ---
+
+                                ### 📋 DÖNEM ÖZETİ
+
+                                Küçük bir şehir devletinden Akdeniz'e hükmeden süper güce:
+                                - Modern hukukun temelleri
+                                - Mühendislik harikaları
+                                - Pax Romana (Roma Barışı)
+                                - Hristiyanlığın yayılması
+
+                                ---
+
+                                ### 📅 DÖNEMLER
+
+                                | Dönem | Tarih | Özellikler |
+                                |-------|-------|------------|
+                                | Krallık | MÖ 753-509 | 7 kral, Etrüsk etkisi |
+                                | Cumhuriyet | MÖ 509-27 | Senato, konsüller |
+                                | Principatus | MÖ 27-MS 284 | Augustus-Diocletianus |
+                                | Dominatus | MS 284-476 | Mutlak monarşi |
+
+                                ---
+
+                                ### 👑 ÖNEMLİ İMPARATORLAR
+
+                                | İmparator | Dönem | Özellik |
+                                |-----------|-------|---------|
+                                | Augustus | MÖ 27-MS 14 | İlk imparator, Pax Romana |
+                                | Nero | MS 54-68 | Roma yangını, zulümler |
+                                | Traianus | MS 98-117 | En geniş sınırlar |
+                                | Hadrianus | MS 117-138 | Hadrian Duvarı |
+                                | Marcus Aurelius | MS 161-180 | Filozof imparator |
+                                | Constantinus | MS 306-337 | Hristiyanlığı yasallaştırdı |
+                                | Theodosius | MS 379-395 | Son birleşik imparator |
+
+                                ---
+
+                                ### ⚖️ ROMA HUKUKU
+
+                                Modern Batı hukukunun temeli:
+
+                                | Kanun/İlke | Tarih | Önem |
+                                |-----------|-------|------|
+                                | 12 Levha Kanunları | MÖ 450 | İlk yazılı hukuk |
+                                | Masumiyet karinesi | - | Suçlu kanıtlanana dek masum |
+                                | Corpus Iuris Civilis | MS 529-534 | Justinianus derlemesi |
+
+                                **Hukuki sınıflar:**
+                                - Patricii (asiller)
+                                - Plebs (halk)
+                                - Liberti (azatlılar)
+                                - Servi (köleler)
+
+                                ---
+
+                                ### 🛣️ MÜHENDİSLİK HARİKALARI
+
+                                | Yapı | Özellik |
+                                |------|---------|
+                                | Colosseum | 50.000 seyirci, gladyatör dövüşleri |
+                                | Pantheon | Betonarme kubbe (43m çap) |
+                                | Via Appia | İlk Roma yolu (MÖ 312) |
+                                | Pont du Gard | Su kemeri, 50m yükseklik |
+
+                                **Yol Ağı:** 400.000+ km yol
+                                **Su Kemerleri:** Roma'ya günde 1 milyon m³ su
+
+                                ---
+
+                                ### ⚔️ ROMA ORDUSU
+
+                                | Birim | Mevcudu | Özellik |
+                                |-------|--------|---------|
+                                | Lejyon | 5.000-6.000 | Temel birlik |
+                                | Kohortu | 480 | Lejyonun 1/10'u |
+                                | Centuria | 80 | Centurion komutasında |
+
+                                **Taktik:** Testudo (kaplumbağa), pilum (mızrak), gladius (kısa kılıç)
+
+                                ---
+
+                                ### ✝️ HIRİSTİYANLIĞIN YAYILMASI
+
+                                | Olay | Tarih |
+                                |------|-------|
+                                | İsa'nın çarmıha gerilmesi | MS ~30 |
+                                | Nero'nun zulümleri | MS 64 |
+                                | Milano Fermanı (serbestlik) | MS 313 |
+                                | Devlet dini olması | MS 380 |
+
+                                ---
+
+                                ### 💀 ROMA'NIN ÇÖKÜŞÜ
+
+                                **Sebepler:**
+                                1. Barbar istilaları (Vizigotlar, Vandallar, Hunlar)
+                                2. Ekonomik çöküş ve enflasyon
+                                3. Siyasi istikrarsızlık
+                                4. Askeri güç kaybı
+
+                                **Batı Roma:** MS 476'da son imparator Romulus Augustulus tahttan indirildi.
+                                **Doğu Roma (Bizans):** MS 1453'e kadar yaşadı.
+
+                                ---
+
+                                ### 📚 KAYNAKLAR
+                                - Oxford Classical Dictionary
+                                - Britannica Encyclopedia
+                                - Cambridge Ancient History
+                                - Mary Beard, "SPQR"
+                                """;
         }
 
         private String getMedievalContent() {
