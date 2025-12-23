@@ -59,7 +59,7 @@
         "name": "Göbekli Tepe",
         "latitude": 37.2231,
         "longitude": 38.9225,
-        "description": "An archaeological site in the Southeastern Anatolia Region of Turkey. The tell has a height of 15 m and is about 300 m in diameter.",
+        "description": "An archaeological site in the Southeastern Anatolia Region of Turkey. The oldest known temple in the world.",
         "imageUrl": "https://images.unsplash.com/photo-1634737272747-d3527a0503f4?w=600"
     },
     {
@@ -73,14 +73,14 @@
         "name": "Angkor Wat",
         "latitude": 13.4125,
         "longitude": 103.8670,
-        "description": "A temple complex in Cambodia and the largest religious monument in the world by land area, on a site measuring 162.6 hectares.",
+        "description": "A temple complex in Cambodia and the largest religious monument in the world by land area.",
         "imageUrl": "https://images.unsplash.com/photo-1548686121-65b838936999?w=600"
     },
     {
         "name": "Acropolis of Athens",
         "latitude": 37.9715,
         "longitude": 23.7257,
-        "description": "An ancient citadel located on a rocky outcrop above the city of Athens and contains the remains of several ancient buildings of great architectural and historic significance.",
+        "description": "An ancient citadel located on a rocky outcrop above the city of Athens and contains the remains of several ancient buildings.",
         "imageUrl": "https://images.unsplash.com/photo-1555993539-1732b625d22e?w=600"
     },
     {
@@ -136,7 +136,7 @@
         "name": "Cappadocia",
         "latitude": 38.6431,
         "longitude": 34.8289,
-        "description": "A historical region in Central Anatolia, largely in the Nevşehir, Kayseri, Kırşehir, Aksaray, and Niğde Provinces in Turkey.",
+        "description": "A historical region in Central Anatolia, known for its unique 'fairy chimneys' and underground cities.",
         "imageUrl": "https://images.unsplash.com/photo-1641128324972-af3212f0f6bd?w=600"
     },
     {
@@ -157,155 +157,8 @@
         "name": "Borobudur",
         "latitude": -7.6079,
         "longitude": 110.2038,
-        "description": "A 9th-century Mahayana Buddhist temple in Magelang Regency, not far from the town of Muntilan, in Central Java, Indonesia.",
+        "description": "A 9th-century Mahayana Buddhist temple in Magelang Regency, Central Java, Indonesia.",
         "imageUrl": "https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=600"
-    },
-    {
-        "name": "Christ the Redeemer",
-        "latitude": -22.9519,
-        "longitude": -43.2105,
-        "description": "An Art Deco statue of Jesus Christ in Rio de Janeiro, Brazil.",
-        "imageUrl": "https://images.unsplash.com/photo-1564659907532-6b19720cad52?w=600"
-    },
-    {
-        "name": "Statue of Liberty",
-        "latitude": 40.6892,
-        "longitude": -74.0445,
-        "description": "A colossal neoclassical sculpture on Liberty Island in New York Harbor within New York City.",
-        "imageUrl": "https://images.unsplash.com/photo-1605130284535-11dd9eedc58a?w=600"
-    },
-    {
-        "name": "Sydney Opera House",
-        "latitude": -33.8568,
-        "longitude": 151.2153,
-        "description": "A multi-venue performing arts centre at Sydney Harbour in Sydney, New South Wales, Australia.",
-        "imageUrl": "https://images.unsplash.com/photo-1624138784180-60f1b0a99266?w=600"
-    },
-    {
-        "name": "Burj Khalifa",
-        "latitude": 25.1972,
-        "longitude": 55.2744,
-        "description": "A skyscraper in Dubai, United Arab Emirates. It is the world's tallest building.",
-        "imageUrl": "https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=600"
-    },
-    {
-        "name": "Mount Fuji",
-        "latitude": 35.3606,
-        "longitude": 138.7274,
-        "description": "An active volcano about 100 kilometers southwest of Tokyo. Commonly called 'Fuji-san'.",
-        "imageUrl": "https://images.unsplash.com/photo-1570459027562-4a916cc6113f?w=600"
-    },
-    {
-        "name": "Grand Canyon",
-        "latitude": 36.1069,
-        "longitude": -112.1129,
-        "description": "A steep-sided canyon carved by the Colorado River in Arizona, United States.",
-        "imageUrl": "https://images.unsplash.com/photo-1474044159687-1ee9f3a517c2?w=600"
-    },
-    {
-        "name": "Niagara Falls",
-        "latitude": 43.0962,
-        "longitude": -79.0377,
-        "description": "A group of three waterfalls at the southern end of Niagara Gorge, spanning the border between the province of Ontario in Canada and the state of New York in the United States.",
-        "imageUrl": "https://images.unsplash.com/photo-1549487928-8671607590d6?w=600"
-    },
-    {
-        "name": "Victoria Falls",
-        "latitude": -17.9243,
-        "longitude": 25.8572,
-        "description": "A waterfall on the Zambezi River in southern Africa, which provides habitat for several unique species of plants and animals.",
-        "imageUrl": "https://images.unsplash.com/photo-1605729738096-74db76678248?w=600"
-    },
-    {
-        "name": "Galapagos Islands",
-        "latitude": -0.8293,
-        "longitude": -91.1358,
-        "description": "An archipelago of volcanic islands in the Pacific Ocean. It is considered one of the world's foremost destinations for wildlife-viewing.",
-        "imageUrl": "https://images.unsplash.com/photo-1534958178875-10ee2460e862?w=600"
-    },
-    {
-        "name": "Great Barrier Reef",
-        "latitude": -18.2871,
-        "longitude": 147.6992,
-        "description": "The world's largest coral reef system composed of over 2,900 individual reefs and 900 islands stretching for over 2,300 kilometres.",
-        "imageUrl": "https://images.unsplash.com/photo-1582967788606-a171f1080ca8?w=600"
-    },
-    {
-        "name": "Banff National Park",
-        "latitude": 51.4968,
-        "longitude": -115.9281,
-        "description": "Canada's oldest national park, established in 1885. Located in the Rocky Mountains.",
-        "imageUrl": "https://images.unsplash.com/photo-1561134643-63aaca854b87?w=600"
-    },
-    {
-        "name": "Yellowstone National Park",
-        "latitude": 44.4280,
-        "longitude": -110.5885,
-        "description": "An American national park located in the western United States, largely in the northwest corner of Wyoming and extending into Montana and Idaho.",
-        "imageUrl": "https://images.unsplash.com/photo-1577742186985-1d488ab89531?w=600"
-    },
-    {
-        "name": "Yosemite National Park",
-        "latitude": 37.8651,
-        "longitude": -119.5383,
-        "description": "An American national park located in the western Sierra Nevada of Central California.",
-        "imageUrl": "https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?w=600"
-    },
-    {
-        "name": "Santorini",
-        "latitude": 36.3932,
-        "longitude": 25.4615,
-        "description": "An island in the southern Aegean Sea, about 200 km southeast of Greece's mainland.",
-        "imageUrl": "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600"
-    },
-    {
-        "name": "Venice",
-        "latitude": 45.4408,
-        "longitude": 12.3155,
-        "description": "A city in northeastern Italy and the capital of the Veneto region. It is built on a group of 118 small islands.",
-        "imageUrl": "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=600"
-    },
-    {
-        "name": "Kyoto",
-        "latitude": 35.0116,
-        "longitude": 135.7681,
-        "description": "Ideally located in the Kansai region, Kyoto is one of Japan’s oldest municipalities.",
-        "imageUrl": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600"
-    },
-    {
-        "name": "Jerusalem",
-        "latitude": 31.7683,
-        "longitude": 35.2137,
-        "description": "A city in the Middle East, located on a plateau in the Judaean Mountains between the Mediterranean and the Dead Sea.",
-        "imageUrl": "https://images.unsplash.com/photo-1552423318-621cd493a739?w=600"
-    },
-    {
-        "name": "Mecca (Kaaba)",
-        "latitude": 21.4225,
-        "longitude": 39.8262,
-        "description": "The holiest city in Islam, located in the Sirat Mountains in western Saudi Arabia.",
-        "imageUrl": "https://images.unsplash.com/photo-1580228067868-b7c1913c7a91?w=600"
-    },
-    {
-        "name": "Vatican City",
-        "latitude": 41.9029,
-        "longitude": 12.4534,
-        "description": "An independent city-state enclaved within Rome, Italy. The Vatican City State, also known simply as the Vatican, became independent from Italy with the Lateran Treaty (1929).",
-        "imageUrl": "https://images.unsplash.com/photo-1531572753322-ad063ce1a4f6?w=600"
-    },
-    {
-        "name": "Lourdes",
-        "latitude": 43.0915,
-        "longitude": -0.0457,
-        "description": "A town in southwestern France, in the foothills of the Pyrenees mountains.",
-        "imageUrl": "https://images.unsplash.com/photo-1629828876403-j6c039981503?w=600"
-    },
-    {
-        "name": "Mount Sinai",
-        "latitude": 28.5391,
-        "longitude": 33.9750,
-        "description": "A mountain in the Sinai Peninsula of Egypt. It is a possible location of the biblical Mount Sinai.",
-        "imageUrl": "https://images.unsplash.com/photo-1579766929428-1b033d839352?w=600"
     },
     {
         "name": "Lalibela",
@@ -318,21 +171,14 @@
         "name": "Timbuktu",
         "latitude": 16.7666,
         "longitude": -3.0026,
-        "description": "A city in Mali, situated 20 km north of the Niger River. It is the capital of the Timbuktu Region.",
+        "description": "A city in Mali, situated 20 km north of the Niger River. A center of Islamic learning.",
         "imageUrl": "https://images.unsplash.com/photo-1596568195801-6c22cb159491?w=600"
-    },
-    {
-        "name": "Djenné",
-        "latitude": 13.9061,
-        "longitude": -4.5503,
-        "description": "A town and an urban commune in the Inland Niger Delta region of central Mali.",
-        "imageUrl": "https://images.unsplash.com/photo-1579606869403-9d92723d7890?w=600"
     },
     {
         "name": "Great Zimbabwe",
         "latitude": -20.2730,
         "longitude": 30.9343,
-        "description": "A ruined city in the south-eastern hills of Zimbabwe near Lake Mutirikwe and the town of Masvingo.",
+        "description": "A ruined city in the south-eastern hills of Zimbabwe, known for its large circular wall and tower.",
         "imageUrl": "https://images.unsplash.com/photo-1598286903823-3b082103322e?w=600"
     },
     {
@@ -341,20 +187,6 @@
         "longitude": 52.8906,
         "description": "The ceremonial capital of the Achaemenid Empire (c. 550–330 BC).",
         "imageUrl": "https://images.unsplash.com/photo-1620882142279-bf75124976fa?w=600"
-    },
-    {
-        "name": "Shiraz",
-        "latitude": 29.5926,
-        "longitude": 52.5836,
-        "description": "The fifth-most-populous city of Iran and the capital of Fars Province (Old Persian as Pärsah).",
-        "imageUrl": "https://images.unsplash.com/photo-1565019053989-9e875630664d?w=600"
-    },
-    {
-        "name": "Isfahan",
-        "latitude": 32.6539,
-        "longitude": 51.6660,
-        "description": "A major city in the Greater Isfahan Region, Isfahan Province, Iran.",
-        "imageUrl": "https://images.unsplash.com/photo-1543714856-4c74070776bd?w=600"
     },
     {
         "name": "Samarkand",
@@ -367,21 +199,21 @@
         "name": "Bukhara",
         "latitude": 39.7681,
         "longitude": 64.4556,
-        "description": "The capital of the Bukhara Region of Uzbekistan.",
+        "description": "An ancient city on the Silk Road, known for its well-preserved historic center.",
         "imageUrl": "https://images.unsplash.com/photo-1578500293126-c220f86a9f46?w=600"
     },
     {
         "name": "Khiva",
         "latitude": 41.3783,
         "longitude": 60.3639,
-        "description": "A district-level city of approximately 90,000 people in Xorazm Region, Uzbekistan.",
+        "description": "An ancient walled city in Uzbekistan, often called a museum under the open sky.",
         "imageUrl": "https://images.unsplash.com/photo-1573033575640-3532f22c66d8?w=600"
     },
     {
         "name": "Forbidden City",
         "latitude": 39.9163,
         "longitude": 116.3972,
-        "description": "A palace complex in Dongcheng District, Beijing, China, at the center of the Imperial City of Beijing.",
+        "description": "A palace complex in Beijing, China, at the center of the Imperial City.",
         "imageUrl": "https://images.unsplash.com/photo-1508804052814-cd3ba865a116?w=600"
     },
     {
@@ -402,196 +234,63 @@
         "name": "Potala Palace",
         "latitude": 29.6578,
         "longitude": 91.1174,
-        "description": "A a dzong fortress in the city of Lhasa, in Tibet.",
+        "description": "A dzong fortress in the city of Lhasa, Tibet. Winter palace of the Dalai Lamas.",
         "imageUrl": "https://images.unsplash.com/photo-1627889397734-b2586798150f?w=600"
     },
     {
         "name": "Himeji Castle",
         "latitude": 34.8394,
         "longitude": 134.6939,
-        "description": "A hilltop Japanese castle complex situated in the city of Himeji which is located in the Hyōgo Prefecture of Japan.",
+        "description": "A hilltop Japanese castle complex situated in the city of Himeji, considered the finest surviving example of prototypical Japanese castle architecture.",
         "imageUrl": "https://images.unsplash.com/photo-1563806951912-1d5d36e78855?w=600"
     },
     {
         "name": "Kinkaku-ji",
         "latitude": 35.0394,
         "longitude": 135.7292,
-        "description": "Officially named Rokuon-ji, is a Zen Buddhist temple in Kyoto, Japan.",
+        "description": "The Golden Pavilion, a Zen Buddhist temple in Kyoto, Japan.",
         "imageUrl": "https://images.unsplash.com/photo-1572942006733-12502c38cc01?w=600"
-    },
-    {
-        "name": "Fushimi Inari-taisha",
-        "latitude": 34.9671,
-        "longitude": 135.7727,
-        "description": "The head shrine of the kami Inari, located in Fushimi-ku, Kyoto, Japan.",
-        "imageUrl": "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=600"
-    },
-    {
-        "name": "Todai-ji",
-        "latitude": 34.6890,
-        "longitude": 135.8400,
-        "description": "A Buddhist temple complex that was once one of the powerful Seven Great Temples, located in the city of Nara, Japan.",
-        "imageUrl": "https://images.unsplash.com/photo-1607310557431-7e50d03258c7?w=600"
-    },
-    {
-        "name": "Itsukushima Shrine",
-        "latitude": 34.2959,
-        "longitude": 132.3197,
-        "description": "A Shinto shrine on the island of Itsukushima, best known for its 'floating' torii gate.",
-        "imageUrl": "https://images.unsplash.com/photo-1504109586057-7a2ae83d1338?w=600"
-    },
-    {
-        "name": "Hiroshima Peace Memorial",
-        "latitude": 34.3955,
-        "longitude": 132.4536,
-        "description": "A memorial park in the center of Hiroshima, Japan. It is dedicated to the legacy of Hiroshima as the first city in the world to suffer a nuclear attack.",
-        "imageUrl": "https://images.unsplash.com/photo-1565552697818-ab93d6c7030c?w=600"
-    },
-    {
-        "name": "Seoul (Gyeongbokgung)",
-        "latitude": 37.5796,
-        "longitude": 126.9770,
-        "description": "The main royal palace of the Joseon dynasty. Built in 1395, it is located in northern Seoul, South Korea.",
-        "imageUrl": "https://images.unsplash.com/photo-1549448866-b337c78912e9?w=600"
-    },
-    {
-        "name": "Jeju Island",
-        "latitude": 33.4996,
-        "longitude": 126.5312,
-        "description": "Korea's largest island, long known for its sea women (haenyeo), tombs, and mixed religious traditions.",
-        "imageUrl": "https://images.unsplash.com/photo-1566378246598-a5b67482811a?w=600"
-    },
-    {
-        "name": "Ha Long Bay",
-        "latitude": 20.9101,
-        "longitude": 107.1839,
-        "description": "A UNESCO World Heritage Site and popular travel destination in Quang Ninh Province, Vietnam.",
-        "imageUrl": "https://images.unsplash.com/photo-1528127269322-539801943592?w=600"
-    },
-    {
-        "name": "Hoi An",
-        "latitude": 15.8801,
-        "longitude": 108.3380,
-        "description": "A city on Vietnam's central coast known for its well-preserved Ancient Town, cut through with canals.",
-        "imageUrl": "https://images.unsplash.com/photo-1557342080-87779fdfa6f4?w=600"
     },
     {
         "name": "Ayutthaya",
         "latitude": 14.3532,
         "longitude": 100.5684,
-        "description": "A historic city in Thailand, once the capital of the Kingdom of Siam.",
+        "description": "A historic city in Thailand, once the capital of the Kingdom of Siam, destroyed by the Burmese in the 18th century.",
         "imageUrl": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600"
     },
     {
         "name": "Sukhothai",
         "latitude": 17.0177,
         "longitude": 99.7037,
-        "description": "A small city in northern Thailand, capital of the province of the same name.",
+        "description": "Capital of the Sukhothai Kingdom in the 13th and 14th centuries.",
         "imageUrl": "https://images.unsplash.com/photo-1547900762-c9a9415c8e4e?w=600"
     },
     {
         "name": "Wat Arun",
         "latitude": 13.7437,
         "longitude": 100.4888,
-        "description": "A Buddhist temple in Bangkok Yai district of Bangkok, Thailand, on the Thonburi west bank of the Chao Phraya River.",
+        "description": "The Temple of Dawn, a Buddhist temple in Bangkok, Thailand.",
         "imageUrl": "https://images.unsplash.com/photo-1563816152-475a89452b49?w=600"
-    },
-    {
-        "name": "Boracay",
-        "latitude": 11.9674,
-        "longitude": 121.9248,
-        "description": "A small island in the central Philippines. It's known for its resorts and beaches.",
-        "imageUrl": "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600"
     },
     {
         "name": "Banaue Rice Terraces",
         "latitude": 16.9189,
         "longitude": 121.0558,
-        "description": "Carved into the mountains of Ifugao in the Philippines by the ancestors of the indigenous people.",
+        "description": "2,000-year-old terraces that were carved into the mountains of Ifugao in the Philippines.",
         "imageUrl": "https://images.unsplash.com/photo-1518063319789-7217e6706b04?w=600"
-    },
-    {
-        "name": "Petronas Towers",
-        "latitude": 3.1578,
-        "longitude": 101.7120,
-        "description": "Twin skyscrapers in Kuala Lumpur, Malaysia. According to the Council on Tall Buildings and Urban Habitat's official definition and ranking, they were the tallest buildings in the world from 1998 to 2004.",
-        "imageUrl": "https://images.unsplash.com/photo-1579203672239-55694b2db00c?w=600"
     },
     {
         "name": "Batu Caves",
         "latitude": 3.2379,
         "longitude": 101.6840,
-        "description": "A limestone hill that has a series of caves and cave temples in Gombak, Selangor, Malaysia.",
+        "description": "A limestone hill that has a series of caves and cave temples in Malaysia.",
         "imageUrl": "https://images.unsplash.com/photo-1550998871-3375b430c2c3?w=600"
     },
     {
-        "name": "Gardens by the Bay",
-        "latitude": 1.2816,
-        "longitude": 103.8636,
-        "description": "A nature park spanning 101 hectares in the Central Region of Singapore, adjacent to the Marina Reservoir.",
-        "imageUrl": "https://images.unsplash.com/photo-1506318164473-2dfd3ede3623?w=600"
-    },
-    {
-        "name": "Marina Bay Sands",
-        "latitude": 1.2834,
-        "longitude": 103.8607,
-        "description": "A resort fronting Marina Bay in Singapore.",
-        "imageUrl": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600"
-    },
-    {
-        "name": "Bali (Uluwatu Temple)",
-        "latitude": -8.8291,
-        "longitude": 115.0849,
-        "description": "A Balinese Hindu sea temple (Pura Segara) located in Uluwatu.",
-        "imageUrl": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600"
-    },
-    {
-        "name": "Komodo National Park",
-        "latitude": -8.5492,
-        "longitude": 119.4674,
-        "description": "A national park in Indonesia located within the Lesser Sunda Islands.",
-        "imageUrl": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600"
-    },
-    {
-        "name": "Raja Ampat",
-        "latitude": -0.2333,
-        "longitude": 130.5167,
-        "description": "Located off the northwest tip of Bird's Head Peninsula on the island of New Guinea, in Indonesia's Southwest Papua province.",
-        "imageUrl": "https://images.unsplash.com/photo-1516690553959-71a414d6b9b6?w=600"
-    },
-    {
-        "name": "Hobbiton Movie Set",
-        "latitude": -37.8576,
-        "longitude": 175.6797,
-        "description": "A significant location used for The Lord of the Rings film trilogy and The Hobbit film trilogy.",
-        "imageUrl": "https://images.unsplash.com/photo-1571769267292-e24dfadebbdc?w=600"
-    },
-    {
-        "name": "Milford Sound",
-        "latitude": -44.6414,
-        "longitude": 167.8974,
-        "description": "A fiord in the southwest of New Zealand's South Island.",
-        "imageUrl": "https://images.unsplash.com/photo-1506509043216-9b1675271842?w=600"
-    },
-    {
-        "name": "Aoraki / Mount Cook",
-        "latitude": -43.5950,
-        "longitude": 170.1418,
-        "description": "The highest mountain in New Zealand.",
-        "imageUrl": "https://images.unsplash.com/photo-1507699622177-388898797960?w=600"
-    },
-    {
-        "name": "Fiji (Mamanuca Islands)",
-        "latitude": -17.7712,
-        "longitude": 177.1687,
-        "description": "A volcanic archipelago lying to the west of Nadi and to the south of the Yasawa Islands.",
-        "imageUrl": "https://images.unsplash.com/photo-1544604922-48203c968f9a?w=600"
-    },
-    {
-        "name": "Bora Bora",
-        "latitude": -16.5004,
-        "longitude": -151.7415,
-        "description": "An island group in the Leeward Islands. The Leeward Islands comprise the western part of the Society Islands of French Polynesia.",
-        "imageUrl": "https://images.unsplash.com/photo-1502920514313-52581002a659?w=600"
+        "name": "Jeju Island (Dol Hareubang)",
+        "latitude": 33.4996,
+        "longitude": 126.5312,
+        "description": "Known for its unique 'grandmother' stone statues.",
+        "imageUrl": "https://images.unsplash.com/photo-1566378246598-a5b67482811a?w=600"
     }
 ]
