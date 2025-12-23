@@ -1,296 +1,408 @@
 [
     {
-        "name": "Pyramids of Giza",
+        "name": "Göbeklitepe",
+        "latitude": 37.223056,
+        "longitude": 38.9225,
+        "description": "Şanlıurfa - Tarihin sıfır noktası kabul edilen, dünyanın bilinen en eski tapınak kompleksi (MÖ 9600).",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/10/G%C3%B6bekli_Tepe%2C_Urfa.jpg"
+    },
+    {
+        "name": "Efes Antik Kenti",
+        "latitude": 37.949722,
+        "longitude": 27.363889,
+        "description": "İzmir - Celsus Kütüphanesi ve Artemis Tapınağı'na ev sahipliği yapan muazzam Roma başkenti.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/87/Celsus_Library_Ephesus_Turkey.jpg"
+    },
+    {
+        "name": "Kapadokya ve Göreme",
+        "latitude": 38.643056,
+        "longitude": 34.828889,
+        "description": "Nevşehir - Peribacaları ve kayalara oyulmuş yeraltı şehirleriyle eşsiz bir coğrafya.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Cappadocia_Hot_Air_Balloons.jpg"
+    },
+    {
+        "name": "Nemrut Dağı",
+        "latitude": 37.980556,
+        "longitude": 38.740556,
+        "description": "Adıyaman - Kommagene Krallığı'na ait devasa heykeller ve tümülüs.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Nemrut.jpg"
+    },
+    {
+        "name": "Troya Antik Kenti",
+        "latitude": 39.9575,
+        "longitude": 26.238889,
+        "description": "Çanakkale - Homeros'un İlyada destanına konu olan efsanevi savaşın kenti.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Troy_walls.jpg"
+    },
+    {
+        "name": "Ayasofya-i Kebir Cami",
+        "latitude": 41.008611,
+        "longitude": 28.980278,
+        "description": "İstanbul - Bizans mimarisinin başyapıtı, imparatorlukların simgesi.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/22/Hagia_Sophia_Mars_2013.jpg"
+    },
+    {
+        "name": "Pamukkale ve Hierapolis",
+        "latitude": 37.925278,
+        "longitude": 29.123333,
+        "description": "Denizli - Beyaz travertenler ve üzerindeki kutsal antik kent.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/07/Pamukkale_01.jpg"
+    },
+    {
+        "name": "Hattuşaş",
+        "latitude": 40.019722,
+        "longitude": 34.615278,
+        "description": "Çorum - Hitit İmparatorluğu'nun başkenti, Aslanlı Kapı ve Yazılıkaya ile ünlü.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/90/Lion_Gate_Hattusa.jpg"
+    },
+    {
+        "name": "Çatalhöyük",
+        "latitude": 37.6675,
+        "longitude": 32.828333,
+        "description": "Konya - İnsanlığın ilk şehir yerleşimlerinden biri olan Neolitik kent.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Catalh%C3%BCy%C3%BCk_restauriertes_Haus_innen.jpg"
+    },
+    {
+        "name": "Pergamon (Bergama)",
+        "latitude": 39.130556,
+        "longitude": 27.181389,
+        "description": "İzmir - Dünyanın en dik antik tiyatrosuna ve Trajan Tapınağı'na sahip antik kent.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Pergamon_Amphitheater.jpg"
+    },
+    {
+        "name": "Safranbolu Şehri",
+        "latitude": 41.250833,
+        "longitude": 32.694167,
+        "description": "Karabük - Geleneksel Osmanlı sivil mimarisini koruyan tarihi evleriyle ünlü kent.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Safranbolu_view.jpg"
+    },
+    {
+        "name": "Xanthos ve Letoon",
+        "latitude": 36.356389,
+        "longitude": 29.319167,
+        "description": "Antalya/Muğla - Likya uygarlığının yönetim merkezi ve kutsal alanı.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Xanthos_theatre.jpg"
+    },
+    {
+        "name": "Edirne Selimiye Cami",
+        "latitude": 41.678056,
+        "longitude": 26.559444,
+        "description": "Edirne - Mimar Sinan'ın 'Ustalık Eserim' dediği Osmanlı mimari şaheseri.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Selimiye_Mosque%2C_Edirne.jpg"
+    },
+    {
+        "name": "Ani Harabeleri",
+        "latitude": 40.5075,
+        "longitude": 43.572778,
+        "description": "Kars - 'Binbir Kilise Şehri' olarak bilinen, İpek Yolu üzerindeki orta çağ kenti.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Ani_overview.jpg"
+    },
+    {
+        "name": "Afrodisias",
+        "latitude": 37.709167,
+        "longitude": 28.723611,
+        "description": "Aydın - Aşk tanrıçası Afrodit'e adanmış, mükemmel heykeltıraşlık okulu.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/Tetrapylon_Aphrodisias_Turkey.jpg"
+    },
+    {
+        "name": "Diyarbakır Surları",
+        "latitude": 37.913611,
+        "longitude": 40.231667,
+        "description": "Diyarbakır - Dünyanın ayakta kalan en uzun tarihi surlarından biri.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Diyarbakir_Walls.jpg"
+    },
+    {
+        "name": "Cumalıkızık",
+        "latitude": 40.183333,
+        "longitude": 29.066667,
+        "description": "Bursa - Osmanlı dönemini yaşatan tarihi köy.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/52/Cumalikizik.jpg"
+    },
+    {
+        "name": "Arslantepe Höyüğü",
+        "latitude": 38.382222,
+        "longitude": 38.361944,
+        "description": "Malatya - İlk devlet yapısının doğuşuna tanıklık eden saray kompleksi.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/37/Arslantepe_Malatya.jpg"
+    },
+    {
+        "name": "Gordion",
+        "latitude": 39.658333,
+        "longitude": 31.996667,
+        "description": "Ankara - Frigya Krallığı'nın başkenti, Kral Midas'ın mezarı.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Midas_Tomb_Gordion.jpg"
+    },
+    {
+        "name": "Divriği Ulu Cami",
+        "latitude": 39.373333,
+        "longitude": 38.123611,
+        "description": "Sivas - UNESCO Mirası, taş işçiliğinin zirvesi.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Divrigi_Great_Mosque.jpg"
+    },
+    {
+        "name": "Sümela Manastırı",
+        "latitude": 40.690278,
+        "longitude": 39.658333,
+        "description": "Trabzon - Sarp kayalara oyulmuş tarihi manastır.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Sumela_Monastery_Trabzon.jpg"
+    },
+    {
+        "name": "Aspendos",
+        "latitude": 36.938889,
+        "longitude": 31.1725,
+        "description": "Antalya - Muhteşem akustiğe sahip Roma tiyatrosu.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Aspendos_Amphitheatre%2C_Turkey.jpg"
+    },
+    {
+        "name": "Myra",
+        "latitude": 36.258611,
+        "longitude": 29.985278,
+        "description": "Antalya - Noel Baba kilisesi ve kaya mezarlarıyla ünlü.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Myra_rock_graves.jpg"
+    },
+    {
+        "name": "Perge",
+        "latitude": 36.960833,
+        "longitude": 30.851389,
+        "description": "Antalya - Heykeltıraşlık merkezi, sütunlu caddeleriyle ünlü.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/15/Perge_Antalya.jpg"
+    },
+    {
+        "name": "Sagalassos",
+        "latitude": 37.677222,
+        "longitude": 30.503611,
+        "description": "Burdur - Bulutların üzerindeki antik şehir.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Sagalassos_Nymphaeum.jpg"
+    },
+    {
+        "name": "Giza Piramitleri",
         "latitude": 29.9792,
         "longitude": 31.1342,
-        "description": "The oldest and largest of the pyramids in the Giza pyramid complex bordering present-day Giza in Greater Cairo, Egypt.",
-        "imageUrl": "https://images.unsplash.com/photo-1599309328828-93eb8a50ed3c?w=600"
+        "description": "Mısır - Antik dünyanın yedi harikasından ayakta kalan tek yapı.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg"
     },
     {
         "name": "Machu Picchu",
         "latitude": -13.1631,
         "longitude": -72.5450,
-        "description": "A 15th-century Inca citadel, located in the Eastern Cordillera of southern Peru on a 2,430-meter mountain ridge.",
-        "imageUrl": "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=600"
+        "description": "Peru - And Dağları'nın zirvesinde saklı İnka şehri.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Machu_Picchu%2C_Peru.jpg"
     },
     {
-        "name": "Colosseum",
+        "name": "Kolezyum",
         "latitude": 41.8902,
         "longitude": 12.4922,
-        "description": "An oval amphitheatre in the centre of the city of Rome, Italy, just east of the Roman Forum.",
-        "imageUrl": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600"
+        "description": "İtalya - Roma İmparatorluğu'nun en büyük amfitiyatrosu.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/53/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg"
     },
     {
         "name": "Petra",
         "latitude": 30.3285,
         "longitude": 35.4444,
-        "description": "A historical and archaeological city in southern Jordan, famous for its rock-cut architecture and water conduit system.",
-        "imageUrl": "https://images.unsplash.com/photo-1574044719262-d2427a7c2957?w=600"
+        "description": "Ürdün - Kızıl kayalara oyulmuş 'Gül Kenti'.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Treasury_petra_crop.jpeg"
     },
     {
-        "name": "Taj Mahal",
+        "name": "Tac Mahal",
         "latitude": 27.1751,
         "longitude": 78.0421,
-        "description": "An ivory-white marble mausoleum on the southern bank of the river Yamuna in the Indian city of Agra.",
-        "imageUrl": "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600"
+        "description": "Hindistan - Aşk için yapılmış dünyanın en güzel anıt mezarı.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Taj_Mahal_%28Edited%29.jpeg"
     },
     {
-        "name": "Great Wall of China",
+        "name": "Çin Seddi",
         "latitude": 40.4319,
         "longitude": 116.5704,
-        "description": "A series of fortifications that were built across the historical northern borders of ancient Chinese states.",
-        "imageUrl": "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=600"
+        "description": "Çin - Dünyanın en uzun savunma duvarı.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/23/The_Great_Wall_of_China_at_Jinshanling-edit.jpg"
     },
     {
         "name": "Chichen Itza",
         "latitude": 20.6843,
         "longitude": -88.5678,
-        "description": "A complex of Mayan ruins on Mexico's Yucatan Peninsula. A massive step pyramid, known as El Castillo, dominates the ancient city.",
-        "imageUrl": "https://images.unsplash.com/photo-1518638151313-982d91389655?w=600"
+        "description": "Meksika - Maya medeniyetinin en önemli piramitlerinden biri.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/51/Chichen_Itza_3.jpg"
     },
     {
         "name": "Stonehenge",
         "latitude": 51.1789,
         "longitude": -1.8262,
-        "description": "A prehistoric monument in Wiltshire, England. It consists of a ring of standing stones, each around 13 feet high.",
-        "imageUrl": "https://images.unsplash.com/photo-1599831737951-64d8a2307224?w=600"
-    },
-    {
-        "name": "Göbekli Tepe",
-        "latitude": 37.2231,
-        "longitude": 38.9225,
-        "description": "An archaeological site in the Southeastern Anatolia Region of Turkey. The oldest known temple in the world.",
-        "imageUrl": "https://images.unsplash.com/photo-1634737272747-d3527a0503f4?w=600"
-    },
-    {
-        "name": "Ephesus",
-        "latitude": 37.9497,
-        "longitude": 27.3639,
-        "description": "An ancient Greek city on the coast of Ionia, three kilometres southwest of present-day Selçuk in İzmir Province, Turkey.",
-        "imageUrl": "https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?w=600"
+        "description": "İngiltere - Gizemini koruyan tarih öncesi taş çember.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Stonehenge2007_07_30.jpg"
     },
     {
         "name": "Angkor Wat",
         "latitude": 13.4125,
         "longitude": 103.8670,
-        "description": "A temple complex in Cambodia and the largest religious monument in the world by land area.",
-        "imageUrl": "https://images.unsplash.com/photo-1548686121-65b838936999?w=600"
+        "description": "Kamboçya - Dünyanın en büyük dini tapınak kompleksi.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/41/Angkor_Wat.jpg"
     },
     {
-        "name": "Acropolis of Athens",
+        "name": "Akropolis",
         "latitude": 37.9715,
         "longitude": 23.7257,
-        "description": "An ancient citadel located on a rocky outcrop above the city of Athens and contains the remains of several ancient buildings.",
-        "imageUrl": "https://images.unsplash.com/photo-1555993539-1732b625d22e?w=600"
+        "description": "Yunanistan - Atina'nın koruyucusu Parthenon'un bulunduğu tepe.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Acropolis_of_Athens_01361.jpg"
     },
     {
-        "name": "Hagia Sophia",
-        "latitude": 41.0086,
-        "longitude": 28.9802,
-        "description": "A Late Antique place of worship in Istanbul, designed by the Greek geometers Isidore of Miletus and Anthemius of Tralles.",
-        "imageUrl": "https://images.unsplash.com/photo-1527838832700-50592524d78b?w=600"
-    },
-    {
-        "name": "Pompeii",
+        "name": "Pompei",
         "latitude": 40.7505,
         "longitude": 14.4936,
-        "description": "An ancient city located in what is now the comune of Pompei near Naples in the Campania region of Italy.",
-        "imageUrl": "https://images.unsplash.com/photo-1555588382-730da4c6437d?w=600"
+        "description": "İtalya - Vezüv Yanardağı'nın külleri altında donmuş antik kent.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/04/Pompeii_Garden_of_the_Fugitives_02.jpg"
     },
     {
         "name": "Teotihuacan",
         "latitude": 19.6925,
         "longitude": -98.8437,
-        "description": "An ancient Mesoamerican city located in a sub-valley of the Valley of Mexico, known for its significant Mesoamerican pyramids.",
-        "imageUrl": "https://images.unsplash.com/photo-1569407228235-9a744831a150?w=600"
+        "description": "Meksika - Tanrıların Şehri ve Güneş Piramidi.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/33/Pyramid_of_the_Sun%2C_Teotihuacan.jpg"
     },
     {
-        "name": "Terracotta Army",
+        "name": "Toprak Askerler (Terracotta)",
         "latitude": 34.3841,
         "longitude": 109.2785,
-        "description": "A collection of terracotta sculptures depicting the armies of Qin Shi Huang, the first Emperor of China.",
-        "imageUrl": "https://images.unsplash.com/photo-1599577977465-9833cb94cc91?w=600"
+        "description": "Çin - İlk Çin İmparatoru'nun mezarını koruyan binlerce heykel asker.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Terracotta_Army%2C_View_of_Pit_1.jpg"
     },
     {
         "name": "Bagan",
         "latitude": 21.1717,
         "longitude": 94.8585,
-        "description": "An ancient city and a UNESCO World Heritage Site in the Mandalay Region of Myanmar.",
-        "imageUrl": "https://images.unsplash.com/photo-1523595560465-22d7162b75a1?w=600"
+        "description": "Myanmar - Binlerce budist tapınağının bulunduğu antik ova.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/77/Bagan_valley.jpg"
     },
     {
-        "name": "Easter Island (Moai)",
+        "name": "Paskalya Adası (Moai)",
         "latitude": -27.1127,
         "longitude": -109.3497,
-        "description": "Famous for its 887 extant monumental statues, called moai, created by the early Rapa Nui people.",
-        "imageUrl": "https://images.unsplash.com/photo-1592348575087-4148b812066c?w=600"
+        "description": "Şili - Okyanusun ortasındaki gizemli dev taş heykeller.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/40/Moai_Rano_raraku.jpg"
     },
     {
-        "name": "Alhambra",
+        "name": "El Hamra Sarayı",
         "latitude": 37.1760,
         "longitude": -3.5881,
-        "description": "A palace and fortress complex located in Granada, Andalusia, Spain.",
-        "imageUrl": "https://images.unsplash.com/photo-1549420059-ad58a69996b1?w=600"
-    },
-    {
-        "name": "Cappadocia",
-        "latitude": 38.6431,
-        "longitude": 34.8289,
-        "description": "A historical region in Central Anatolia, known for its unique 'fairy chimneys' and underground cities.",
-        "imageUrl": "https://images.unsplash.com/photo-1641128324972-af3212f0f6bd?w=600"
+        "description": "İspanya - Endülüs İslam mimarisinin zirvesi.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/de/Alhambra_Generalife_Granada.jpg"
     },
     {
         "name": "Meteora",
         "latitude": 39.7217,
         "longitude": 21.6300,
-        "description": "A rock formation in central Greece hosting one of the largest and most precipitously built complexes of Eastern Orthodox monasteries.",
-        "imageUrl": "https://images.unsplash.com/photo-1563200782-b7d159114f6d?w=600"
+        "description": "Yunanistan - Havada asılı gibi duran manastırlar.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Meteora_Agia_Triada_Monastery.jpg"
     },
     {
         "name": "Mont Saint-Michel",
         "latitude": 48.6360,
         "longitude": -1.5115,
-        "description": "A tidal island and mainland commune in Normandy, France.",
-        "imageUrl": "https://images.unsplash.com/photo-1431274172761-fca41d930114?w=600"
+        "description": "Fransa - Gelgitlerle ada haline gelen masalsı manastır.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/39/Mont_Saint-Michel_seen_from_the_path_to_the_dam.jpg"
     },
     {
         "name": "Borobudur",
         "latitude": -7.6079,
         "longitude": 110.2038,
-        "description": "A 9th-century Mahayana Buddhist temple in Magelang Regency, Central Java, Indonesia.",
-        "imageUrl": "https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=600"
+        "description": "Endonezya - Dünyanın en büyük yekpare Budist tapınağı.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Borobudur_Temple_Stupa.jpg"
     },
     {
         "name": "Lalibela",
         "latitude": 12.0306,
         "longitude": 39.0476,
-        "description": "A town in the Amhara Region of Ethiopia famous for its rock-cut monolithic churches.",
-        "imageUrl": "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=600"
+        "description": "Etiyopya - Yerin altına oyulmuş yekpare kaya kiliseleri.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/47/Bet_Giyorgis_Lalibela.jpg"
     },
     {
         "name": "Timbuktu",
         "latitude": 16.7666,
         "longitude": -3.0026,
-        "description": "A city in Mali, situated 20 km north of the Niger River. A center of Islamic learning.",
-        "imageUrl": "https://images.unsplash.com/photo-1596568195801-6c22cb159491?w=600"
+        "description": "Mali - Çölün ortasındaki efsanevi ilim ve ticaret şehri.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/00/Timbuktu_Sankore_Mosque.jpg"
     },
     {
-        "name": "Great Zimbabwe",
+        "name": "Büyük Zimbabve",
         "latitude": -20.2730,
         "longitude": 30.9343,
-        "description": "A ruined city in the south-eastern hills of Zimbabwe, known for its large circular wall and tower.",
-        "imageUrl": "https://images.unsplash.com/photo-1598286903823-3b082103322e?w=600"
+        "description": "Zimbabve - Sahra altı Afrika'nın en büyük orta çağ taş yapısı.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Great_Zimbabwe_Conical_Tower.jpg"
     },
     {
         "name": "Persepolis",
         "latitude": 29.9351,
         "longitude": 52.8906,
-        "description": "The ceremonial capital of the Achaemenid Empire (c. 550–330 BC).",
-        "imageUrl": "https://images.unsplash.com/photo-1620882142279-bf75124976fa?w=600"
+        "description": "İran - Pers İmparatorluğu'nun görkemli tören başkenti.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Persepolis_stairs_of_Apadana.jpg"
     },
     {
-        "name": "Samarkand",
-        "latitude": 39.6270,
-        "longitude": 66.9750,
-        "description": "A city in southeastern Uzbekistan and among the oldest continuously inhabited cities in Central Asia.",
-        "imageUrl": "https://images.unsplash.com/photo-1575823528751-bb1ac758414a?w=600"
+        "name": "Semerkand (Registan)",
+        "latitude": 39.654722,
+        "longitude": 66.975833,
+        "description": "Özbekistan - İpek Yolu'nun kalbi, turkuaz kubbeler şehri.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/07/Registan_Square_Samarkand.jpg"
     },
     {
-        "name": "Bukhara",
-        "latitude": 39.7681,
-        "longitude": 64.4556,
-        "description": "An ancient city on the Silk Road, known for its well-preserved historic center.",
-        "imageUrl": "https://images.unsplash.com/photo-1578500293126-c220f86a9f46?w=600"
-    },
-    {
-        "name": "Khiva",
-        "latitude": 41.3783,
-        "longitude": 60.3639,
-        "description": "An ancient walled city in Uzbekistan, often called a museum under the open sky.",
-        "imageUrl": "https://images.unsplash.com/photo-1573033575640-3532f22c66d8?w=600"
-    },
-    {
-        "name": "Forbidden City",
+        "name": "Yasak Şehir",
         "latitude": 39.9163,
         "longitude": 116.3972,
-        "description": "A palace complex in Beijing, China, at the center of the Imperial City.",
-        "imageUrl": "https://images.unsplash.com/photo-1508804052814-cd3ba865a116?w=600"
+        "description": "Çin - 500 yıl boyunca halka kapalı kalan imparatorluk sarayı.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Forbidden_City_Beijing.jpg"
     },
     {
-        "name": "Summer Palace",
-        "latitude": 39.9996,
-        "longitude": 116.2753,
-        "description": "A vast ensemble of lakes, gardens and palaces in Beijing.",
-        "imageUrl": "https://images.unsplash.com/photo-1549419137-c300dc93717f?w=600"
-    },
-    {
-        "name": "Temple of Heaven",
-        "latitude": 39.8822,
-        "longitude": 116.4068,
-        "description": "A complex of religious buildings situated in the southeastern part of central Beijing.",
-        "imageUrl": "https://images.unsplash.com/photo-1530908868841-5f21293a8d11?w=600"
-    },
-    {
-        "name": "Potala Palace",
-        "latitude": 29.6578,
-        "longitude": 91.1174,
-        "description": "A dzong fortress in the city of Lhasa, Tibet. Winter palace of the Dalai Lamas.",
-        "imageUrl": "https://images.unsplash.com/photo-1627889397734-b2586798150f?w=600"
-    },
-    {
-        "name": "Himeji Castle",
+        "name": "Himeji Kalesi",
         "latitude": 34.8394,
         "longitude": 134.6939,
-        "description": "A hilltop Japanese castle complex situated in the city of Himeji, considered the finest surviving example of prototypical Japanese castle architecture.",
-        "imageUrl": "https://images.unsplash.com/photo-1563806951912-1d5d36e78855?w=600"
-    },
-    {
-        "name": "Kinkaku-ji",
-        "latitude": 35.0394,
-        "longitude": 135.7292,
-        "description": "The Golden Pavilion, a Zen Buddhist temple in Kyoto, Japan.",
-        "imageUrl": "https://images.unsplash.com/photo-1572942006733-12502c38cc01?w=600"
+        "description": "Japonya - 'Beyaz Balıkçıl' olarak bilinen samuray kalesi.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Himeji_Castle_The_Keep_Towers.jpg"
     },
     {
         "name": "Ayutthaya",
         "latitude": 14.3532,
         "longitude": 100.5684,
-        "description": "A historic city in Thailand, once the capital of the Kingdom of Siam, destroyed by the Burmese in the 18th century.",
-        "imageUrl": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600"
+        "description": "Tayland - Siyam Krallığı'nın görkemli yıkıntıları.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/46/Wat_Chaiwatthanaram_Ayutthaya.jpg"
     },
     {
-        "name": "Sukhothai",
-        "latitude": 17.0177,
-        "longitude": 99.7037,
-        "description": "Capital of the Sukhothai Kingdom in the 13th and 14th centuries.",
-        "imageUrl": "https://images.unsplash.com/photo-1547900762-c9a9415c8e4e?w=600"
+        "name": "Sigiriya",
+        "latitude": 7.9570,
+        "longitude": 80.7603,
+        "description": "Sri Lanka - Aslan Kayası üzerindeki antik saray.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Sigiriya_Rock.jpg"
     },
     {
-        "name": "Wat Arun",
-        "latitude": 13.7437,
-        "longitude": 100.4888,
-        "description": "The Temple of Dawn, a Buddhist temple in Bangkok, Thailand.",
-        "imageUrl": "https://images.unsplash.com/photo-1563816152-475a89452b49?w=600"
+        "name": "Baalbek",
+        "latitude": 34.0072,
+        "longitude": 36.2081,
+        "description": "Lübnan - Roma dünyasının en büyük tapınaklarına ev sahipliği yapan kent.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Baalbek_Temple_of_Bacchus.jpg"
     },
     {
-        "name": "Banaue Rice Terraces",
-        "latitude": 16.9189,
-        "longitude": 121.0558,
-        "description": "2,000-year-old terraces that were carved into the mountains of Ifugao in the Philippines.",
-        "imageUrl": "https://images.unsplash.com/photo-1518063319789-7217e6706b04?w=600"
+        "name": "Palmira",
+        "latitude": 34.56,
+        "longitude": 38.2672,
+        "description": "Suriye - Çölün Gelini olarak bilinen antik ticaret merkezi.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Palmyra_Tetrapylon_View.jpg"
     },
     {
-        "name": "Batu Caves",
-        "latitude": 3.2379,
-        "longitude": 101.6840,
-        "description": "A limestone hill that has a series of caves and cave temples in Malaysia.",
-        "imageUrl": "https://images.unsplash.com/photo-1550998871-3375b430c2c3?w=600"
+        "name": "Babil",
+        "latitude": 32.536389,
+        "longitude": 44.420833,
+        "description": "Irak - Asma Bahçeleri ve İştar Kapısı ile ünlü efsanevi kent.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/87/Ishtar_Gate_at_Berlin_Museum.jpg"
     },
     {
-        "name": "Jeju Island (Dol Hareubang)",
-        "latitude": 33.4996,
-        "longitude": 126.5312,
-        "description": "Known for its unique 'grandmother' stone statues.",
-        "imageUrl": "https://images.unsplash.com/photo-1566378246598-a5b67482811a?w=600"
+        "name": "Venedik",
+        "latitude": 45.4408,
+        "longitude": 12.3155,
+        "description": "İtalya - Sular üzerindeki eşsiz Rönesans şehri.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Grand_Canal_Venice.jpg"
+    },
+    {
+        "name": "Versay Sarayı",
+        "latitude": 48.8049,
+        "longitude": 2.1204,
+        "description": "Fransa - Mutlak monarşinin simgesi olan devasa saray ve bahçeleri.",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Chateau_Versailles_Galerie_des_Glaces.jpg"
     }
 ]

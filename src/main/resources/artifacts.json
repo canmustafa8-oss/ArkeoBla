@@ -1,0 +1,170 @@
+[
+    {
+        "id": 1,
+        "name": "İskender Lahdi",
+        "description": "Büyük İskender'e ait olduğu sanılan ancak aslında Sidon Kralı Abdalonymos'a ait olan dünyaca ünlü lahit (MÖ 4. yy). İstanbul Arkeoloji Müzesi'nin en değerli eserlerinden biridir.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/4/47/Alexander_Sarcophagus_Istanbul_Archaeological_Museum_2.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Kadeş Antlaşması Tableti",
+        "description": "Tarihin ilk yazılı barış antlaşması olan Kadeş Antlaşması'nın kil tableti. Hititler ve Mısırlılar arasında imzalanmıştır (MÖ 1258). İstanbul Arkeoloji Müzesi.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/0/00/Istanbul_Archaeological_Museum_Treaty_of_Kadesh.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Truva Hazineleri (Priam'ın Hazinesi)",
+        "description": "Heinrich Schliemann tarafından Truva'dan kaçırılan ve daha sonra bir kısmı Türkiye'ye iade edilen altın takılar ve kaplar.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/7/77/Priam%27s_Treasure.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Zeugma Çingene Kızı Mozaiği",
+        "description": "Gaziantep Zeugma Mozaik Müzesi'nin simgesi haline gelen, bakışlarıyla izleyiciyi takip eden ünlü mozaik.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/0/01/Zeugma_Mosaic_Museum_Gipsy_Girl.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Göbeklitepe T Sütunları",
+        "description": "Tarihin sıfır noktası Göbeklitepe'deki (Şanlıurfa) tapınak kalıntılarında bulunan, üzerinde hayvan kabartmaları olan T biçimli dikilitaşlar.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/1/10/G%C3%B6bekli_Tepe%2C_Urfa.jpg"
+    },
+    {
+        "id": 6,
+        "name": "Artemis Heykeli (Efes)",
+        "description": "Efes'teki Artemis Tapınağı'ndan günümüze ulaşan, doğurganlığı ve bereketi simgeleyen çok memeli tanrıça heykeli.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Artemis_of_Ephesus_Musei_Capitolini_MC1182.jpg"
+    },
+    {
+        "id": 7,
+        "name": "Kanatlı Denizatı Broşu (Karun Hazinesi)",
+        "description": "Uşak Arkeoloji Müzesi'nde sergilenen, Lidya Krallığı'na ait som altından yapılmış eşsiz broş.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/tr/6/6f/Kanatli_deniz_ati.jpg"
+    },
+    {
+        "id": 8,
+        "name": "Güneş Kursu (Hitit)",
+        "description": "Anadolu Medeniyetleri Müzesi'nde bulunan, Hitit ritüellerinde kullanılan tunçtan yapılmış güneş diski standardı.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Sun_disk_Standard.jpg"
+    },
+    {
+        "id": 9,
+        "name": "Ağlayan Kadınlar Lahdi",
+        "description": "Sidon Kral Nekropolü'nden çıkarılan ve üzerindeki yas tutan kadın figürleriyle bilinen muazzam işçilikli lahit.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Sarcophagus_of_the_Crying_Women.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Celsus Kütüphanesi Cephesi",
+        "description": "Efes Antik Kenti'nin en ikonik yapısı olan Celsus Kütüphanesi'nin 2. yüzyıldan kalma görkemli ön cephesi.",
+        "modelUrl": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/AntiqueCamera/glTF-Binary/AntiqueCamera.glb",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/8/87/Celsus_Library_Ephesus_Turkey.jpg"
+    },
+    {
+        "id": 11,
+        "name": "Marsyas Heykeli",
+        "description": "Antalya Müzesi'nde sergilenen, Yunan mitolojisinde Apollon ile müzik yarışmasına giren satiri tasvir eden heykel.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Marsyas_Louvre_Ma542.jpg"
+    },
+    {
+        "id": 12,
+        "name": "Likya Lahdi",
+        "description": "Sidon Kral Nekropolü'nden bir başka şaheser. Likya mezar mimarisini yansıtan mermer lahit.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/9/90/Lycian_sarcophagus_of_Sidon_Istanbul.jpg"
+    },
+    {
+        "id": 13,
+        "name": "Sümer Tableti (Matematik)",
+        "description": "İstanbul Arkeoloji Müzesi'ndeki binlerce çivi yazılı tabletten biri. Antik dönem matematik bilgisini gösterir.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/YBC-7289.jpg"
+    },
+    {
+        "id": 14,
+        "name": "Afrodisias Tetrapylonu",
+        "description": "Aydın Geyre'deki Afrodisias antik kentinde bulunan anıtsal kapı yapısı.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/Tetrapylon_Aphrodisias_Turkey.jpg"
+    },
+    {
+        "id": 15,
+        "name": "Aspendos Tiyatrosu",
+        "description": "Antalya'daki, dünyada en iyi korunmuş Roma dönemi tiyatrosu.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Aspendos_Amphitheatre%2C_Turkey.jpg"
+    },
+    {
+        "id": 16,
+        "name": "Ayasofya Mozaikleri (Deisis)",
+        "description": "Ayasofya'da bulunan ve Bizans sanatının Rönesans'ı olarak kabul edilen muhteşem mozaik.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Hagia_Sophia_Deesis_Mosaic.jpg"
+    },
+    {
+        "id": 17,
+        "name": "Perge Herakles Heykeli (Yorgun Herkül)",
+        "description": "Antalya Müzesi'nin en önemli eserlerinden, üst yarısı yıllar sonra getirilerek birleştirilen Herkül heykeli.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/8/87/Herakles_Farnese_MAN_Napoli_Inv6001_n01.jpg"
+    },
+    {
+        "id": 18,
+        "name": "Nefertiti Büstü (Mısır)",
+        "description": "Mısır Kraliçesi Nefertiti'nin Berlin Neues Museum'da sergilenen ünlü kireçtaşı büstü. Arkeolojinin en tanınmış yüzlerinden biri.",
+        "modelUrl": "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/Nefertiti/Nefertiti.glb",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Nofretete_Neues_Museum.jpg"
+    },
+    {
+        "id": 19,
+        "name": "Rosetta Taşı (Mısır)",
+        "description": "Hiyerogliflerin çözülmesini sağlayan, British Museum'daki siyah bazalt taş.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/2/23/Rosetta_Stone.JPG"
+    },
+    {
+        "id": 20,
+        "name": "Tutankamon'un Maskesi",
+        "description": "Firavun Tutankamon'un mezarından çıkan som altın ölüm maskesi. Kahire Müzesi.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/3/38/Tutanchamun_Maske.jpg"
+    },
+    {
+        "id": 21,
+        "name": "Venüs de Milo",
+        "description": "Louvre Müzesi'nde sergilenen, kolları kayıp ünlü Antik Yunan heykeli.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/2/21/Venus_de_Milo_Louvre_Ma399_n5.jpg"
+    },
+    {
+        "id": 22,
+        "name": "Semazenler (Mevlana Müzesi)",
+        "description": "Konya Mevlana Müzesi'nde sergilenen Selçuklu ve Osmanlı dönemi tasavvuf eserleri.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Mevlana_Museum_Konya.jpg"
+    },
+    {
+        "id": 23,
+        "name": "Topkapı Hançeri",
+        "description": "Topkapı Sarayı Müzesi'nin en bilinen hazinelerinden, kabzası zümrütlerle süslü hançer.",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/3/30/Topkapi_Dagger.jpg"
+    },
+    {
+        "id": 24,
+        "name": "Diskobol (Disk Atan Sporcu)",
+        "description": "Antik Yunan heykel sanatının hareket ve dengeyi mükemmel yansıtan örneği (Roma kopyası).",
+        "modelUrl": "",
+        "posterUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Discobolus_Lancellotti_Massimo.jpg"
+    }
+]

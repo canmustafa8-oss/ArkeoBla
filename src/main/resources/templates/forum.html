@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ArkeoBlog - Topluluk ve Tartışma</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital@0;1&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            background: #1a1612;
+            color: #dcd6ce;
+            font-family: 'Lora', serif;
+        }
+
+        .forum-header {
+            padding: 40px;
+            text-align: center;
+            border-bottom: 1px solid #c5a059;
+            background: url('/img/hero.png') center/cover;
+            position: relative;
+        }
+
+        .forum-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .forum-header h1 {
+            position: relative;
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .topic-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .topic-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topic-item:hover {
+            border-color: #c5a059;
+            background: rgba(197, 160, 89, 0.1);
+        }
+
+        .topic-main h3 {
+            margin: 0 0 5px 0;
+            font-family: 'Cinzel', serif;
+        }
+
+        .topic-main a {
+            text-decoration: none;
+            color: #c5a059;
+            font-size: 1.2em;
+        }
+
+        .topic-meta {
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        .btn-new {
+            display: inline-block;
+            background: #c5a059;
+            color: #1a1612;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            font-family: 'Cinzel';
+            margin-top: 20px;
+        }
+
+        .btn-new:hover {
+            background: #d4af37;
+        }
+
+        .category-tag {
+            background: #333;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-right: 10px;
+            color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="forum-header">
+        <h1>ArkeoBlog Topluluk</h1>
+        <a href="/forum/new" class="btn-new" th:if="${#authentication.name != 'anonymousUser'}">✍️ Yeni Konu Aç</a>
+        <a href="/login" class="btn-new" th:if="${#authentication.name == 'anonymousUser'}"
+            style="background:#555; color:#fff;">Giriş Yaparak Tartış</a>
+        <br><br>
+        <a href="/" style="color: #aaa; text-decoration: none;">← Ana Sayfaya Dön</a>
+    </div>
+
+    <div class="container">
+        <ul class="topic-list">
+            <li th:each="topic : ${topics}" class="topic-item">
+                <div class="topic-main">
+                    <h3><a th:href="@{/forum/{id}(id=${topic.id})}" th:text="${topic.title}">Konu Başlığı</a></h3>
+                    <div class="topic-meta">
+                        <span class="category-tag" th:text="${topic.category}">Genel</span>
+                        <span th:text="${topic.author}">Yazar</span> tarafından
+                        <span th:text="${#temporals.format(topic.createdAt, 'dd MMM yyyy')}">Tarih</span>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <span style="font-size: 1.5em;">💬</span>
+                    <span th:text="${topic.comments.size()}" style="font-weight: bold; color: #c5a059;">0</span>
+                </div>
+            </li>
+        </ul>
+
+        <div th:if="${topics.empty}" style="text-align: center; color: #777; padding: 50px;">
+            Henüz hiç konu açılmamış. İlkini sen başlat!
+        </div>
+    </div>
+</body>
+
+</html>

@@ -25,7 +25,8 @@ public class SecurityConfig {
                                                                 "/excavation/**", "/puzzle/**", "/quiz/**",
                                                                 "/time-machine/**", "/photos/**",
                                                                 "/certificate/**", "/map/**", "/api/locations/**",
-                                                                "/leaderboard/**", "/news/**", "/profile/**")
+                                                                "/leaderboard/**", "/news/**", "/profile/**",
+                                                                "/blog/**", "/forum/**")
                                                 .permitAll()
                                                 .requestMatchers("/css/**", "/js/**", "/img/**", "/uploads/**",
                                                                 "/manifest.json", "/sw.js", "/sitemap.xml",
@@ -33,8 +34,10 @@ public class SecurityConfig {
                                                 .permitAll()
 
                                                 // Sadece Giriş Yapmış Kullanıcılar (Chat ve Blog)
-                                                .requestMatchers("/chat/**", "/ai-chat/**", "/blog/**",
-                                                                "/meeting/**", "/add-content/**")
+                                                // Sadece Giriş Yapmış Kullanıcılar (Chat, Forum Yazma ve İçerik Ekleme)
+                                                .requestMatchers("/chat/**", "/ai-chat/**",
+                                                                "/meeting/**", "/add-content/**", "/forum/new",
+                                                                "/forum/reply/**")
                                                 .authenticated()
 
                                                 // Admin

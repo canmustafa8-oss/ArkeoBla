@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${topic.title} + ' - ArkeoBlog'">Konu Detayı</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital@0;1&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            background: #1a1612;
+            color: #dcd6ce;
+            font-family: 'Lora', serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .topic-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #c5a059;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .topic-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2em;
+            color: #c5a059;
+            margin-top: 0;
+        }
+
+        .topic-meta {
+            color: #888;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .topic-content {
+            font-size: 1.1em;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .comment-section {
+            margin-top: 50px;
+        }
+
+        .comment-item {
+            background: #111;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid #555;
+            margin-bottom: 15px;
+        }
+
+        .comment-meta {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .comment-author {
+            color: #c5a059;
+            font-weight: bold;
+        }
+
+        .reply-box {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            background: #111;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px;
+            font-family: inherit;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .btn-submit {
+            background: #c5a059;
+            color: #000;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-submit:hover {
+            background: #d4af37;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="/forum" style="color: #aaa; text-decoration: none; display: inline-block; margin-bottom: 20px;">←
+            ArkeoBlog'a Dön</a>
+
+        <div class="topic-card">
+            <h1 class="topic-title" th:text="${topic.title}">Başlık</h1>
+            <div class="topic-meta">
+                <span th:text="${topic.author}">Yazar</span> •
+                <span th:text="${#temporals.format(topic.createdAt, 'dd MMM yyyy HH:mm')}">Tarih</span> •
+                <span style="background:#333; padding:2px 6px; border-radius:4px;"
+                    th:text="${topic.category}">Kategori</span>
+            </div>
+            <div class="topic-content" th:text="${topic.content}">İçerik...</div>
+        </div>
+
+        <h3 style="color: #c5a059; font-family: 'Cinzel'; border-bottom: 1px solid #333; padding-bottom: 10px;">
+            Yorumlar (<span th:text="${topic.comments.size()}">0</span>)
+        </h3>
+
+        <div class="comment-section">
+            <div th:each="comment : ${topic.comments}" class="comment-item">
+                <div class="comment-meta">
+                    <span class="comment-author" th:text="${comment.author}">Kullanıcı</span>
+                    <span th:text="${#temporals.format(comment.createdAt, 'dd MMM HH:mm')}">Zaman</span>
+                </div>
+                <div th:text="${comment.content}">Yorum içeriği...</div>
+            </div>
+        </div>
+
+        <div class="reply-box" th:if="${#authentication.name != 'anonymousUser'}">
+            <h4 style="margin-top:0;">Cevap Yaz</h4>
+            <form th:action="@{/forum/reply/{id}(id=${topic.id})}" method="post">
+                <textarea name="content" placeholder="Düşüncelerini paylaş..." required></textarea>
+                <button type="submit" class="btn-submit">Gönder</button>
+            </form>
+        </div>
+
+        <div th:if="${#authentication.name == 'anonymousUser'}"
+            style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(197, 160, 89, 0.1); border-radius: 10px;">
+            Yorum yazmak için <a href="/login" style="color: #c5a059; font-weight: bold;">Giriş Yapmalısın</a>.
+        </div>
+    </div>
+</body>
+
+</html>

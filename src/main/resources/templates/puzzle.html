@@ -204,214 +204,135 @@
         </div>
     </div>
 
-    <script th:inline="javascript">
-        const gridSize = /*[[${level.gridSize}]]*/ 3;
-        const imageUrl = /*[[${level.imageUrl}]]*/ '/img/puzzle1.jpg';
-        const pieceSize = 130; // Her parça 130px
-        const boardSize = pieceSize * gridSize + (gridSize + 1) * 3; // 3px gap
+    const gridSize = /*[[${level.gridSize}]]*/ 3;
+    const imageUrl = /*[[${level.imageUrl}]]*/ '/img/puzzle1.jpg';
+    const pieceSize = 130;
+    const boardSize = pieceSize * gridSize + (gridSize + 1) * 3;
 
-        let board = [];
-        let emptyPos = { row: gridSize - 1, col: gridSize - 1 };
-        let moves = 0;
+    let board = [];
+    let moves = 0;
+    let draggedPiece = null;
 
-        // Initialize board
-        function init() {
-            const puzzleBoard = document.getElementById('puzzleBoard');
-            puzzleBoard.style.gridTemplateColumns = `repeat(${gridSize}, ${pieceSize}px)`;
-            puzzleBoard.style.gridTemplateRows = `repeat(${gridSize}, ${pieceSize}px)`;
+    function init() {
+    const puzzleBoard = document.getElementById('puzzleBoard');
+    puzzleBoard.innerHTML = ''; // Clear previous
+    puzzleBoard.style.gridTemplateColumns = `repeat(${gridSize}, ${pieceSize}px)`;
+    puzzleBoard.style.gridTemplateRows = `repeat(${gridSize}, ${pieceSize}px)`;
 
-            // Create pieces
-            for (let row = 0; row < gridSize; row++) {
-                board[row] = [];
-                for (let col = 0; col < gridSize; col++) {
-                    const piece = document.createElement('div');
-                    piece.className = 'puzzle-piece';
-                    piece.style.width = pieceSize + 'px';
-                    piece.style.height = pieceSize + 'px';
-
-                    // Correct Position (Target) - NEVER CHANGE THESE AFTER INIT
-                    piece.dataset.row = row;
-                    piece.dataset.col = col;
-
-                    if (row === emptyPos.row && col === emptyPos.col) {
-                        piece.style.opacity = '0';
-                        piece.dataset.empty = 'true';
-                    } else {
-                        piece.style.backgroundImage = `url('${imageUrl}')`;
-                        piece.style.backgroundPosition = `-${col * pieceSize}px -${row * pieceSize}px`;
-                        piece.style.backgroundSize = `${gridSize * pieceSize}px ${gridSize * pieceSize}px`;
-                    }
-
-                    // On click, we find the current position of this piece
-                    piece.onclick = () => handlePieceClick(piece);
-
-                    board[row][col] = piece;
-                    puzzleBoard.appendChild(piece);
-                }
-            }
-
-            shufflePuzzle();
+    // Create pieces (All visible, no empty slot)
+    for (let row = 0; row < gridSize; row++) { board[row]=[]; for (let col=0; col < gridSize; col++) { const
+        piece=document.createElement('div'); piece.className='puzzle-piece' ; piece.style.width=pieceSize + 'px' ;
+        piece.style.height=pieceSize + 'px' ; piece.draggable=true; // Enable Drag // Target (Correct) Position
+        piece.dataset.row=row; piece.dataset.col=col; // Current Position (will be shuffled) // Initially same as target
+        piece.dataset.curRow=row; piece.dataset.curCol=col; piece.style.backgroundImage=`url('${imageUrl}')`;
+        piece.style.backgroundPosition=`-${col * pieceSize}px -${row * pieceSize}px`;
+        piece.style.backgroundSize=`${gridSize * pieceSize}px ${gridSize * pieceSize}px`; // Drag Events
+        piece.addEventListener('dragstart', handleDragStart); piece.addEventListener('dragover', handleDragOver);
+        piece.addEventListener('drop', handleDrop); piece.addEventListener('dragenter', handleDragEnter);
+        piece.addEventListener('dragleave', handleDragLeave); // Touch support (basic)
+        piece.addEventListener('touchstart', handleTouchStart, {passive: false}); piece.addEventListener('touchend',
+        handleTouchEnd); board[row][col]=piece; puzzleBoard.appendChild(piece); } } shufflePuzzle(); } // Drag Functions
+        function handleDragStart(e) { draggedPiece=this; this.style.opacity='0.4' ; e.dataTransfer.effectAllowed='move'
+        ; e.dataTransfer.setData('text/html', this.innerHTML); } function handleDragOver(e) { if (e.preventDefault)
+        e.preventDefault(); e.dataTransfer.dropEffect='move' ; return false; } function handleDragEnter(e) {
+        this.classList.add('selected'); } function handleDragLeave(e) { this.classList.remove('selected'); } function
+        handleDrop(e) { if (e.stopPropagation) e.stopPropagation(); this.classList.remove('selected'); if (draggedPiece
+        !==this) { swapPieces(draggedPiece, this); moves++; document.getElementById('moveCount').textContent=moves;
+        checkWinCondition(); } return false; } function handleDragEnd(e) { this.style.opacity='1' ; draggedPiece=null;
+        document.querySelectorAll('.puzzle-piece').forEach(p=> p.classList.remove('selected'));
         }
 
-        function handlePieceClick(piece) {
-            // Find current position of the clicked piece in the board array
-            let curRow = -1, curCol = -1;
-            for (let r = 0; r < gridSize; r++) {
-                for (let c = 0; c < gridSize; c++) {
-                    if (board[r][c] === piece) {
-                        curRow = r;
-                        curCol = c;
-                        break;
-                    }
-                }
-            }
-            if (curRow !== -1) movePiece(curRow, curCol);
+        // Touch Handlers for Mobile
+        let touchStartItem = null;
+        function handleTouchStart(e) {
+        // e.preventDefault(); // prevents scrolling
+        touchStartItem = this;
+        this.style.opacity = '0.6';
         }
 
-        function movePiece(row, col) {
-            const rowDiff = Math.abs(row - emptyPos.row);
-            const colDiff = Math.abs(col - emptyPos.col);
+        function handleTouchEnd(e) {
+        this.style.opacity = '1';
+        let changedTouch = e.changedTouches[0];
+        let elem = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
 
-            if ((rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1)) {
-                // Swap piece with empty
-                const temp = board[row][col];
-                board[row][col] = board[emptyPos.row][emptyPos.col];
-                board[emptyPos.row][emptyPos.col] = temp;
-
-                // Update empty position
-                emptyPos = { row, col };
-
-                moves++;
-                document.getElementById('moveCount').textContent = moves;
-
-                renderBoard();
-
-                if (checkWin()) {
-                    setTimeout(() => {
-                        confetti({
-                            particleCount: 100,
-                            spread: 70,
-                            origin: { y: 0.6 }
-                        });
-                        document.getElementById('finalMoves').textContent = moves;
-                        document.getElementById('successModal').classList.add('show');
-                    }, 300);
-                }
-            }
+        if(elem && elem.classList.contains('puzzle-piece') && elem !== touchStartItem) {
+        swapPieces(touchStartItem, elem);
+        moves++;
+        document.getElementById('moveCount').textContent = moves;
+        checkWinCondition();
+        }
         }
 
-        function renderBoard() {
-            const puzzleBoard = document.getElementById('puzzleBoard');
-            puzzleBoard.innerHTML = '';
+        function swapPieces(piece1, piece2) {
+        // Swap Backgrounds and Data Attributes
+        const tempBg = piece1.style.backgroundPosition;
+        piece1.style.backgroundPosition = piece2.style.backgroundPosition;
+        piece2.style.backgroundPosition = tempBg;
 
-            for (let row = 0; row < gridSize; row++) {
-                for (let col = 0; col < gridSize; col++) {
-                    puzzleBoard.appendChild(board[row][col]);
-                }
-            }
+        const tempRow = piece1.dataset.row;
+        const tempCol = piece1.dataset.col;
+        piece1.dataset.row = piece2.dataset.row;
+        piece1.dataset.col = piece2.dataset.col;
+        piece2.dataset.row = tempRow;
+        piece2.dataset.col = tempCol;
+
+        // Add animation class
+        piece1.classList.add('selected');
+        setTimeout(() => piece1.classList.remove('selected'), 300);
         }
 
-        function shufflePuzzle() {
+        function checkWinCondition() {
+        // Check if every piece is in its correct place
+        // Logic: dataset.row/col matches the loop index (which is visual order)
+        // But here elements are DOM nodes.
+        // Better check: Does the piece physically located at row X col Y have dataset row X col Y?
+
+        // Actually, in our swap logic we swapped background and identity (dataset), but not the DOM node order.
+        // So if DOM node at (0,0) has dataset (0,0), it is correct.
+        // But wait, my swapPieces swapped the IDENTITY (dataset) and Visuals.
+        // So yes, we just check if the DOM elements in order define the correct sequence.
+
+        // Using the board array is risky because we didn't update it on swap.
+        // Let's iterate the DOM nodes.
+        const pieces = document.querySelectorAll('.puzzle-piece');
+        let isWin = true;
+        let index = 0;
+
+        for(let r=0; r<gridSize; r++) { for(let c=0; c<gridSize; c++) { const p=pieces[index]; // The DOM order is fixed
+            (grid layout). We checked if the "content" (dataset) matches position. // My expected position for this DOM
+            slot is (r, c). // Does this piece hold the (r, c) chunk of image? if(parseInt(p.dataset.row) !==r ||
+            parseInt(p.dataset.col) !==c) { isWin=false; } index++; } } if (isWin) { setTimeout(()=> {
+            confetti({
+            particleCount: 150,
+            spread: 80,
+            origin: { y: 0.6 }
+            });
+            document.getElementById('finalMoves').textContent = moves;
+            document.getElementById('successModal').classList.add('show');
+            }, 300);
+            }
+            }
+
+            function shufflePuzzle() {
             moves = 0;
             document.getElementById('moveCount').textContent = moves;
 
-            // Random shuffle with enough moves to scramble
-            const shuffleMoves = gridSize * gridSize * 10; // Slightly less moves but higher quality
-            let lastMove = null;
+            const pieces = document.querySelectorAll('.puzzle-piece');
+            // Fisher-Yates shuffle visuals
+            // We just simply swap random pairs X times
 
-            for (let i = 0; i < shuffleMoves; i++) {
-                const possibleMoves = [];
-                if (emptyPos.row > 0) possibleMoves.push({ row: emptyPos.row - 1, col: emptyPos.col, dir: 'UP' });
-                if (emptyPos.row < gridSize - 1) possibleMoves.push({ row: emptyPos.row + 1, col: emptyPos.col, dir: 'DOWN' });
-                if (emptyPos.col > 0) possibleMoves.push({ row: emptyPos.row, col: emptyPos.col - 1, dir: 'LEFT' });
-                if (emptyPos.col < gridSize - 1) possibleMoves.push({ row: emptyPos.row, col: emptyPos.col + 1, dir: 'RIGHT' });
-
-                // Filter out the reverse of the last move to prevent just moving back and forth
-                const validMoves = possibleMoves.filter(m => {
-                    if (!lastMove) return true;
-                    if (lastMove === 'UP' && m.dir === 'DOWN') return false;
-                    if (lastMove === 'DOWN' && m.dir === 'UP') return false;
-                    if (lastMove === 'LEFT' && m.dir === 'RIGHT') return false;
-                    if (lastMove === 'RIGHT' && m.dir === 'LEFT') return false;
-                    return true;
+            for(let i=0; i<30; i++) { const r1=Math.floor(Math.random() * pieces.length); const
+                r2=Math.floor(Math.random() * pieces.length); if(r1 !==r2) { swapPieces(pieces[r1], pieces[r2]); } } //
+                If accidentally solved, shuffle once more // (Lazy check) } function solvePuzzle() { const
+                pieces=document.querySelectorAll('.puzzle-piece'); let index=0; // We want to put correct pieces in
+                correct slots. // Naive approach: Just reload init() but don't shuffle? // Or brute force set
+                backgrounds. for(let r=0; r<gridSize; r++) { for(let c=0; c<gridSize; c++) { const p=pieces[index];
+                p.dataset.row=r; p.dataset.col=c; p.style.backgroundPosition=`-${c * pieceSize}px -${r * pieceSize}px`;
+                index++; } } // Trigger win checkWinCondition(); } init(); // Add dragend listener to all new pieces
+                document.querySelectorAll('.puzzle-piece').forEach(p=> {
+                p.addEventListener('dragend', handleDragEnd);
                 });
-
-                // Fallback to all moves if boxed in (unlikely in puzzle)
-                const candidates = validMoves.length > 0 ? validMoves : possibleMoves;
-                const randomMove = candidates[Math.floor(Math.random() * candidates.length)];
-
-                // Silent swap in array
-                const temp = board[randomMove.row][randomMove.col];
-                board[randomMove.row][randomMove.col] = board[emptyPos.row][emptyPos.col];
-                board[emptyPos.row][emptyPos.col] = temp;
-
-                emptyPos = { row: randomMove.row, col: randomMove.col }; // Ensure strictly new object
-                lastMove = randomMove.dir;
-            }
-
-            // If by miracle it resolved itself, shuffle again
-            if (checkWin()) {
-                console.log("Shuffle resulted in solved state, reshuffling...");
-                setTimeout(shufflePuzzle, 10);
-            } else {
-                renderBoard();
-                console.log("Puzzle shuffled. Grid state verified.");
-            }
-        }
-
-        function solvePuzzle() {
-            // Reconstruct board based on dataset (target) positions
-            const newBoard = [];
-            for (let r = 0; r < gridSize; r++) newBoard[r] = [];
-
-            // Find pieces in current board and place them in correct spots in newBoard
-            for (let r = 0; r < gridSize; r++) {
-                for (let c = 0; c < gridSize; c++) {
-                    const piece = board[r][c];
-                    const targetRow = parseInt(piece.dataset.row);
-                    const targetCol = parseInt(piece.dataset.col);
-                    newBoard[targetRow][targetCol] = piece;
-
-                    if (piece.dataset.empty === 'true') {
-                        emptyPos = { row: targetRow, col: targetCol };
-                    }
-                }
-            }
-
-            board = newBoard;
-            renderBoard();
-
-            // Trigger win
-            if (checkWin()) {
-                setTimeout(() => {
-                    confetti({
-                        particleCount: 100,
-                        spread: 70,
-                        origin: { y: 0.6 }
-                    });
-                    document.getElementById('finalMoves').textContent = moves;
-                    document.getElementById('successModal').classList.add('show');
-                }, 300);
-            }
-        }
-
-        function checkWin() {
-            for (let row = 0; row < gridSize; row++) {
-                for (let col = 0; col < gridSize; col++) {
-                    const piece = board[row][col];
-                    // Check if current piece currently resides at its target row/col
-                    if (parseInt(piece.dataset.row) !== row ||
-                        parseInt(piece.dataset.col) !== col) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-
-        // Initialize game
-        init();
-    </script>
+                </script>
 </body>
 
 </html>

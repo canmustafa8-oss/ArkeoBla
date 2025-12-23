@@ -90,8 +90,8 @@ public class QuizController {
             // --- RASTGELE SEÇİM MANTIĞI ---
             Collections.shuffle(filteredQuestions);
 
-            // İlk 5 soruyu al
-            int questionLimit = 5;
+            // İlk 10 soruyu al (Kullanıcı 10 soru istedi)
+            int questionLimit = 10;
             List<QuizQuestion> randomQuestions = filteredQuestions.isEmpty()
                     ? new ArrayList<>()
                     : filteredQuestions.subList(0, Math.min(filteredQuestions.size(), questionLimit));
@@ -111,7 +111,8 @@ public class QuizController {
             Model model) {
 
         int score = 0;
-        int totalQuestions = 0; // Dinamik hesapla
+        int totalQuestions = 0;
+        QuizCategory detectedCategory = null;
 
         // Formdan gelen ID'lere göre kontrol et
         for (String key : allParams.keySet()) {
@@ -125,6 +126,10 @@ public class QuizController {
                     totalQuestions++;
                     if (q.getCorrectAnswer().equals(userAnswer)) {
                         score++;
+                    }
+                    // Kategoriyi tespit et (ilk soru yeterli)
+                    if (detectedCategory == null) {
+                        detectedCategory = q.getCategory();
                     }
                 }
             }
@@ -144,11 +149,53 @@ public class QuizController {
                 user.setWrongAnswers(user.getWrongAnswers() + (totalQuestions - score));
                 user.setTotalScore(user.getTotalScore() + (score * 10)); // Her doğru 10 puan
 
-                // Rozet Kontrolü
+                // Rozet Kontrolü - Kategorilere Göre
+                String newBadge = null;
+                String badgeDisplay = ""; // Ekranda göstermek için
+
+                if (detectedCategory != null) {
+                    switch (detectedCategory) {
+                        case BILIM:
+                            newBadge = "UZMAN_BILIM";
+                            badgeDisplay = "BİLİM UZMANI";
+                            break;
+
+                        case ARKEOLOJI:
+                            newBadge = "UZMAN_ARKEOLOJI";
+                            badgeDisplay = "ARKEOLOJİ USTASI";
+                            break;
+                        case SINEMA:
+                            newBadge = "UZMAN_SINEMA";
+                            badgeDisplay = "SİNEMA GURUSU";
+                            break;
+                        case SPOR:
+                            newBadge = "UZMAN_SPOR";
+                            badgeDisplay = "SPOR YORUMCUSU";
+                            break;
+                        case SANAT:
+                            newBadge = "UZMAN_SANAT";
+                            badgeDisplay = "SANAT ELEŞTİRMENİ";
+                            break;
+                        case GENEL_KULTUR:
+                            newBadge = "UZMAN_GENEL";
+                            badgeDisplay = "GENEL KÜLTÜR DEHASI";
+                            break;
+                        default:
+                            newBadge = "BILGE_KASIF";
+                            badgeDisplay = "BİLGE KAŞİF";
+                            break;
+                    }
+                } else {
+                    newBadge = "BILGE_KASIF";
+                    badgeDisplay = "BİLGE KAŞİF";
+                }
+
                 String currentBadges = user.getBadges() == null ? "" : user.getBadges();
-                if (!currentBadges.contains("BİLGE_KAŞİF")) {
-                    user.setBadges(currentBadges.isEmpty() ? "BİLGE_KAŞİF" : currentBadges + ",BİLGE_KAŞİF");
-                    badgeMessage = "TEBRİKLER! 'BİLGE KAŞİF' ROZETİNİ KAZANDINIZ! 🏅";
+                if (!currentBadges.contains(newBadge)) {
+                    user.setBadges(currentBadges.isEmpty() ? newBadge : currentBadges + "," + newBadge);
+                    badgeMessage = "TEBRİKLER! '" + badgeDisplay + "' ROZETİNİ KAZANDINIZ! 🏅";
+                } else {
+                    badgeMessage = "Tebrikler! %" + percentage + " başarı sağladınız! (Bu rozete zaten sahipsiniz)";
                 }
                 userRepository.save(user);
             }
