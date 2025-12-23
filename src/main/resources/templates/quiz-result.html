@@ -48,6 +48,54 @@
 
 <body>
 
+    <!-- Interstitial Ad - Kategori Bitimi Reklamı -->
+    <div id="adOverlay"
+        style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+        background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; flex-direction: column;">
+
+        <div style="text-align: center; max-width: 600px; padding: 20px;">
+            <p style="color: #888; margin-bottom: 20px; font-size: 0.9em;">Reklam</p>
+
+            <!-- Ad Container - Replace with actual AdSense code -->
+            <div style="width: 100%; min-height: 280px; background: linear-gradient(135deg, #1a1612, #2c241b); 
+                border: 2px solid #c5a059; border-radius: 10px; display: flex; justify-content: center; 
+                align-items: center; color: #c5a059; font-size: 1.2em; margin-bottom: 20px;">
+                <!-- ins class="adsbygoogle" data-ad-client="ca-pub-XXXX" data-ad-slot="YYYY"></ins -->
+                📢 Reklam Alanı (300x250)
+            </div>
+
+            <button id="skipAdBtn" onclick="closeAd()" disabled style="background: #555; color: #fff; border: none; padding: 15px 40px; font-size: 1em; 
+                border-radius: 25px; cursor: not-allowed; transition: all 0.3s;">
+                Reklam geçiliyor... <span id="adCountdown">5</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Ad countdown
+        let adSeconds = 5;
+        const countdownEl = document.getElementById('adCountdown');
+        const skipBtn = document.getElementById('skipAdBtn');
+
+        const adInterval = setInterval(() => {
+            adSeconds--;
+            if (adSeconds > 0) {
+                countdownEl.textContent = adSeconds;
+            } else {
+                clearInterval(adInterval);
+                skipBtn.disabled = false;
+                skipBtn.style.background = '#c5a059';
+                skipBtn.style.color = '#000';
+                skipBtn.style.cursor = 'pointer';
+                skipBtn.innerHTML = '✓ Sonuçlara Git';
+            }
+        }, 1000);
+
+        function closeAd() {
+            document.getElementById('adOverlay').style.display = 'none';
+        }
+    </script>
+
     <div class="result-card">
         <h1 style="font-family: 'Cinzel', serif; color: #2c241b;">🎯 Yarışma Sonucu</h1>
 
@@ -64,6 +112,16 @@
 
         <div th:if="${score < 80}" style="margin-top: 20px; color: #666;">
             Maalesef barajı geçemediniz. Biraz daha çalışıp tekrar deneyin! 📚
+        </div>
+
+        <!-- Bottom Ad Banner -->
+        <div
+            style="margin: 30px -30px -30px -30px; padding: 20px; background: #f5f5f5; border-top: 1px solid #ddd; text-align: center;">
+            <p style="color: #888; font-size: 0.8em; margin-bottom: 10px;">Reklam</p>
+            <div
+                style="height: 90px; background: #e0e0e0; display: flex; justify-content: center; align-items: center; color: #666; border-radius: 5px;">
+                📢 Reklam Alanı (728x90 Banner)
+            </div>
         </div>
 
         <div style="margin-top: 40px;">
