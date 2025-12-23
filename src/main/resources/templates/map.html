@@ -2,100 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>ArkeoBla - Keşif Haritası</title>
-    <!-- Leaflet Core CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <!-- Leaflet MarkerCluster CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <title>ArkeoBla - Keşif Haritası 3D</title>
+    <!-- Globe.gl -->
+    <script src="//unpkg.com/globe.gl"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital@0;1&display=swap"
+        rel="stylesheet">
 
     <style>
-        /* ... Existing Styles ... */
-        .leaflet-popup-content-wrapper {
-            background: #f4f1ea;
-            border: 2px solid #2c241b;
-            border-radius: 4px;
-            font-family: 'Lora', serif;
-            max-width: 320px;
-            /* Genişlik artırıldı */
-        }
-
-        .leaflet-popup-content {
-            max-height: 250px;
-            /* Yükseklik sınırı */
-            overflow-y: auto;
-            /* Scroll bar */
-            padding-right: 5px;
-            /* Scroll için boşluk */
-        }
-
-        .leaflet-popup-content b {
+        body {
+            margin: 0;
+            padding: 0;
             font-family: 'Cinzel', serif;
-            color: #8b3a3a;
-            font-size: 18px;
-            /* Başlık büyütüldü */
-            display: block;
-            margin-bottom: 8px;
-            border-bottom: 2px solid #c5a059;
-            padding-bottom: 5px;
+            background: #000;
+            color: #dcd6ce;
+            overflow: hidden;
         }
 
-        /* Marker Cluster Stilleri */
-        .marker-cluster-small {
-            background-color: rgba(181, 226, 140, 0.6);
-        }
-
-        .marker-cluster-small div {
-            background-color: rgba(110, 204, 57, 0.6);
-        }
-
-        .marker-cluster-medium {
-            background-color: rgba(241, 128, 23, 0.6);
-        }
-
-        .marker-cluster-medium div {
-            background-color: rgba(240, 194, 12, 0.6);
-        }
-
-        .marker-cluster-large {
-            background-color: rgba(253, 156, 115, 0.6);
-        }
-
-        .marker-cluster-large div {
-            background-color: rgba(241, 128, 23, 0.6);
-        }
-
-        .marker-cluster {
-            background-clip: padding-box;
-            border-radius: 20px;
-        }
-
-        .marker-cluster div {
-            width: 30px;
-            height: 30px;
-            margin-left: 5px;
-            margin-top: 5px;
-            text-align: center;
-            border-radius: 15px;
-            font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            color: #fff;
-            line-height: 30px;
-        }
-    </style>
-</head>
-
-<body style="margin: 0; padding: 0; font-family: 'Lora', serif;">
-
-    <style>
-        #map {
-            position: fixed;
-            top: 60px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
+        #globeViz {
+            width: 100vw;
+            height: 100vh;
         }
 
         .map-header {
@@ -103,87 +28,216 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 60px;
-            background: linear-gradient(135deg, #2c241b 0%, #3e3226 100%);
+            height: 80px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            border-bottom: 3px solid #c5a059;
+            pointer-events: none;
         }
 
         .map-header h1 {
-            font-family: 'Cinzel', serif;
             color: #c5a059;
-            margin: 0;
-            font-size: 1.5em;
+            font-size: 2em;
+            text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
         }
 
         .back-btn {
             position: fixed;
-            top: 70px;
-            left: 10px;
+            top: 30px;
+            left: 30px;
             z-index: 1000;
-            background: rgba(44, 36, 27, 0.9);
+            background: rgba(44, 36, 27, 0.8);
             color: #c5a059;
-            padding: 10px 20px;
+            padding: 10px 25px;
             text-decoration: none;
-            border-radius: 5px;
-            font-family: 'Cinzel', serif;
+            border-radius: 30px;
             font-weight: bold;
             border: 1px solid #c5a059;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
         }
 
         .back-btn:hover {
             background: #c5a059;
-            color: #2c241b;
+            color: #000;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.6);
+        }
+
+        /* Tooltip styling */
+        .scene-tooltip {
+            background: rgba(20, 20, 20, 0.9);
+            border: 1px solid #c5a059;
+            border-radius: 8px;
+            padding: 15px;
+            color: #fff;
+            max-width: 300px;
+            font-family: 'Lora', serif;
+            pointer-events: none;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .scene-tooltip b {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            font-size: 1.2em;
+            display: block;
+            border-bottom: 1px solid #555;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+        }
+
+        .scene-tooltip img {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #444;
+        }
+
+        /* Modal styling for details */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid #c5a059;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            z-index: 2000;
+            box-shadow: 0 0 50px rgba(197, 160, 89, 0.3);
+            text-align: center;
+        }
+
+        .modal h2 {
+            color: #c5a059;
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+        }
+
+        .close-btn {
+            background: #c5a059;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1999;
         }
     </style>
+</head>
 
-    <a href="/" class="back-btn">← Geri Dön</a>
+<body>
+    <div id="globeViz"></div>
+
+    <a href="/" class="back-btn">← Ana Sayfaya Dön</a>
 
     <div class="map-header">
-        <h1>🗺️ Dünya Keşif Haritası</h1>
+        <h1>🌍 3D Geçmişin İzleri</h1>
     </div>
 
-    <div id="map"></div>
-
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <!-- Leaflet MarkerCluster JS -->
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <!-- Detail Modal -->
+    <div class="overlay" id="overlay" onclick="closeModal()"></div>
+    <div class="modal" id="locationModal">
+        <h2 id="modalTitle">Konum Adı</h2>
+        <img id="modalImg" src="" alt="Location">
+        <p id="modalDesc">Açıklama</p>
+        <button class="close-btn" onclick="closeModal()">Kapat</button>
+    </div>
 
     <script>
-        // Haritayı başlat
-        var map = L.map('map').setView([39.92, 32.85], 5); // Zoom seviyesi 5 yapıldı
+        const globe = Globe()
+            (document.getElementById('globeViz'))
+            .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
+            .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+            .pointOfView({ lat: 39.0, lng: 35.0, altitude: 2.0 }) // Start over Turkey
+            .pointAltitude(0.05) // Yüksek noktalar (sütun gibi)
+            .pointRadius(0.5)
+            .pointColor(() => '#c5a059')
+            .pointResolution(16)
+            .labelLat(d => d.latitude)
+            .labelLng(d => d.longitude)
+            .labelText(d => d.name)
+            .labelSize(1.5)
+            .labelDotRadius(0.5)
+            .labelColor(() => 'rgba(255, 255, 255, 0.75)')
+            .labelResolution(2)
+            .onLabelClick(d => showModal(d))
+            .onPointClick(d => showModal(d))
+            // Custom html tooltip
+            .labelLabel(d => `
+                <div class="scene-tooltip">
+                    <b>${d.name}</b>
+                    <div style="font-size:0.9em;">Click for details</div>
+                </div>
+            `);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // Marker Cluster Grubu Oluştur
-        var markers = L.markerClusterGroup();
-
+        // Fetch data
         fetch('/api/locations')
-            .then(response => response.json())
-            .then(locations => {
-                locations.forEach(loc => {
-                    var popupContent = `<b>${loc.name}</b><img src="${loc.imageUrl}"><br>${loc.description.replace(/\n/g, '<br>')}`;
+            .then(res => res.json())
+            .then(data => {
+                globe
+                    .pointsData(data)
+                    .labelsData(data)
+                    .pointLat(d => d.latitude)
+                    .pointLng(d => d.longitude);
+            });
 
-                    var marker = L.marker([loc.latitude, loc.longitude])
-                        .bindPopup(popupContent);
+        // Auto-rotate
+        globe.controls().autoRotate = true;
+        globe.controls().autoRotateSpeed = 0.5;
 
-                    markers.addLayer(marker); // Marker'ı kümeye ekle
-                });
+        // Stop rotation on interaction
+        globe.controls().addEventListener('start', () => { globe.controls().autoRotate = false; });
 
-                map.addLayer(markers); // Kümeyi haritaya ekle
+        // Modal functions
+        function showModal(data) {
+            globe.controls().autoRotate = false;
+            document.getElementById('modalTitle').innerText = data.name;
+            document.getElementById('modalDesc').innerText = data.description;
+            document.getElementById('modalImg').src = data.imageUrl || '';
 
-                // Haritayı tüm noktalara sığdır (Opsiyonel)
-                // var group = new L.featureGroup(locations.map(l => L.marker([l.latitude, l.longitude])));
-                // map.fitBounds(group.getBounds());
-            })
-            .catch(error => console.error('Hata:', error));
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('locationModal').style.display = 'block';
+
+            // Zoom to location
+            globe.pointOfView({ lat: data.latitude, lng: data.longitude, altitude: 1.5 }, 1000);
+        }
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('locationModal').style.display = 'none';
+            globe.controls().autoRotate = true;
+        }
     </script>
 </body>
 
