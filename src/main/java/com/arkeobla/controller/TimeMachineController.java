@@ -38,6 +38,11 @@ public class TimeMachineController {
                                 "https://upload.wikimedia.org/wikipedia/commons/6/60/Copper_Age_Weapons.jpg",
                                 getChalcolithicContent()));
 
+                addEra(new Era("bronze-age", "Tunç Çağı", "Tarih Öncesi", "MÖ 3.200 - MÖ 1.200",
+                                "Metal Çağı'nın zirvesi: Hitit İmparatorluğu, Mısır Firavunları, Troya Savaşı ve ilk yazılı kayıtlar.",
+                                "https://upload.wikimedia.org/wikipedia/commons/9/90/Lion_Gate_Hattusa.jpg",
+                                getBronzeAgeContent()));
+
                 // --- ANTİK ÇAĞ ---
                 addEra(new Era("ancient-egypt", "Antik Mısır", "Antik Çağ", "MÖ 3100 - MÖ 30",
                                 "Nil'in Hediyesi: Piramitler, firavunlar, hiyeroglif yazı ve mumyalama sanatı.",
@@ -591,6 +596,169 @@ public class TimeMachineController {
                                 - Archaeological Institute of America
                                 - European Journal of Archaeology
                                                 """;
+        }
+
+        private String getBronzeAgeContent() {
+                return """
+                                ## ⚔️ TUNÇ ÇAĞI
+                                **Tarih:** MÖ 3.200 - MÖ 1.200
+                                **Kaynak:** Britannica, UNESCO, Anadolu Medeniyetleri Müzesi
+
+                                ---
+
+                                ### 📋 DÖNEM ÖZETİ
+
+                                Tunç Çağı, bakır ve kalayın alaşımı olan **tunç**un (bronz) keşfiyle başlayan dönemdir:
+                                - İlk imparatorluklar kuruldu
+                                - Yazı yaygınlaştı
+                                - Uluslararası ticaret ağları oluştu
+                                - Büyük anıtsal yapılar inşa edildi
+                                - Savaş teknolojisi gelişti
+
+                                ---
+
+                                ### 🔹 ERKEN TUNÇ ÇAĞI (MÖ 3.200 - MÖ 2.000)
+
+                                | Olay | Tarih |
+                                |------|-------|
+                                | Tunç metalurjisinin başlangıcı | MÖ 3.300 |
+                                | Sümer şehir devletleri | MÖ 3.100 |
+                                | Mısır'da ilk hanedanlık | MÖ 3.100 |
+                                | Akkad İmparatorluğu (Sargon) | MÖ 2.334 |
+                                | Troya II (Priamos Hazinesi) | MÖ 2.550-2.300 |
+
+                                **Anadolu'da:**
+                                - Alacahöyük Kral Mezarları
+                                - Altın ve tunçtan yapılmış güneş kursları
+                                - Hitit öncesi yerli beylikler
+
+                                ---
+
+                                ### 🔹 ORTA TUNÇ ÇAĞI (MÖ 2.000 - MÖ 1.600)
+
+                                | Olay | Tarih |
+                                |------|-------|
+                                | Asur ticaret kolonileri (Kültepe/Kaneş) | MÖ 1.950 |
+                                | Hammurabi Kanunları | MÖ 1.754 |
+                                | Hitit Eski Krallık dönemi | MÖ 1.650 |
+                                | Minos uygarlığının zirvesi (Girit) | MÖ 1.700 |
+
+                                **Kültepe (Kaneş):**
+                                Anadolu'nun en eski yazılı belgeleri burada bulundu. Asurlu tüccarlar kalay ve kumaş getirip altın ve gümüş götürüyordu.
+
+                                ---
+
+                                ### 🔹 GEÇ TUNÇ ÇAĞI (MÖ 1.600 - MÖ 1.200)
+
+                                **Hitit İmparatorluğu Dönemi:**
+
+                                | Olay | Tarih |
+                                |------|-------|
+                                | Hitit İmparatorluğu'nun kuruluşu | MÖ 1.600 |
+                                | I. Şuppiluliuma'nın fetihleri | MÖ 1.344-1.322 |
+                                | Kadeş Savaşı (Hititler vs Mısır) | MÖ 1.274 |
+                                | Kadeş Antlaşması (ilk yazılı barış) | MÖ 1.259 |
+                                | Troya Savaşı (tahmin) | MÖ 1.250-1.180 |
+                                | Tunç Çağı Çöküşü | MÖ 1.200-1.150 |
+
+                                ---
+
+                                ### 🏛️ HİTİT İMPARATORLUĞU
+
+                                **Başkent:** Hattuşaş (Boğazköy, Çorum)
+
+                                **Önemli Krallar:**
+                                - I. Hattuşili (kurucu)
+                                - I. Şuppiluliuma (en güçlü dönem)
+                                - II. Muwatalli (Kadeş Savaşı)
+                                - III. Hattuşili (Kadeş Antlaşması)
+
+                                **Özellikler:**
+                                - Demir işleme teknolojisinin öncüleri
+                                - Çivi yazısı ve hiyeroglif kullanımı
+                                - Bin Tanrılı din anlayışı
+                                - Gelişmiş hukuk sistemi
+
+                                **Anıtsal Yapılar:**
+                                - Aslanlı Kapı, Sfenksli Kapı
+                                - Yazılıkaya Açık Hava Tapınağı
+                                - Büyük Tapınak
+
+                                ---
+
+                                ### 🏺 TROYA
+
+                                **Konum:** Çanakkale, Hisarlık
+
+                                | Katman | Dönem | Özellik |
+                                |--------|-------|---------|
+                                | Troya I | MÖ 3.000-2.550 | İlk yerleşim |
+                                | Troya II | MÖ 2.550-2.300 | Priamos Hazinesi |
+                                | Troya VI | MÖ 1.700-1.250 | Güçlü surlar |
+                                | Troya VIIa | MÖ 1.250-1.180 | **İlyada'nın Troya'sı** |
+
+                                Heinrich Schliemann'ın 1873'te bulduğu "Priamos Hazinesi" aslında Troya II katmanına (MÖ 2.300) ait olup, efsanevi Troya Savaşı'ndan 1.000 yıl öncesine aittir.
+
+                                ---
+
+                                ### 🌊 EGE UYGARILIKLARI
+
+                                **Minos (Girit) Uygarlığı:**
+                                - Knossos Sarayı
+                                - Lineer A yazısı (henüz çözülemedi)
+                                - Deniz ticareti hakimiyeti
+                                - MÖ 1.450'de Miken istilası
+
+                                **Miken Uygarlığı:**
+                                - Yunanistan ana karası
+                                - Altın maskeler (Agamemnon Maskesi)
+                                - Kyklopik duvarlar
+                                - Lineer B yazısı (eski Yunanca)
+
+                                ---
+
+                                ### ⚙️ METALURJİ
+
+                                **Tunç Yapımı:**
+                                - %88-92 Bakır + %8-12 Kalay
+                                - Kalay Anadolu ve Afganistan'dan geliyordu
+                                - Ticaret ağları hayati önemdeydi
+
+                                **Gelişmeler:**
+                                | Teknoloji | Dönem |
+                                |-----------|-------|
+                                | Döküm kalıpları | MÖ 3.000 |
+                                | Kayıp mum tekniği | MÖ 2.500 |
+                                | Demir işleme (Hititler) | MÖ 1.400 |
+                                | Çelik (karbonlu demir) | MÖ 1.200 |
+
+                                ---
+
+                                ### 💀 TUNÇ ÇAĞI ÇÖKÜŞÜ (MÖ 1.200-1.150)
+
+                                50 yıl içinde tüm büyük uygarlıklar yıkıldı:
+                                - Hitit İmparatorluğu
+                                - Miken uygarlığı
+                                - Ugarit ve Suriye şehirleri
+                                - Mısır zayıfladı
+
+                                **Olası Sebepler:**
+                                1. Deniz Kavimleri istilaları
+                                2. İklim değişikliği ve kuraklık
+                                3. Depremler
+                                4. Ticaret ağlarının çökmesi
+                                5. İç isyanlar
+
+                                Bu çöküş "Karanlık Çağ"ı başlattı ve yazı 400 yıl boyunca kayboldu.
+
+                                ---
+
+                                ### 📚 KAYNAKLAR
+                                - Britannica Encyclopedia
+                                - UNESCO World Heritage (Hattuşaş)
+                                - Anadolu Medeniyetleri Müzesi
+                                - Eric Cline, "1177 B.C.: The Year Civilization Collapsed"
+                                """;
         }
 
         private String getAncientEgyptContent() {
