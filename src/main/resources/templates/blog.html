@@ -129,16 +129,26 @@
 
 <body>
 
+    <!-- Language Switcher -->
+    <div style="position: fixed; top: 20px; right: 20px; display: flex; gap: 5px; z-index: 1000;">
+        <a href="?lang=tr"
+            style="padding: 6px 12px; border: 1px solid #c5a059; border-radius: 4px; color: #c5a059; text-decoration: none; font-size: 12px; background: rgba(44,36,27,0.9);">TR</a>
+        <a href="?lang=en"
+            style="padding: 6px 12px; border: 1px solid #c5a059; border-radius: 4px; color: #c5a059; text-decoration: none; font-size: 12px; background: rgba(44,36,27,0.9);">EN</a>
+    </div>
+
     <div class="blog-header">
-        <h1>BİLGELİK KÜTÜPHANESİ</h1>
-        <p>Arkeoloji ve tarih dünyasından en son keşifler, makaleler ve hikayeler.</p>
+        <h1 th:text="#{blog.title}">BİLGELİK KÜTÜPHANESİ</h1>
+        <p th:text="#{blog.subtitle}">Arkeoloji ve tarih dünyasından en son keşifler, makaleler ve hikayeler.</p>
         <div style="margin-top: 20px;">
             <a href="/forum" class="btn-write"
-                style="background: #2c241b; border: 1px solid #c5a059; margin-right: 15px;">💬 Forum'a Git</a>
+                style="background: #2c241b; border: 1px solid #c5a059; margin-right: 15px;"
+                th:text="'💬 ' + #{forum.title}">💬 Forum'a Git</a>
             <a href="/add-content" class="btn-write">✍️ İçerik Yaz</a>
         </div>
         <div style="margin-top: 15px;">
-            <a href="/" style="color: #aaa; text-decoration: none; font-size: 14px;">Anasayfaya Dön</a>
+            <a href="/" style="color: #aaa; text-decoration: none; font-size: 14px;" th:text="#{header.home}">Anasayfaya
+                Dön</a>
         </div>
     </div>
 

@@ -181,10 +181,18 @@
 <body>
     <div id="globeViz"></div>
 
-    <a href="/" class="back-btn">← Ana Sayfaya Dön</a>
+    <!-- Language Switcher -->
+    <div style="position: fixed; top: 20px; right: 20px; display: flex; gap: 5px; z-index: 1000;">
+        <a href="?lang=tr"
+            style="padding: 6px 12px; border: 1px solid #c5a059; border-radius: 4px; color: #c5a059; text-decoration: none; font-size: 12px; background: rgba(44,36,27,0.8);">TR</a>
+        <a href="?lang=en"
+            style="padding: 6px 12px; border: 1px solid #c5a059; border-radius: 4px; color: #c5a059; text-decoration: none; font-size: 12px; background: rgba(44,36,27,0.8);">EN</a>
+    </div>
+
+    <a href="/" class="back-btn" th:text="'← ' + #{header.home}">← Ana Sayfaya Dön</a>
 
     <div class="map-header">
-        <h1>🌍 3D Geçmişin İzleri</h1>
+        <h1 th:text="#{map.title}">🌍 3D Geçmişin İzleri</h1>
     </div>
 
     <!-- Detail Modal -->

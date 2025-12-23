@@ -168,8 +168,17 @@
     <a href="/games"
         style="position: fixed; left: 20px; top: 20px; color: #c5a059; text-decoration: none; font-size: 1.5em; z-index: 1000;">←
         Geri</a>
+
+    <!-- Language Switcher -->
+    <div style="position: fixed; top: 20px; right: 20px; display: flex; gap: 5px; z-index: 1000;">
+        <a href="?lang=tr"
+            style="padding: 6px 12px; border: 1px solid #c5a059; border-radius: 4px; color: #c5a059; text-decoration: none; font-size: 12px;">TR</a>
+        <a href="?lang=en"
+            style="padding: 6px 12px; border: 1px solid #c5a059; border-radius: 4px; color: #c5a059; text-decoration: none; font-size: 12px;">EN</a>
+    </div>
+
     <div class="game-header">
-        <h1>🧩 Tarihi Puzzle</h1>
+        <h1 th:text="#{puzzle.title}">🧩 Tarihi Puzzle</h1>
         <div class="level-info">
             <span th:text="'Level ' + ${level.id} + ': ' + ${level.title}">Level 1: Antik Mozaik</span>
             <br>

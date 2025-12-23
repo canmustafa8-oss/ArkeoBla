@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Oyun Alanı - ArkeoBla</title>
+    <title th:text="#{games.title} + ' - ArkeoBla'">Oyun Alanı - ArkeoBla</title>
     <link rel="stylesheet" href="/css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +14,30 @@
             color: #dcd6ce;
         }
 
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 5px;
+            z-index: 1000;
+        }
+
+        .lang-switcher a {
+            padding: 6px 12px;
+            border: 1px solid #c5a059;
+            border-radius: 4px;
+            color: #c5a059;
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .lang-switcher a:hover {
+            background: #c5a059;
+            color: #000;
+        }
+
         .games-container {
             max-width: 1200px;
             margin: 50px auto;
@@ -23,9 +47,15 @@
 
         h1 {
             color: #c5a059;
-            margin-bottom: 40px;
+            margin-bottom: 10px;
             font-size: 3em;
             text-shadow: 0 0 10px rgba(197, 160, 89, 0.3);
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.2em;
+            margin-bottom: 40px;
         }
 
         .games-grid {
@@ -80,65 +110,55 @@
             color: #bbb;
             line-height: 1.5;
         }
-
-        .coming-soon {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .coming-soon:hover {
-            transform: none;
-            box-shadow: none;
-            border-color: #444;
-        }
     </style>
 </head>
 
 <body>
 
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <a href="?lang=tr">TR</a>
+        <a href="?lang=en">EN</a>
+    </div>
+
     <div class="games-container">
-        <h1>🎮 OYUN ALANI</h1>
+        <h1 th:text="#{games.title}">🎮 OYUN ALANI</h1>
+        <p class="subtitle" th:text="#{games.subtitle}">Eğlenerek tarih öğren!</p>
 
         <div class="games-grid">
 
-            <!-- Mevcut Oyun: Bilgi Yarışması -->
+            <!-- Quiz -->
             <a href="/quiz" class="game-card">
-                <div class="game-img-container">
-                    🧠
-                </div>
+                <div class="game-img-container">🧠</div>
                 <div class="game-content">
-                    <div class="game-title">Arkeo-Quiz</div>
-                    <div class="game-desc">Tarih bilginizi sınayın, "Bilge Kaşif" rozetini kazanmak için yarışın!</div>
+                    <div class="game-title" th:text="#{games.quiz.title}">Arkeo-Quiz</div>
+                    <div class="game-desc" th:text="#{games.quiz.desc}">Bilgilerini test et ve rozet kazan!</div>
                 </div>
             </a>
 
-            <!-- Tarihi Puzzle -->
+            <!-- Puzzle -->
             <a href="/puzzle" class="game-card">
-                <div class="game-img-container">
-                    🧩
-                </div>
+                <div class="game-img-container">🧩</div>
                 <div class="game-content">
-                    <div class="game-title">Tarihi Puzzle</div>
-                    <div class="game-desc">Zeugma'dan Piramitlere uzanan 4 zorlu etapta parçaları birleştirin!</div>
+                    <div class="game-title" th:text="#{games.puzzle.title}">Tarihi Puzzle</div>
+                    <div class="game-desc" th:text="#{games.puzzle.desc}">Antik eser parçalarını birleştir</div>
                 </div>
             </a>
 
-            <!-- Kazı Simülatörü -->
+            <!-- Excavation -->
             <a href="/excavation" class="game-card">
-                <div class="game-img-container">
-                    ⛏️
-                </div>
+                <div class="game-img-container">⛏️</div>
                 <div class="game-content">
-                    <div class="game-title">Kazı Simülatörü</div>
-                    <div class="game-desc">Türkiye, Mısır veya Yunanistan'ı seçin! Fırçanızı kapın ve kazıya başlayın.
-                    </div>
+                    <div class="game-title" th:text="#{games.excavation.title}">Kazı Simülatörü</div>
+                    <div class="game-desc" th:text="#{games.excavation.desc}">Gerçek arkeoloji deneyimi yaşa</div>
                 </div>
             </a>
 
         </div>
 
         <div style="margin-top: 50px;">
-            <a href="/" style="color: #c5a059; text-decoration: none; font-size: 1.1em;">🏠 Ana Sayfaya Dön</a>
+            <a href="/" style="color: #c5a059; text-decoration: none; font-size: 1.1em;"
+                th:text="'🏠 ' + #{header.home}">🏠 Ana Sayfaya Dön</a>
         </div>
     </div>
 
