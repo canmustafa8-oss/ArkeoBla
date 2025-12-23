@@ -393,8 +393,11 @@
 
         <div class="excavation-area">
             <div class="dirt-layer" id="dirtLayer">
-                <canvas id="dirtCanvas"></canvas>
-                <div class="dirt-particles" id="particles"></div>
+                <!-- Underlying artifact image -->
+                <img id="undergroundArtifact" src=""
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; z-index: 1; pointer-events: none; opacity: 0.8;">
+                <canvas id="dirtCanvas" style="position: relative; z-index: 2;"></canvas>
+                <div class="dirt-particles" id="particles" style="z-index: 3;"></div>
             </div>
         </div>
     </div>
@@ -407,7 +410,7 @@
             <img id="artifactImage" class="artifact-image" src="" alt="Artifact">
             <div class="artifact-desc" id="artifactDesc">Eser Açıklaması</div>
             <div class="modal-buttons">
-                <button class="btn btn-primary" onclick="continueExcavation()">Kaz İlmeye Devam Et</button>
+                <button class="btn btn-primary" onclick="continueExcavation()">Kazıya Devam Et</button>
                 <button class="btn btn-secondary" onclick="location.href='/excavation'">Bölge Seç</button>
             </div>
         </div>
@@ -421,6 +424,12 @@
         const canvas = document.getElementById('dirtCanvas');
         const ctx = canvas.getContext('2d');
         const dirtLayer = document.getElementById('dirtLayer');
+        const undergroundImg = document.getElementById('undergroundArtifact');
+
+        // Initial setup
+        if (artifactsData.length > 0) {
+            undergroundImg.src = artifactsData[0].imageUrl;
+        }
 
         // Canvas setup
         canvas.width = dirtLayer.offsetWidth;
@@ -438,6 +447,7 @@
 
         // Initialize dirt texture
         function initDirt() {
+            ctx.globalCompositeOperation = 'source-over';
             ctx.fillStyle = '#8B7355';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -449,6 +459,13 @@
                 ctx.fillStyle = `rgb(${139 + shade}, ${115 + shade}, ${85 + shade})`;
                 ctx.fillRect(x, y, 2, 2);
             }
+
+            // Set underlying image for current artifact
+            if (currentArtifactIndex < artifactsData.length) {
+                undergroundImg.src = artifactsData[currentArtifactIndex].imageUrl;
+            }
+
+            ctx.globalCompositeOperation = 'destination-out';
         }
 
         initDirt();
@@ -463,78 +480,98 @@
         // Digging mechanic
         function dig(x, y) {
             const size = toolSizes[currentTool];
-            const imageData = ctx.getImageData(Math.max(0, x - size), Math.max(0, y - size), size * 2, size * 2);
 
-            for (let i = 0; i < imageData.data.length; i += 4) {
-                const alpha = imageData.data[i + 3];
-                if (alpha > 0) clearedPixels++;
-                imageData.data[i + 3] = 0; // Make transparent
-            }
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+            ctx.fill();
 
-            ctx.putImageData(imageData, Math.max(0, x - size), Math.max(0, y - size));
+            // Simple approximation of cleared area for performance
+            // In a real app, we might count alpha pixels occasionally
+            // Here we just increment based on brush size to avoid heavy pixel reading every frame
+            // But to be accurate lets do a fast check or just rely on 'destination-out' visual
 
-            // Create particle effect
+            // Re-calculating cleared percentage on every move is expensive.
+            // Let's do it with a throttling or interval, but for this demo let's assume
+            // we check it every 100ms or so. For now, let's keep the user's flow but assume
+            // standard 'destination-out' reveals the image behind.
+
             createParticles(x, y, size);
 
-            // Update progress
-            updateProgress();
+            // We need to actually count pixels to know the %
+            // Doing this every frame is slow, so we can throttle it
+            if (Math.random() > 0.8) {
+                countClearedPixels();
+            }
+        }
+
+        function countClearedPixels() {
+            // Downsample for speed
+            const w = canvas.width;
+            const h = canvas.height;
+            // Get data for the whole canvas? Warning: Slow on large screens.
+            // Optimize: Check 1 out of every 100 pixels
+            const imageData = ctx.getImageData(0, 0, w, h);
+            const data = imageData.data;
+            let clear = 0;
+            const step = 4 * 10; // Check every 10th pixel
+
+            for (let i = 3; i < data.length; i += step) {
+                if (data[i] === 0) clear++;
+            }
+
+            const totalSampled = data.length / step;
+            const percent = (clear / totalSampled) * 100;
+            updateProgress(percent);
         }
 
         function createParticles(x, y, size) {
-            for (let i = 0; i < 5; i++) {
+            // ... (particle logic remains same, abbreviated for brevity if needed or copy full)
+            for (let i = 0; i < 3; i++) { // Reduced count for performance
                 const particle = document.createElement('div');
+                particle.classList.add('dirt-particles'); // Re-use class for positioning? No, absolute
                 particle.style.position = 'absolute';
                 particle.style.left = x + 'px';
                 particle.style.top = y + 'px';
                 particle.style.width = '4px';
                 particle.style.height = '4px';
-                particle.style.background = '#8B7355';
+                particle.style.background = '#6B5444';
                 particle.style.borderRadius = '50%';
                 particle.style.pointerEvents = 'none';
-
                 document.getElementById('particles').appendChild(particle);
 
                 const angle = Math.random() * Math.PI * 2;
-                const velocity = Math.random() * 3 + 1;
-                const vx = Math.cos(angle) * velocity;
-                const vy = Math.sin(angle) * velocity - 2;
+                const v = Math.random() * 5;
+                const vx = Math.cos(angle) * v;
+                const vy = Math.sin(angle) * v;
 
-                animateParticle(particle, vx, vy);
-            }
-        }
+                // Simple animation
+                let opacity = 1;
+                let px = x;
+                let py = y;
 
-        function animateParticle(particle, vx, vy) {
-            let x = parseInt(particle.style.left);
-            let y = parseInt(particle.style.top);
-            let gravity = 0.2;
+                function anim() {
+                    opacity -= 0.1;
+                    px += vx;
+                    py += vy;
+                    particle.style.left = px + 'px';
+                    particle.style.top = py + 'px';
+                    particle.style.opacity = opacity;
 
-            function update() {
-                vy += gravity;
-                x += vx;
-                y += vy;
-
-                particle.style.left = x + 'px';
-                particle.style.top = y + 'px';
-                particle.style.opacity = parseFloat(particle.style.opacity || 1) - 0.02;
-
-                if (parseFloat(particle.style.opacity) > 0) {
-                    requestAnimationFrame(update);
-                } else {
-                    particle.remove();
+                    if (opacity > 0) requestAnimationFrame(anim);
+                    else particle.remove();
                 }
+                requestAnimationFrame(anim);
             }
-
-            update();
         }
 
-        function updateProgress() {
-            const progress = Math.min(100, (clearedPixels / totalPixels * 100) * 10);
-            document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('progressPercent').textContent = Math.floor(progress) + '%';
-            document.getElementById('progressFill').textContent = Math.floor(progress) + '%';
+        function updateProgress(percent) {
+            const displayPercent = Math.min(100, Math.floor(percent));
+            document.getElementById('progressFill').style.width = displayPercent + '%';
+            document.getElementById('progressPercent').textContent = displayPercent + '%';
+            document.getElementById('progressFill').textContent = displayPercent + '%';
 
-            // Check for artifact reveal
-            if (progress > 60 && !artifactRevealed && currentArtifactIndex < artifactsData.length) {
+            // Check for artifact reveal (> 80%)
+            if (percent > 80 && !artifactRevealed && currentArtifactIndex < artifactsData.length) {
                 revealArtifact();
             }
         }
@@ -545,8 +582,8 @@
 
             // Confetti effect
             confetti({
-                particleCount: 100,
-                spread: 70,
+                particleCount: 150,
+                spread: 100,
                 origin: { y: 0.6 }
             });
 
@@ -558,26 +595,28 @@
 
             foundArtifacts++;
             document.getElementById('artifactCount').textContent = foundArtifacts;
+
+            // Clear remaining dirt to show full image perfectly
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
+        // ... (Click handlers remain)
         function continueExcavation() {
             document.getElementById('artifactModal').classList.remove('show');
             artifactRevealed = false;
             currentArtifactIndex++;
-            clearedPixels = 0;
-            initDirt();
 
             if (currentArtifactIndex >= artifactsData.length) {
                 alert('🎊 Tebrikler! Tüm eserleri buldunuz!');
                 location.href = '/excavation';
+            } else {
+                initDirt();
             }
         }
 
-        // Mouse events
         canvas.addEventListener('mousedown', () => isDrawing = true);
         canvas.addEventListener('mouseup', () => isDrawing = false);
         canvas.addEventListener('mouseleave', () => isDrawing = false);
-
         canvas.addEventListener('mousemove', (e) => {
             if (!isDrawing) return;
             const rect = canvas.getBoundingClientRect();
@@ -586,19 +625,16 @@
             dig(x, y);
         });
 
-        // Touch support
         canvas.addEventListener('touchstart', (e) => {
             isDrawing = true;
             e.preventDefault();
         });
-
         canvas.addEventListener('touchend', () => isDrawing = false);
-
         canvas.addEventListener('touchmove', (e) => {
             if (!isDrawing) return;
             e.preventDefault();
-            const rect = canvas.getBoundingClientRect();
             const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
             const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
             const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
             dig(x, y);
