@@ -9,375 +9,781 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Cinzel', serif;
-            background: #1a1612;
+            background: linear-gradient(135deg, #1a1612, #2c241b);
             color: #dcd6ce;
             user-select: none;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        .dashboard {
-            display: grid;
-            grid-template-columns: 250px 1fr 250px;
-            height: 100vh;
-        }
-
-        /* Left Panel: Stats */
-        .panel-left {
-            background: #2c241b;
-            padding: 20px;
-            border-right: 2px solid #c5a059;
-            overflow-y: auto;
-        }
-
-        .stat-box {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid #5d4037;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
+        .game-header {
             text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid #c5a059;
         }
 
-        .stat-title {
+        .game-header h1 {
+            color: #c5a059;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 25px;
+            border-radius: 25px;
+            border: 1px solid #c5a059;
+        }
+
+        .stat-label {
             color: #aaa;
-            font-size: 0.9em;
-            margin-bottom: 5px;
+            font-size: 0.8em;
         }
 
         .stat-value {
             color: #c5a059;
-            font-size: 1.5em;
+            font-size: 1.3em;
             font-weight: bold;
         }
 
-        /* Center: Excavation Site */
-        .excavation-site {
-            position: relative;
-            background: #000;
+        .game-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-wrap: wrap;
             justify-content: center;
-            overflow: hidden;
+            gap: 20px;
+            padding: 20px;
         }
 
-        .active-layer-info {
-            position: absolute;
-            top: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 30px;
-            border-radius: 20px;
-            border: 1px solid #c5a059;
-            z-index: 10;
+        .excavation-area {
+            background: #000;
+            border: 4px solid #5d4037;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
         }
 
         canvas {
-            border: 4px solid #5d4037;
-            cursor: crosshair;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            display: block;
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="10" fill="none" stroke="gold" stroke-width="2"/><circle cx="16" cy="16" r="2" fill="gold"/></svg>') 16 16, crosshair;
         }
 
-        /* Right Panel: Tools & Log */
-        .panel-right {
-            background: #2c241b;
-            padding: 20px;
-            border-left: 2px solid #c5a059;
+        .side-panel {
+            width: 280px;
             display: flex;
             flex-direction: column;
+            gap: 15px;
+        }
+
+        .panel-box {
+            background: rgba(44, 36, 27, 0.95);
+            border: 2px solid #5d4037;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .panel-title {
+            color: #c5a059;
+            font-size: 1em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #555;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Tools */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
         .tool-btn {
-            background: #3e2723;
-            border: 1px solid #c5a059;
+            background: linear-gradient(135deg, #3e2723, #2c1e1b);
+            border: 2px solid #5d4037;
             color: #ccc;
-            padding: 15px;
-            margin-bottom: 10px;
+            padding: 12px 8px;
             cursor: pointer;
-            text-align: left;
-            transition: 0.2s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
+            transition: all 0.3s;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.75em;
         }
 
         .tool-btn:hover {
-            background: #4e342e;
+            border-color: #c5a059;
+            transform: translateY(-2px);
         }
 
         .tool-btn.active {
-            background: #c5a059;
+            background: linear-gradient(135deg, #c5a059, #b8935a);
             color: #000;
+            border-color: #fff;
             font-weight: bold;
         }
 
+        .tool-icon {
+            font-size: 1.5em;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .tool-cost {
+            opacity: 0.7;
+            font-size: 0.85em;
+            margin-top: 3px;
+        }
+
+        /* Layers */
+        .layer-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .layer-item.current {
+            background: rgba(197, 160, 89, 0.2);
+            border-left: 3px solid #c5a059;
+        }
+
+        .layer-item.completed {
+            opacity: 0.5;
+        }
+
+        .layer-depth {
+            width: 30px;
+            height: 30px;
+            background: #5d4037;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .layer-item.current .layer-depth {
+            background: #c5a059;
+            color: #000;
+        }
+
+        .layer-name {
+            flex: 1;
+        }
+
+        .layer-era {
+            color: #888;
+            font-size: 0.75em;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #c5a059, #e6c76f);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .progress-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            line-height: 20px;
+            font-size: 0.75em;
+            color: #fff;
+            text-shadow: 0 0 3px #000;
+        }
+
+        /* Log */
         .log-console {
-            margin-top: auto;
-            height: 200px;
-            background: black;
+            height: 120px;
+            background: #0d0d0d;
             border: 1px solid #333;
+            border-radius: 5px;
             padding: 10px;
-            font-family: monospace;
-            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.7em;
             color: #0f0;
             overflow-y: auto;
         }
 
-        /* Modal for Analysis */
-        .modal {
+        /* Artifact Found */
+        .artifact-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #2c241b, #1a1612);
+            border: 4px solid #c5a059;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            z-index: 1000;
+            max-width: 400px;
+            box-shadow: 0 0 100px rgba(197, 160, 89, 0.5);
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .artifact-popup h2 {
+            color: #c5a059;
+            margin-bottom: 15px;
+        }
+
+        .artifact-popup img {
+            max-width: 200px;
+            border: 3px solid #c5a059;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .artifact-popup p {
+            margin: 10px 0;
+            color: #ccc;
+        }
+
+        .overlay {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 999;
         }
 
-        .modal-content {
-            background: #2c241b;
-            padding: 40px;
-            border: 2px solid #c5a059;
-            max-width: 500px;
-            text-align: center;
+        .btn-gold {
+            background: linear-gradient(135deg, #c5a059, #b8935a);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            font-family: inherit;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
         }
 
-        .modal img {
-            max-width: 100%;
-            border: 4px solid #fff;
-            margin: 20px 0;
+        .btn-gold:hover {
+            transform: scale(1.05);
+        }
+
+        /* Depth Indicator */
+        .depth-indicator {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            color: #c5a059;
+            font-size: 0.8em;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 5px;
+            border-radius: 5px;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: #c5a059;
+            text-decoration: none;
+            font-size: 1.2em;
+            z-index: 100;
+        }
+
+        /* Dirt Particles */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            animation: fall 1s ease-out forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.3);
+            }
         }
     </style>
 </head>
 
 <body>
+    <a href="/excavation" class="back-btn">← Geri</a>
 
-    <div class="dashboard">
-        <!-- LEFT PANEL -->
-        <div class="panel-left">
-            <h2 style="color:#c5a059; text-align:center; margin-bottom:30px;">STRATIGRAFİ</h2>
+    <div class="game-header">
+        <h1>⛏️ Arkeolojik Kazı Simülasyonu</h1>
+        <p th:text="'📍 ' + ${regionName}" style="color:#aaa; margin-bottom: 15px;">Türkiye</p>
 
-            <div class="stat-box">
-                <div class="stat-title">Bütçe</div>
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-label">💰 Bütçe</div>
                 <div class="stat-value" id="budgetDisplay" th:text="${budget} + ' TL'">5000 TL</div>
             </div>
-
-            <div class="stat-box">
-                <div class="stat-title">Enerji</div>
+            <div class="stat">
+                <div class="stat-label">⚡ Enerji</div>
                 <div class="stat-value" id="energyDisplay">100%</div>
             </div>
-
-            <hr style="border-color:#555; margin:20px 0;">
-
-            <h3 style="color:#ddd; font-size:1em; margin-bottom:15px;">Katmanlar</h3>
-            <div id="layerList">
-                <div th:each="layer : ${layers}" class="tool-btn" th:id="'layerBtn-' + ${layer.level}"
-                    style="font-size:0.8em; opacity:0.5; padding: 10px;">
-                    <span th:text="${layer.level} + '. ' + ${layer.name}">1. Modern</span>
-                    <span th:if="${layer.level == 1}">👁️</span>
-                </div>
+            <div class="stat">
+                <div class="stat-label">🏺 Bulunan</div>
+                <div class="stat-value" id="artifactsFound">0</div>
             </div>
-        </div>
-
-        <!-- CENTER SITE -->
-        <div class="excavation-site">
-            <div class="active-layer-info" id="activeLayerInfo">
-                KATMAN 1: MODERN YÜZEY
+            <div class="stat">
+                <div class="stat-label">📊 Derinlik</div>
+                <div class="stat-value" id="depthDisplay">1. Katman</div>
             </div>
-
-            <!-- Stacked Canvases for Layers? Or just one canvas re-rendered? -->
-            <!-- Simple approach: One canvas, but we track logic virtually -->
-            <canvas id="gameCanvas" width="600" height="600"></canvas>
-        </div>
-
-        <!-- RIGHT PANEL -->
-        <div class="panel-right">
-            <h3 style="color:#c5a059; margin-bottom:20px;">ARAÇLAR</h3>
-
-            <button class="tool-btn active" onclick="setTool('trowel', 10, 5)">
-                <span>Malas (Hassas)</span>
-                <span style="font-size:0.8em">-5 TL / -1 E</span>
-            </button>
-
-            <button class="tool-btn" onclick="setTool('pickaxe', 50, 15)">
-                <span>Kazma (Kaba)</span>
-                <span style="font-size:0.8em">-20 TL / -5 E</span>
-            </button>
-
-            <button class="tool-btn" onclick="setTool('radar', 0, 50)">
-                <span>Jeoradar (Tarama)</span>
-                <span style="font-size:0.8em">-500 TL / -10 E</span>
-            </button>
-
-            <div class="log-console" id="gameLog">
-                > Kazı başlatıldı...<br>
-                > Bölge: <span th:text="${regionName}"></span><br>
-                > Hedef: Katmanları inerek Neolitik çağa ulaş.<br>
-            </div>
-
-            <a href="/excavation" style="margin-top:20px; text-align:center; color:#666; text-decoration:none;">Kazıyı
-                Bitir</a>
         </div>
     </div>
 
-    <!-- ANALYSIS MODAL -->
-    <div class="modal" id="analysisModal">
-        <div class="modal-content">
-            <h2 style="color:#c5a059">Buluntu Analizi</h2>
-            <p>Laboratuvar sonuçları bekleniyor...</p>
-            <div id="analysisResult" style="display:none;">
-                <img id="foundImg" src="" alt="Artifact">
-                <h3 id="foundTitle"></h3>
-                <p id="foundDesc"></p>
-                <button class="tool-btn active" style="justify-content:center; margin-top:20px;" onclick="closeModal()">
-                    Müzeye Gönder (+Puan)
-                </button>
+    <div class="game-container">
+        <!-- Left Panel -->
+        <div class="side-panel">
+            <div class="panel-box">
+                <div class="panel-title">🛠️ ARAÇLAR</div>
+                <div class="tools-grid">
+                    <button class="tool-btn active" id="tool-brush" onclick="setTool('brush')">
+                        <span class="tool-icon">🖌️</span>
+                        Fırça
+                        <div class="tool-cost">-2 TL / -1 E</div>
+                    </button>
+                    <button class="tool-btn" id="tool-trowel" onclick="setTool('trowel')">
+                        <span class="tool-icon">🔪</span>
+                        Malas
+                        <div class="tool-cost">-5 TL / -2 E</div>
+                    </button>
+                    <button class="tool-btn" id="tool-pickaxe" onclick="setTool('pickaxe')">
+                        <span class="tool-icon">⛏️</span>
+                        Kazma
+                        <div class="tool-cost">-15 TL / -5 E</div>
+                    </button>
+                    <button class="tool-btn" id="tool-radar" onclick="setTool('radar')">
+                        <span class="tool-icon">📡</span>
+                        Jeoradar
+                        <div class="tool-cost">-100 TL / -10 E</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="panel-box">
+                <div class="panel-title">📜 KATMAN İLERLEME</div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="layerProgress" style="width: 0%"></div>
+                    <div class="progress-text" id="progressText">%0 Kazıldı</div>
+                </div>
+            </div>
+
+            <div class="panel-box">
+                <div class="panel-title">📋 STRATİGRAFİ</div>
+                <div id="layerList"></div>
             </div>
         </div>
+
+        <!-- Excavation Canvas -->
+        <div class="excavation-area" style="position: relative;">
+            <canvas id="gameCanvas" width="500" height="500"></canvas>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="side-panel">
+            <div class="panel-box">
+                <div class="panel-title">📊 GÜNLÜK</div>
+                <div class="log-console" id="gameLog">
+                    > Kazı başlatıldı...<br>
+                    > Bölge: <span th:text="${regionName}">Türkiye</span><br>
+                    > Hedef: Tarihi eserleri dikkatli kazarak bul.<br>
+                    > İpucu: Fırça hassas, kazma hızlı ama riskli.<br>
+                </div>
+            </div>
+
+            <div class="panel-box">
+                <div class="panel-title">ℹ️ İPUCU</div>
+                <p style="font-size: 0.8em; color: #aaa; line-height: 1.6;">
+                    - <b>Fırça</b>: Hassas kazı, eser hasarı düşük<br>
+                    - <b>Malas</b>: Orta hız, dengeli<br>
+                    - <b>Kazma</b>: Hızlı ama eser zarar görebilir<br>
+                    - <b>Jeoradar</b>: Gizli eserleri göster
+                </p>
+            </div>
+
+            <a href="/excavation" class="btn-gold" style="text-decoration: none; text-align: center; display: block;">
+                🏁 Kazıyı Bitir
+            </a>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="closeModal()"></div>
+
+    <!-- Artifact Popup -->
+    <div class="artifact-popup" id="artifactPopup">
+        <h2>🏺 Eser Bulundu!</h2>
+        <img id="foundImg" src="" alt="Artifact">
+        <h3 id="foundTitle" style="color:#c5a059;"></h3>
+        <p id="foundDesc"></p>
+        <p id="foundEra" style="color:#888; font-size:0.9em;"></p>
+        <button class="btn-gold" onclick="closeModal()">✓ Müzeye Gönder (+50 Puan)</button>
     </div>
 
     <script th:inline="javascript">
         const layers = /*[[${layers}]]*/[];
         let currentLayerIndex = 0;
+        let artifactsFoundCount = 0;
 
-        // Game State
+        // Resources
         let budget = /*[[${budget}]]*/ 5000;
         let energy = 100;
 
-        // Tools
-        let currentTool = { name: 'trowel', radius: 15, cost: 5, energyCost: 1 };
+        // Grid-based digging
+        const GRID_SIZE = 25; // 20x20 grid on 500px canvas
+        let dugCells = new Set();
+        let layerDugCount = 0;
+        const totalCells = (500 / GRID_SIZE) * (500 / GRID_SIZE); // 400 cells
+
+        // Hidden artifacts positions
+        let hiddenArtifacts = [];
+
+        // Tools configuration
+        const tools = {
+            brush: { name: 'Fırça', radius: 1, cost: 2, energyCost: 1, damageChance: 0.02 },
+            trowel: { name: 'Malas', radius: 2, cost: 5, energyCost: 2, damageChance: 0.05 },
+            pickaxe: { name: 'Kazma', radius: 3, cost: 15, energyCost: 5, damageChance: 0.15 },
+            radar: { name: 'Jeoradar', radius: 5, cost: 100, energyCost: 10, damageChance: 0, reveal: true }
+        };
+        let currentTool = tools.brush;
 
         // Canvas
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
 
-        // Setup first layer
+        // Initialize
+        function init() {
+            renderLayerList();
+            initLayer(0);
+        }
+
+        function renderLayerList() {
+            const list = document.getElementById('layerList');
+            list.innerHTML = '';
+            layers.forEach((layer, idx) => {
+                const item = document.createElement('div');
+                item.className = 'layer-item' + (idx === currentLayerIndex ? ' current' : '') + (idx < currentLayerIndex ? ' completed' : '');
+                item.id = 'layer-' + idx;
+                item.innerHTML = `
+                    <div class="layer-depth">${layer.level}</div>
+                    <div>
+                        <div class="layer-name">${layer.name}</div>
+                        <div class="layer-era">${layer.type || layer.description?.substring(0, 30) || ''}</div>
+                    </div>
+                    ${idx < currentLayerIndex ? '✓' : (idx === currentLayerIndex ? '⛏️' : '🔒')}
+                `;
+                list.appendChild(item);
+            });
+        }
+
         function initLayer(index) {
             currentLayerIndex = index;
             const layer = layers[index];
 
+            // Reset digging progress
+            dugCells.clear();
+            layerDugCount = 0;
+            updateProgress();
+
             // Update UI
-            document.getElementById('activeLayerInfo').innerText = `KATMAN ${layer.level}: ${layer.name.toUpperCase()}`;
-            document.getElementById('layerBtn-' + layer.level).style.opacity = '1';
-            document.getElementById('layerBtn-' + layer.level).innerHTML += ' ⛏️';
+            document.getElementById('depthDisplay').innerText = layer.level + '. Katman';
+            renderLayerList();
 
-            log(`Katman ${layer.level} çalışması başladı: ${layer.description}`);
+            log(`--- KATMAN ${layer.level}: ${layer.name.toUpperCase()} ---`);
+            log(layer.description || 'Kazı devam ediyor...');
 
-            // Reset Canvas with Dirt Color based on depth
-            // Deeper = Darker
-            const darkness = 50 - (index * 10);
-            ctx.fillStyle = `hsl(30, 40%, ${darkness}%)`;
+            // Draw layer dirt
+            const hue = 30;
+            const lightness = Math.max(15, 45 - (index * 8));
+            ctx.fillStyle = `hsl(${hue}, 50%, ${lightness}%)`;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Embed artifact logic (Hidden)
-            // For simulation, we randomly place "hotspots"
-        }
-
-        function setTool(name, cost, energyCost) {
-            currentTool = { name, radius: name === 'trowel' ? 15 : 40, cost, energyCost };
-
-            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            log(`Araç seçildi: ${name.toUpperCase()}`);
-        }
-
-        canvas.addEventListener('mousedown', (e) => {
-            if (budget < currentTool.cost || energy < currentTool.energyCost) {
-                log("Yetersiz kaynak!");
-                return;
+            // Add texture
+            for (let i = 0; i < 1000; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const size = Math.random() * 3 + 1;
+                ctx.fillStyle = `hsla(${hue}, 30%, ${lightness + (Math.random() * 20 - 10)}%, 0.5)`;
+                ctx.fillRect(x, y, size, size);
             }
 
-            updateResources(-currentTool.cost, -currentTool.energyCost);
+            // Place hidden artifacts
+            placeArtifacts(layer);
+        }
+
+        function placeArtifacts(layer) {
+            hiddenArtifacts = [];
+            if (!layer.potentialFinds || layer.potentialFinds.length === 0) return;
+
+            layer.potentialFinds.forEach((artifact, idx) => {
+                const gridX = Math.floor(Math.random() * (500 / GRID_SIZE - 4)) + 2;
+                const gridY = Math.floor(Math.random() * (500 / GRID_SIZE - 4)) + 2;
+                hiddenArtifacts.push({
+                    ...artifact,
+                    gridX, gridY,
+                    found: false,
+                    revealed: false
+                });
+            });
+        }
+
+        function setTool(toolName) {
+            currentTool = tools[toolName];
+            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tool-' + toolName).classList.add('active');
+            log(`Araç: ${currentTool.name} seçildi.`);
+        }
+
+        // Digging
+        canvas.addEventListener('click', handleDig);
+        canvas.addEventListener('mousemove', (e) => {
+            if (e.buttons === 1) handleDig(e);
+        });
+
+        function handleDig(e) {
+            if (budget < currentTool.cost || energy < currentTool.energyCost) {
+                log("⚠️ Yetersiz kaynak!");
+                return;
+            }
 
             const rect = canvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
 
-            // Dig visual
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath();
-            if (currentTool.name === 'radar') {
-                // Radar just highlights, doesn't dig? Or reveals?
-                // Let's make radar reveal an area without removing dirt permanently? 
-                // For simplicity, let's make radar a big distinct circle
-                ctx.arc(x, y, 100, 0, Math.PI * 2);
+            const gridX = Math.floor(x / GRID_SIZE);
+            const gridY = Math.floor(y / GRID_SIZE);
+
+            // Spend resources
+            updateResources(-currentTool.cost, -currentTool.energyCost);
+
+            if (currentTool.reveal) {
+                // Radar - reveal artifacts
+                revealArtifacts(gridX, gridY, currentTool.radius);
             } else {
-                ctx.arc(x, y, currentTool.radius, 0, Math.PI * 2);
+                // Dig
+                digArea(gridX, gridY, currentTool.radius);
             }
-            ctx.fill();
-            ctx.globalCompositeOperation = 'source-over';
 
-            // Check for find (Simulation)
-            // 5% chance to find something in this click
-            if (Math.random() < 0.05) {
-                foundArtifact();
-            }
-        });
+            // Check for artifacts
+            checkArtifacts(gridX, gridY);
+        }
 
-        function foundArtifact() {
+        function digArea(centerX, centerY, radius) {
             const layer = layers[currentLayerIndex];
-            if (!layer.potentialFinds || layer.potentialFinds.length === 0) return;
+            const hue = 30;
+            const lightness = Math.max(10, 40 - (currentLayerIndex * 8)) - 10;
 
-            const artifact = layer.potentialFinds[0]; // Get first for demo
+            for (let dx = -radius; dx <= radius; dx++) {
+                for (let dy = -radius; dy <= radius; dy++) {
+                    if (dx * dx + dy * dy <= radius * radius) {
+                        const gx = centerX + dx;
+                        const gy = centerY + dy;
+                        const key = `${gx},${gy}`;
 
-            log(`BULUNTU! ${artifact.name} tespit edildi.`);
+                        if (gx >= 0 && gx < 500 / GRID_SIZE && gy >= 0 && gy < 500 / GRID_SIZE && !dugCells.has(key)) {
+                            dugCells.add(key);
+                            layerDugCount++;
 
-            // Show Modal
-            const modal = document.getElementById('analysisModal');
-            const res = document.getElementById('analysisResult');
-            modal.style.display = 'flex';
+                            // Draw dug area (darker)
+                            ctx.fillStyle = `hsl(${hue}, 40%, ${lightness}%)`;
+                            ctx.fillRect(gx * GRID_SIZE, gy * GRID_SIZE, GRID_SIZE, GRID_SIZE);
 
-            setTimeout(() => {
-                document.querySelector('#analysisModal p').style.display = 'none';
-                res.style.display = 'block';
-                document.getElementById('foundImg').src = artifact.imageUrl;
-                document.getElementById('foundTitle').innerText = artifact.name;
-                document.getElementById('foundDesc').innerText = artifact.description;
-            }, 1500); // Fake analysis delay
+                            // Add dirt particles
+                            createParticles(gx * GRID_SIZE + GRID_SIZE / 2, gy * GRID_SIZE + GRID_SIZE / 2);
+                        }
+                    }
+                }
+            }
+            updateProgress();
+        }
+
+        function revealArtifacts(centerX, centerY, radius) {
+            const revealedAny = false;
+            hiddenArtifacts.forEach(artifact => {
+                if (!artifact.revealed) {
+                    const dx = artifact.gridX - centerX;
+                    const dy = artifact.gridY - centerY;
+                    if (dx * dx + dy * dy <= radius * radius * 4) {
+                        artifact.revealed = true;
+                        // Draw highlight
+                        ctx.strokeStyle = 'rgba(255, 215, 0, 0.8)';
+                        ctx.lineWidth = 3;
+                        ctx.strokeRect(artifact.gridX * GRID_SIZE - 5, artifact.gridY * GRID_SIZE - 5, GRID_SIZE + 10, GRID_SIZE + 10);
+                        log(`📡 Jeoradar: Sinyal tespit edildi! (${artifact.gridX}, ${artifact.gridY})`);
+                    }
+                }
+            });
+        }
+
+        function checkArtifacts(digX, digY) {
+            hiddenArtifacts.forEach(artifact => {
+                if (!artifact.found) {
+                    const dx = Math.abs(artifact.gridX - digX);
+                    const dy = Math.abs(artifact.gridY - digY);
+
+                    if (dx <= 1 && dy <= 1) {
+                        // Check for damage
+                        if (Math.random() < currentTool.damageChance) {
+                            log(`💔 DİKKAT: ${artifact.name} hasar gördü! (${currentTool.name} çok sert)`);
+                            artifact.damaged = true;
+                        }
+                        foundArtifact(artifact);
+                    }
+                }
+            });
+        }
+
+        function foundArtifact(artifact) {
+            artifact.found = true;
+            artifactsFoundCount++;
+            document.getElementById('artifactsFound').innerText = artifactsFoundCount;
+
+            log(`🏺 BULUNTU! ${artifact.name} ${artifact.damaged ? '(Hasarlı)' : ''}`);
+
+            // Show popup
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('artifactPopup').style.display = 'block';
+            document.getElementById('foundImg').src = artifact.imageUrl || 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Troy_walls.jpg';
+            document.getElementById('foundTitle').innerText = artifact.name + (artifact.damaged ? ' (Hasarlı)' : '');
+            document.getElementById('foundDesc').innerText = artifact.description || 'Antik dönemden kalma eser';
+            document.getElementById('foundEra').innerText = layers[currentLayerIndex].name;
+
+            // Draw found marker
+            ctx.fillStyle = '#c5a059';
+            ctx.beginPath();
+            ctx.arc(artifact.gridX * GRID_SIZE + GRID_SIZE / 2, artifact.gridY * GRID_SIZE + GRID_SIZE / 2, 15, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#000';
+            ctx.font = 'bold 16px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🏺', artifact.gridX * GRID_SIZE + GRID_SIZE / 2, artifact.gridY * GRID_SIZE + GRID_SIZE / 2);
+
+            confetti({ particleCount: 80, spread: 60, origin: { y: 0.7 } });
         }
 
         function closeModal() {
-            document.getElementById('analysisModal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('artifactPopup').style.display = 'none';
 
-            // Check if layer complete (Simulated)
-            // If find is made, move to next layer?
-            if (currentLayerIndex < layers.length - 1) {
-                log("Katman tamamlandı. Bir alt katmana iniliyor...");
-                setTimeout(() => {
-                    initLayer(currentLayerIndex + 1);
-                }, 1000);
-            } else {
-                log("Tebrikler! Ana kayaya ulaşıldı. Kazı bitti.");
-                alert("Kazı Tamamlandı! Tüm veriler kaydedildi.");
-                window.location = '/excavation';
+            // Check layer completion
+            const allFound = hiddenArtifacts.every(a => a.found);
+            const progressPercent = (layerDugCount / totalCells) * 100;
+
+            if (allFound || progressPercent >= 60) {
+                if (currentLayerIndex < layers.length - 1) {
+                    log("✓ Katman tamamlandı! Bir alt katmana iniliyor...");
+                    setTimeout(() => initLayer(currentLayerIndex + 1), 1000);
+                } else {
+                    log("🎉 TEBRİKLER! Kazı tamamlandı!");
+                    confetti({ particleCount: 200, spread: 100 });
+                    setTimeout(() => {
+                        alert(`Kazı Tamamlandı!\n\nBulunan Eser: ${artifactsFoundCount}\nHarcanan Bütçe: ${5000 - budget} TL`);
+                        window.location = '/excavation';
+                    }, 2000);
+                }
             }
         }
 
+        function updateProgress() {
+            const percent = Math.min(100, Math.round((layerDugCount / totalCells) * 100));
+            document.getElementById('layerProgress').style.width = percent + '%';
+            document.getElementById('progressText').innerText = '%' + percent + ' Kazıldı';
+        }
+
         function updateResources(moneyDelta, energyDelta) {
-            budget += moneyDelta;
-            energy += energyDelta;
+            budget = Math.max(0, budget + moneyDelta);
+            energy = Math.max(0, Math.min(100, energy + energyDelta));
 
             document.getElementById('budgetDisplay').innerText = budget + ' TL';
-            document.getElementById('energyDisplay').innerText = energy + '%';
+            document.getElementById('energyDisplay').innerText = Math.round(energy) + '%';
 
-            if (energy <= 0) {
-                alert("Enerjiniz tükendi! Kazı ekibi dinlenmek zorunda.");
-                window.location = '/excavation';
+            if (energy <= 0 || budget <= 0) {
+                log("⚠️ Kaynaklar tükendi!");
+                setTimeout(() => {
+                    alert("Kaynaklar tükendi! Kazı sona erdi.");
+                    window.location = '/excavation';
+                }, 500);
             }
         }
 
         function log(msg) {
-            const console = document.getElementById('gameLog');
-            console.innerHTML += `> ${msg}<br>`;
-            console.scrollTop = console.scrollHeight;
+            const logEl = document.getElementById('gameLog');
+            logEl.innerHTML += `> ${msg}<br>`;
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        function createParticles(x, y) {
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = (x + Math.random() * 20 - 10) + 'px';
+                particle.style.top = (y + Math.random() * 20 - 10 + 150) + 'px'; // offset for header
+                particle.style.width = particle.style.height = (Math.random() * 6 + 2) + 'px';
+                particle.style.background = `hsl(30, 50%, ${30 + Math.random() * 20}%)`;
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 1000);
+            }
         }
 
         // Start
-        initLayer(0);
+        init();
     </script>
 
 </body>
